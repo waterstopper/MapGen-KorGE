@@ -12,6 +12,6 @@ Is based mostly on [this presentation](https://en.ppt-online.org/29091) by Gus S
 3) Restructure diagram into a grid of cells, where each cell represents an empty tile.
 4) Populate all tiles (obviously the most complex step, but for now it is enough to get the basic idea)
 
-Here is how incomplete first step looks like:
+Here is how an incomplete first step looks like:
 
 ![img.png](img.png)

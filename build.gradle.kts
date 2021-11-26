@@ -29,9 +29,9 @@ korge {
 // To selectively enable targets
 	
 	targetJvm()
-	targetJs()
+	//targetJs()
 	targetDesktop()
-	targetIos()
-	targetAndroidIndirect() // targetAndroidDirect()
+	//targetIos()
+	//targetAndroidIndirect() // targetAndroidDirect()
 	//targetAndroidDirect()
 }
