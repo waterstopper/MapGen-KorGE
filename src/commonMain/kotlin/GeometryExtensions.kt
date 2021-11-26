@@ -1,7 +1,6 @@
 import com.soywiz.korge.view.Circle
+import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
-import com.soywiz.korma.geom.Point
-import com.soywiz.korma.geom.distanceTo
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -22,5 +21,15 @@ object GeometryExtensions {
 
     fun Circle.intersects(other: Circle): Boolean {
         return this.pos.distanceTo(other.pos) < this.radius + other.radius
+    }
+
+    fun Circle.getMaxIntersect(cont: Container): Double {
+        var res: Double = 0.0
+//        for (i in cont.children) {
+//            if (i is Circle && res < ) {
+//
+//            }
+//        }
+        return 0.0;
     }
 }

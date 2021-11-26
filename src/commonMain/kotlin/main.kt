@@ -91,7 +91,7 @@ fun resolveZone(zone: Zone, stage: Stage) {
     for (i in zone.getPlaced()) {
         i.getConnection(zone).line = stage.line(zone.getCenter(), i.getCenter())
 
-        // TODO: draw conenection here and check if it intersects something.
+        // TODO: draw connection here and check if it intersects something.
         // OR check after this if
         if (zone.circle.pos.distanceTo(i.circle.pos) >= 3.5 * max(zone.size, i.size)) {
             i.toNearestValidPosition()
