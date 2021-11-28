@@ -1,4 +1,6 @@
+import GeometryExtensions.getIntersectMetric
 import com.soywiz.korge.view.Circle
+import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.xy
 import com.soywiz.korma.geom.Point
@@ -38,7 +40,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         connections.sortBy { it.getZone(this)::circle.isInitialized }
     }
 
-    fun toNearestValidPosition() {
+    fun toNearestValidPosition(circles: Container) {
         val references = getPlaced()
         if (references.size == 1)
             return
@@ -54,12 +56,29 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         circle.xy(point)
 
         if (references.size == 2) {
+            val initial = circle.pos
             circle.xy(
                 Point(
                     references[0].circle.y - references[1].circle.y,
                     -references[0].circle.x + references[1].circle.x
-                ) + circle.pos
+                ) + initial
             )
+            val metric = circle.getIntersectMetric(circles)
+            circle.xy(
+                Point(
+                    -references[0].circle.y + references[1].circle.y,
+                    references[0].circle.x - references[1].circle.x
+                ) + initial
+            )
+            if (metric < circle.getIntersectMetric(circles)) {
+                print("metric 1 $metric, metric2 ${circle.getIntersectMetric(circles)}")
+                circle.xy(
+                    Point(
+                        references[0].circle.y - references[1].circle.y,
+                        -references[0].circle.x + references[1].circle.x
+                    ) + initial
+                )
+            }
         }
 
         for (i in references) {

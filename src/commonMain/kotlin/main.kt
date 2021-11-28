@@ -1,9 +1,10 @@
+import GeometryExtensions.intersects
 import GeometryExtensions.rotateDegrees
 import com.soywiz.korge.Korge
+import com.soywiz.korge.input.onClick
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
 import com.soywiz.korma.geom.Point
-import com.soywiz.korma.geom.distanceTo
 import kotlin.math.max
 import kotlin.math.min
 
@@ -33,24 +34,36 @@ suspend fun main() = Korge(
     z4.connections.addAll(mutableListOf(c04, c14))
     val zones = mutableListOf(z0, z1, z2, z3, z4)
 
-    placeZoneCircles(zones, mutableListOf(c01, c02, c03,c13,c14), this)
+    //placeZoneCircles(zones, mutableListOf(c01, c02, c03, c13, c14), this)
+
+    var iter = 0
+    val circles = Container()
+    val lines = Container()
+    stage.addChildren(listOf(circles, lines))
+
+    this.onClick {
+        placeZoneCircles(zones, mutableListOf(c01, c02, c03, c13, c14), circles, lines, iter)
+        iter++
+        println("woah")
+    }
 }
 
-fun placeFirst(zones: MutableList<Zone>, stage: Stage) {
+
+fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
     var angle = 0
     val z = zones.first()
-    z.circle = stage.circle(z.size.toDouble(), Colors[z.type.color])
+    z.circle = circles.circle(z.size.toDouble(), Colors[z.type.color])
     z.centerToPoint(Point(width / 2, height / 2))
 
     for (i in z.connections) {
-        i.getZone(z).circle = stage.circle(
+        i.getZone(z).circle = circles.circle(
             i.getZone(z).size.toDouble(),
             Colors[i.getZone(z).type.color]
         )
 
         angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random()
 
-        i.line = stage.line(
+        i.line = lines.line(
             Point(width / 2, height / 2),
             Point(
                 width / 2,
@@ -62,39 +75,70 @@ fun placeFirst(zones: MutableList<Zone>, stage: Stage) {
 
         i.getZone(z).centerToPoint(Point(i.line.x2, i.line.y2))
     }
+
 }
 
+fun placeZoneCircles(
+    zones: MutableList<Zone>,
+    connections: List<Connection>,
+    circles: Container,
+    lines: Container,
+    iter: Int
+) {
 
-fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, stage: Stage) {
     val resolved = mutableListOf<Zone>()
     zones.sortBy { it.index }
     for (i in zones) {
         i.connections.sortBy { it.type }
     }
 
-    placeFirst(zones, stage)
+    if (iter == 0)
+        placeFirst(zones, circles, lines)
 
     for (i in 1..zones.lastIndex) {
-        resolveZone(zones[i], stage)
-        resolved.add(zones[i])
+        if (iter == i) {
+            resolveZone(zones[i], circles, lines)
+            resolved.add(zones[i])
+        }
     }
-
-    // trying to find a function which will check if lines intersect.
-
-//    if(connections[3].line.collidesWithShape(connections[4].line)){
-//        println("HOORAY!")
-//    }
 }
 
-fun resolveZone(zone: Zone, stage: Stage) {
+fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, stage: Stage) {
+    val circles = Container()
+    val lines = Container()
+    stage.addChildren(listOf(circles, lines))
+
+    val resolved = mutableListOf<Zone>()
+    zones.sortBy { it.index }
+    for (i in zones) {
+        i.connections.sortBy { it.type }
+    }
+
+
+    placeFirst(zones, circles, lines)
+
+    for (i in 1..zones.lastIndex) {
+        resolveZone(zones[i], circles, lines)
+        resolved.add(zones[i])
+    }
+}
+
+fun resolveZone(zone: Zone, circles: Container, lines: Container) {
 
     for (i in zone.getPlaced()) {
-        i.getConnection(zone).line = stage.line(zone.getCenter(), i.getCenter())
+        i.getConnection(zone).line = lines.line(zone.getCenter(), i.getCenter())
 
         // TODO: draw connection here and check if it intersects something.
         // OR check after this if
         if (zone.circle.pos.distanceTo(i.circle.pos) >= 3.5 * max(zone.size, i.size)) {
-            i.toNearestValidPosition()
+            println(i.type)
+            i.toNearestValidPosition(circles)
+            for (j in i.connections) {
+                if (j.intersectsAny(lines)) {
+                    j.line.removeFromParent()
+                    println("boo")
+                }
+            }
         }
 
     }

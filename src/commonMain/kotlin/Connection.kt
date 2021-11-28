@@ -1,3 +1,5 @@
+import GeometryExtensions.intersects
+import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
 
 /**
@@ -10,6 +12,11 @@ class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionTyp
 
     fun getZone(source: Zone): Zone {
         return if (z2 === source) z1 else z2
+    }
+
+    fun intersectsAny(lines: Container): Boolean {
+        lines.forEachChild { i -> if (line.intersects(i as Line)) return true }
+        return false
     }
 
 
