@@ -17,26 +17,6 @@ suspend fun main() = Korge(
     var (zones, connections) = t.parse("map.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
-//    val z0 = Zone(Biome.GRASS, 50, mutableListOf(), 0)
-//    val z1 = Zone(Biome.DIRT, 50, mutableListOf(), 1)
-//    val z2 = Zone(Biome.SNOW, 50, mutableListOf(), 2)
-//    val z3 = Zone(Biome.LAVA, 50, mutableListOf(), 3)
-//    val z4 = Zone(Biome.SWAMP, 50, mutableListOf(), 3)
-//    val c01 = Connection(z0, z1, ConnectionType.REGULAR, 1)
-//    val c02 = Connection(z0, z2, ConnectionType.REGULAR, 1)
-//    val c03 = Connection(z0, z3, ConnectionType.REGULAR, 1)
-//    val c04 = Connection(z0, z4, ConnectionType.REGULAR, 1)
-//    val c13 = Connection(z1, z3, ConnectionType.REGULAR, 1)
-//    val c14 = Connection(z1, z4, ConnectionType.REGULAR, 1)
-//
-//    z0.connections.addAll(mutableListOf(c01, c02, c03, c04))
-//    z1.connections.addAll(mutableListOf(c01, c13, c14))
-//    z2.connections.add(c02)
-//    z3.connections.addAll(mutableListOf(c03, c13))
-//    z4.connections.addAll(mutableListOf(c04, c14))
-//    val zones = mutableListOf(z0, z1, z2, z3, z4)
-
-    //placeZoneCircles(zones, mutableListOf(c01, c02, c03, c13, c14), this)
 
     var iter = 0
     val circles = Container()
@@ -115,7 +95,6 @@ fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, st
         i.connections.sortBy { it.type }
     }
 
-
     placeFirst(zones, circles, lines)
 
     for (i in 1..zones.lastIndex) {
@@ -125,22 +104,41 @@ fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, st
 }
 
 fun resolveZone(zone: Zone, circles: Container, lines: Container) {
-
+    // resolve connections with placed
     for (i in zone.getPlaced()) {
+        // not moving resolved zones
+        if (zone.getConnection(i).isInitialized()) {
+            continue
+        }
         i.getConnection(zone).line = lines.line(zone.getCenter(), i.getCenter())
-
-        // TODO: draw connection here and check if it intersects something.
-        // OR check after this if
-        if (zone.circle.pos.distanceTo(i.circle.pos) >= 3.5 * max(zone.size, i.size)) {
-            println(i.type)
+        // if intersects, first try to reposition
+        if (i.getConnection(zone).intersectsAny(lines)) {
+            val pos = i.circle.pos
             i.toNearestValidPosition(circles)
-            for (j in i.connections) {
-                if (j.intersectsAny(lines)) {
-                    j.line.removeFromParent()
-                    println("boo")
-                }
+            // if still intersects, move back and make a portal instead of a road
+            if (i.getConnection(zone).intersectsAny(lines)) {
+                i.getConnection(zone).line.removeFromParent()
+                i.circle.pos = pos
             }
         }
+        // TODO: here we move zones if they are far away. Not doing it now, but might do later
+        // OR check after this if
+        // if (zone.circle.pos.distanceTo(i.circle.pos) >= 3.5 * max(zone.size, i.size)) {
+//            i.toNearestValidPosition(circles)
+//            for (j in i.connections) {
+//                if (j.intersectsAny(lines)) {
+//                    j.line.removeFromParent()
+//                    println("boo")
+//                }
+//            }
+        // }
+    }
 
+    // TODO place new zones
+    for (i in zone.getNotPlaced()) {
+        i.circle = circles.circle(
+            i.size.toDouble(),
+            Colors[i.type.color]
+        )
     }
 }

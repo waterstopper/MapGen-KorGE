@@ -1,0 +1,11 @@
+# TODO Move zones with one connection if intersects
+50, grass;
+50, swamp;
+20, lava;
+50, dirt;
+20, snow;
+50, lava;
+20, dirt;
+
+0-1, 0-2, 0-3, 0-4, 0-5, 0-6,
+1-3, 3-5, 5-1

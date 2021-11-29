@@ -1,10 +1,10 @@
 import GeometryExtensions.getIntersectMetric
+import GeometryExtensions.points
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.xy
 import com.soywiz.korma.geom.Point
-import kotlin.random.Random
 
 /**
  * Sizes are computed proportionally to each other.
@@ -37,8 +37,22 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         return connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
     }
 
+    fun getNotPlaced(): List<Zone> {
+        return connections.filter { !getPlaced().contains(it.getZone(this)) }.map { it.getZone(this) }
+    }
+
     fun sortByPlaced() {
         connections.sortBy { it.getZone(this)::circle.isInitialized }
+    }
+
+    fun move(pos: Point) {
+        val prevPos = circle.pos + Point(size, size)
+        circle.xy(pos)
+        for (i in connections) {
+            if (i.line.points()[0] == prevPos)
+                i.line.setPoints(pos + Point(size, size), i.line.points()[1])
+            else i.line.setPoints(i.line.points()[0], pos + Point(size, size))
+        }
     }
 
     fun toNearestValidPosition(circles: Container) {
@@ -73,19 +87,31 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
             )
             if (metric < circle.getIntersectMetric(circles)) {
                 print("metric 1 $metric, metric2 ${circle.getIntersectMetric(circles)}")
-                circle.xy(
+                move(
                     Point(
                         references[0].circle.y - references[1].circle.y,
                         -references[0].circle.x + references[1].circle.x
                     ) + initial
                 )
-            }
+            } else move(
+                Point(
+                    -references[0].circle.y + references[1].circle.y,
+                    references[0].circle.x - references[1].circle.x
+                ) + initial
+            )
         }
 
-        for (i in references) {
-            getConnection(i).line.x2 = circle.x + size
-            getConnection(i).line.y2 = circle.y + size
-        }
+//        for (i in references) {
+//            getConnection(i).line.x2 = circle.x + size
+//            getConnection(i).line.y2 = circle.y + size
+//        }
+    }
+
+    /**
+     * To see in debug
+     */
+    override fun toString(): String {
+        return "$index, $type, $size"
     }
 }
 

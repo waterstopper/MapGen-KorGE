@@ -10,6 +10,8 @@ import com.soywiz.korge.view.Line
 class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionType, val creatureLevel: Int) : GraphPart {
     lateinit var line: Line
 
+    fun isInitialized() = ::line.isInitialized
+
     fun getZone(source: Zone): Zone {
         return if (z2 === source) z1 else z2
     }
