@@ -1,4 +1,3 @@
-import GeometryExtensions.intersects
 import GeometryExtensions.rotateDegrees
 import com.soywiz.korge.Korge
 import com.soywiz.korge.input.onClick
@@ -14,25 +13,28 @@ const val width = 320
 suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
-
-    val z0 = Zone(Biome.GRASS, 50, mutableListOf(), 0)
-    val z1 = Zone(Biome.DIRT, 50, mutableListOf(), 1)
-    val z2 = Zone(Biome.SNOW, 50, mutableListOf(), 2)
-    val z3 = Zone(Biome.LAVA, 50, mutableListOf(), 3)
-    val z4 = Zone(Biome.SWAMP, 50, mutableListOf(), 3)
-    val c01 = Connection(z0, z1, ConnectionType.REGULAR, 1)
-    val c02 = Connection(z0, z2, ConnectionType.REGULAR, 1)
-    val c03 = Connection(z0, z3, ConnectionType.REGULAR, 1)
-    val c04 = Connection(z0, z4, ConnectionType.REGULAR, 1)
-    val c13 = Connection(z1, z3, ConnectionType.REGULAR, 1)
-    val c14 = Connection(z1, z4, ConnectionType.REGULAR, 1)
-
-    z0.connections.addAll(mutableListOf(c01, c02, c03, c04))
-    z1.connections.addAll(mutableListOf(c01, c13, c14))
-    z2.connections.add(c02)
-    z3.connections.addAll(mutableListOf(c03, c13))
-    z4.connections.addAll(mutableListOf(c04, c14))
-    val zones = mutableListOf(z0, z1, z2, z3, z4)
+    val t = TemplateParser()
+    var (zones, connections) = t.parse("map.txt")
+    zones = zones as MutableList<Zone>
+    connections = connections as MutableList<Connection>
+//    val z0 = Zone(Biome.GRASS, 50, mutableListOf(), 0)
+//    val z1 = Zone(Biome.DIRT, 50, mutableListOf(), 1)
+//    val z2 = Zone(Biome.SNOW, 50, mutableListOf(), 2)
+//    val z3 = Zone(Biome.LAVA, 50, mutableListOf(), 3)
+//    val z4 = Zone(Biome.SWAMP, 50, mutableListOf(), 3)
+//    val c01 = Connection(z0, z1, ConnectionType.REGULAR, 1)
+//    val c02 = Connection(z0, z2, ConnectionType.REGULAR, 1)
+//    val c03 = Connection(z0, z3, ConnectionType.REGULAR, 1)
+//    val c04 = Connection(z0, z4, ConnectionType.REGULAR, 1)
+//    val c13 = Connection(z1, z3, ConnectionType.REGULAR, 1)
+//    val c14 = Connection(z1, z4, ConnectionType.REGULAR, 1)
+//
+//    z0.connections.addAll(mutableListOf(c01, c02, c03, c04))
+//    z1.connections.addAll(mutableListOf(c01, c13, c14))
+//    z2.connections.add(c02)
+//    z3.connections.addAll(mutableListOf(c03, c13))
+//    z4.connections.addAll(mutableListOf(c04, c14))
+//    val zones = mutableListOf(z0, z1, z2, z3, z4)
 
     //placeZoneCircles(zones, mutableListOf(c01, c02, c03, c13, c14), this)
 
@@ -42,9 +44,8 @@ suspend fun main() = Korge(
     stage.addChildren(listOf(circles, lines))
 
     this.onClick {
-        placeZoneCircles(zones, mutableListOf(c01, c02, c03, c13, c14), circles, lines, iter)
+        placeZoneCircles(zones, connections, circles, lines, iter)
         iter++
-        println("woah")
     }
 }
 

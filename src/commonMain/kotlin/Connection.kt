@@ -7,7 +7,7 @@ import com.soywiz.korge.view.Line
  * Roads connect only two zones.
  * For a more complex connection create a 0-sized zone, which will act as a junction between zones
  */
-class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionType, val creatureLevel: Int) {
+class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionType, val creatureLevel: Int) : GraphPart {
     lateinit var line: Line
 
     fun getZone(source: Zone): Zone {

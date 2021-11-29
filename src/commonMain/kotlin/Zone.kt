@@ -10,7 +10,8 @@ import kotlin.random.Random
  * Sizes are computed proportionally to each other.
  * Zone placement starts with 0 index-zone.
  */
-class Zone constructor(var type: Biome, val size: Int, val connections: MutableList<Connection>, val index: Int) {
+class Zone constructor(var type: Biome, val size: Int, val connections: MutableList<Connection>, val index: Int) :
+    GraphPart {
     lateinit var circle: Circle
 
     /**
