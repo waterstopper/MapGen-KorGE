@@ -15,7 +15,7 @@ Is based mostly on [this presentation](https://en.ppt-online.org/29091) by Gus S
 - [ ] Populate all tiles (obviously the most complex step, but for now it is enough to get the basic idea)
 
 Here is how an incomplete second step looks like:
-![](../../../Desktop/normal.png)
-![](../../../Desktop/dense.png)
-![](../../../Desktop/sizes.png)
-![](../../../Desktop/normal.png)
+![](images/map.png)
+![](images/dense.png)
+![](images/sizes.png)
+![](images/normal.png)
