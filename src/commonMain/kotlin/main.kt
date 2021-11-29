@@ -14,7 +14,7 @@ suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
     val t = TemplateParser()
-    var (zones, connections) = t.parse("map.txt")
+    var (zones, connections) = t.parse("sizes.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
 
