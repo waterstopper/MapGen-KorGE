@@ -1,8 +1,8 @@
 import GeometryExtensions.getIntersectMetric
 import GeometryExtensions.points
+import com.soywiz.korge.input.onUpOutside
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
-import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.xy
 import com.soywiz.korma.geom.Point
 
@@ -48,11 +48,12 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     fun move(pos: Point) {
         val prevPos = circle.pos + Point(size, size)
         circle.xy(pos)
-        for (i in connections) {
-            if (i.line.points()[0] == prevPos)
-                i.line.setPoints(pos + Point(size, size), i.line.points()[1])
-            else i.line.setPoints(i.line.points()[0], pos + Point(size, size))
-        }
+        redrawConnections()
+//        for (i in connections) {
+//            if (i.line.points()[0] == prevPos)
+//                i.line.setPoints(pos + Point(size, size), i.line.points()[1])
+//            else i.line.setPoints(i.line.points()[0], pos + Point(size, size))
+//        }
     }
 
     fun toNearestValidPosition(circles: Container) {
@@ -100,11 +101,17 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
                 ) + initial
             )
         }
+    }
 
-//        for (i in references) {
-//            getConnection(i).line.x2 = circle.x + size
-//            getConnection(i).line.y2 = circle.y + size
-//        }
+    fun redrawConnections() {
+        for (i in connections) {
+            if (i.isInitialized()) {
+                if (i.z1 == this)
+                    i.line.setPoints(getCenter(), i.line.points()[1])
+                else
+                    i.line.setPoints(i.line.points()[0], getCenter())
+            }
+        }
     }
 
     /**
