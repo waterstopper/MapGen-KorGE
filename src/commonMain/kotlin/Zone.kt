@@ -1,9 +1,7 @@
 import GeometryExtensions.getIntersectMetric
 import GeometryExtensions.points
 import com.soywiz.korge.input.onUpOutside
-import com.soywiz.korge.view.Circle
-import com.soywiz.korge.view.Container
-import com.soywiz.korge.view.xy
+import com.soywiz.korge.view.*
 import com.soywiz.korma.geom.Point
 
 /**
@@ -33,6 +31,10 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
 
     fun getCenter(): Point = Point(circle.x + size, circle.y + size)
 
+    fun setCenter(p: Point) {
+        circle.pos = Point(p.x - size, p.y - size)
+    }
+
     fun getPlaced(): List<Zone> {
         return connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
     }
@@ -43,6 +45,19 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
 
     fun sortByPlaced() {
         connections.sortBy { it.getZone(this)::circle.isInitialized }
+    }
+
+    fun stretchRoad(road: Connection, scale: Float) {
+        if (road.z1 == this) {
+            road.line.x1 = road.line.x2 + (road.line.x1 - road.line.x2) * scale
+            road.line.y1 = road.line.y2 + (road.line.y1 - road.line.y2) * scale
+            this.setCenter(road.line.points()[0])
+        } else {
+            road.line.x2 = road.line.x1 + (road.line.x2 - road.line.x1) * scale
+            road.line.y2 = road.line.y1 + (road.line.y2 - road.line.y1) * scale
+            this.setCenter(road.line.points()[1])
+        }
+        redrawConnections()
     }
 
     fun move(pos: Point) {

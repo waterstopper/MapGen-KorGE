@@ -4,7 +4,6 @@ import com.soywiz.korge.input.onClick
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
 import com.soywiz.korma.geom.Point
-import kotlin.math.max
 import kotlin.math.min
 
 const val height = 320
@@ -14,7 +13,7 @@ suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
     val t = TemplateParser()
-    var (zones, connections) = t.parse("mapWithInternal.txt")
+    var (zones, connections) = t.parse("map.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
 
@@ -44,13 +43,15 @@ fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
 
         angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random()
 
-        i.line = lines.line(
-            Point(width / 2, height / 2),
-            Point(
-                width / 2,
-                height / 2 - z.size - i.getZone(z).size + (
-                        -min(z.size / 3, i.getZone(z).size) / 3..
-                                min(z.size / 3, i.getZone(z).size) / 3).random()
+        i.initializeLine(
+            lines.line(
+                Point(width / 2, height / 2),
+                Point(
+                    width / 2,
+                    height / 2 - z.size - i.getZone(z).size + (
+                            -min(z.size / 3, i.getZone(z).size) / 3..
+                                    min(z.size / 3, i.getZone(z).size) / 3).random()
+                )
             )
         ).rotateDegrees(angle)
 
@@ -110,7 +111,7 @@ fun resolveZone(zone: Zone, circles: Container, lines: Container) {
         if (zone.getConnection(i).isInitialized()) {
             continue
         }
-        i.getConnection(zone).line = lines.line(zone.getCenter(), i.getCenter())
+        i.getConnection(zone).initializeLine(lines.line(zone.getCenter(), i.getCenter()))
         // if intersects, first try to reposition
         if (i.getConnection(zone).intersectsAny(lines)) {
             val pos = i.circle.pos

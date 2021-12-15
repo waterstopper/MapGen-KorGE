@@ -1,4 +1,5 @@
 import GeometryExtensions.intersects
+import GeometryExtensions.points
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
 
@@ -6,8 +7,6 @@ import com.soywiz.korge.view.Line
  * IMPORTANT:
  * Roads connect only two zones.
  * For a more complex connection create a 0-sized zone, which will act as a junction between zones
- *
- * TODO: make it so that z1 is pos, z2 is x2 y2
  */
 class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionType, val creatureLevel: Int) : GraphPart {
     lateinit var line: Line
@@ -23,6 +22,15 @@ class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionTyp
         return false
     }
 
+    /**
+     * make sure that z1 has x1 y1 coords, z2 has x2 y2 coords for "redraw connections" method.
+     */
+    fun initializeLine(linit: Line): Line {
+        line = linit
+        if (line.points()[1] == z1.getCenter())
+            line.setPoints(line.points()[1], line.points()[0])
+        return line
+    }
 
 }
 
