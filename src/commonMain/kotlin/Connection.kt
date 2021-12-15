@@ -22,6 +22,12 @@ class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionTyp
         return false
     }
 
+    fun intersectsList(connections: List<Connection>): List<Connection> {
+        val res = mutableListOf<Connection>()
+        connections.forEach { i -> if (i.isInitialized() && line.intersects(i.line as Line)) res.add(i) }
+        return res
+    }
+
     /**
      * make sure that z1 has x1 y1 coords, z2 has x2 y2 coords for "redraw connections" method.
      */

@@ -13,7 +13,7 @@ suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
     val t = TemplateParser()
-    var (zones, connections) = t.parse("map.txt")
+    var (zones, connections) = t.parse("mapWithInternal.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
 
@@ -79,7 +79,7 @@ fun placeZoneCircles(
 
     for (i in 1..zones.lastIndex) {
         if (iter == i) {
-            resolveZone(zones[i], circles, lines)
+            resolveZone(zones[i], circles, lines, connections)
             resolved.add(zones[i])
         }
     }
@@ -99,12 +99,12 @@ fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, st
     placeFirst(zones, circles, lines)
 
     for (i in 1..zones.lastIndex) {
-        resolveZone(zones[i], circles, lines)
+        resolveZone(zones[i], circles, lines, connections)
         resolved.add(zones[i])
     }
 }
 
-fun resolveZone(zone: Zone, circles: Container, lines: Container) {
+fun resolveZone(zone: Zone, circles: Container, lines: Container, connections: List<Connection>) {
     // resolve connections with placed
     for (i in zone.getPlaced()) {
         // not moving resolved zones
@@ -112,10 +112,20 @@ fun resolveZone(zone: Zone, circles: Container, lines: Container) {
             continue
         }
         i.getConnection(zone).initializeLine(lines.line(zone.getCenter(), i.getCenter()))
-        // if intersects, first try to reposition
-        if (i.getConnection(zone).intersectsAny(lines)) {
+        val intersections = i.getConnection(zone).intersectsList(connections)
+        // try to move leaf zone if intersects it
+        if (intersections.size == 1) {
+            if (intersections[0].z1.connections.size == 1) {
+                intersections[0].z1.stretchRoad(intersections[0], 0.5f)
+            } else if (intersections[0].z2.connections.size == 1) {
+                intersections[0].z2.stretchRoad(intersections[0], 0.5f)
+            }
+        }
+        // if intersects not only leaf, first try to reposition
+        else if (intersections.size > 1) {
             val pos = i.circle.pos
             i.toNearestValidPosition(circles)
+            println("fejwi")
             // if still intersects, move back and make a portal instead of a road
             if (i.getConnection(zone).intersectsAny(lines)) {
                 i.getConnection(zone).line.removeFromParent()
