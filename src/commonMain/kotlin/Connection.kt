@@ -23,9 +23,7 @@ class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionTyp
     }
 
     fun intersectsList(connections: List<Connection>): List<Connection> {
-        val res = mutableListOf<Connection>()
-        connections.filter { it.isInitialized() && line.intersects(it.line) }
-        return res
+        return connections.filter { it.isInitialized() && line.intersects(it.line) }
     }
 
     /**
