@@ -1,8 +1,10 @@
+import GeometryExtensions.getDegrees
 import GeometryExtensions.getIntersectMetric
 import GeometryExtensions.points
-import com.soywiz.korge.input.onUpOutside
+import com.soywiz.kmem.toIntFloor
 import com.soywiz.korge.view.*
 import com.soywiz.korma.geom.Point
+import kotlin.math.abs
 
 /**
  * Sizes are computed proportionally to each other.
@@ -60,15 +62,75 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         redrawConnections()
     }
 
+    private fun closeGap(amount: Int, gapStart: Int, gapEnd: Int): List<Int> {
+        val step = abs(gapEnd - gapStart) / (amount + 1)
+        val res = mutableListOf<Int>()
+        if (amount > 0)
+            res.add(gapStart + step)
+        for (i in 1..amount) {
+            res.add(res[i - 1] + step)
+        }
+        return res
+    }
+
+    /**
+     * TODO do this method
+     * Returns list of optimal angles for zones that are not drawn yet and connected to this one
+     */
+    fun getRemainingAngles(): List<Int> {
+        val res = mutableListOf<Int>()
+        val averageAngle = 360 / connections.size
+        val angles = (connections.filter { it.isInitialized() }.map { it.line.getDegrees() }.sorted()).toMutableList()
+        if (connections.size - angles.size == 1) {
+            return closeGap(connections.size - 1, angles.first(), angles.first() + 360)
+        }
+        // see how many zones can be placed between two roads
+        val gapSizes = mutableListOf<Pair<Int, Int>>()
+        for (i in 0 until angles.lastIndex) {
+            gapSizes.add(Pair(((angles[i + 1] - angles[i]).toFloat() / (averageAngle * 1.8)).toIntFloor(), i))
+        }
+        gapSizes.add(Pair(((angles.first() + 360 - angles.last()).toFloat() / (averageAngle * 1.8)).toIntFloor(), angles.lastIndex))
+        gapSizes.sortBy { -it.first }
+        // to prevent problems with "out of range exception"
+        angles.add(angles[0])
+        var i = 0
+        while (res.size + angles.size - 1 < connections.size) {
+            if (i == gapSizes.size) {
+                angles.removeAt(angles.lastIndex)
+                angles.addAll(res)
+                angles.sort()
+                val gapSizes = mutableListOf<Pair<Int, Int>>()
+                for (i in 0 until angles.lastIndex) {
+                    gapSizes.add(Pair(angles[i + 1] - angles[i], i))
+                }
+                gapSizes.sortBy { -it.first }
+                var j = 0
+                // can check if next index is smaller more than two times.
+                while (connections.size > angles.size) {
+                    angles.add(angles[gapSizes[j].second] + gapSizes[j].first / 2)
+                    res.add(angles.last())
+                    j++
+                }
+                return res
+            }
+            res.addAll(
+                closeGap(
+                    if (connections.size - angles.size - res.size + 1 < gapSizes[i].first)
+                        connections.size - angles.size - res.size + 1
+                    else gapSizes[i].first,
+                    angles[gapSizes[i].second],
+                    angles[gapSizes[i].second + 1]
+                )
+            )
+            i++
+        }
+        return res
+    }
+
     fun move(pos: Point) {
         val prevPos = circle.pos + Point(size, size)
         circle.xy(pos)
         redrawConnections()
-//        for (i in connections) {
-//            if (i.line.points()[0] == prevPos)
-//                i.line.setPoints(pos + Point(size, size), i.line.points()[1])
-//            else i.line.setPoints(i.line.points()[0], pos + Point(size, size))
-//        }
     }
 
     fun toNearestValidPosition(circles: Container) {

@@ -2,19 +2,27 @@ import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
 import com.soywiz.korma.geom.Point
+import com.soywiz.korma.geom.angleTo
 import com.soywiz.korma.geom.distanceTo
 import kotlin.math.*
 
 object GeometryExtensions {
     fun Line.rotateDegrees(degrees: Int): Line {
-        val radians = degrees * 2 * PI / 360
+        val radians = degrees * PI / 180
         val x2Temp = x1 + (x2 - x1) * cos(radians) + (y2 - y1) * sin(radians)
         this.y2 = y1 - (x2 - x1) * sin(radians) + (y2 - y1) * cos(radians)
         this.x2 = x2Temp
         return this
     }
 
-    fun Line.hasSamePoint(other: Line): Boolean {
+    /**
+     * Looks that strange because I calculate angle from XY(0, 1) clockwise due to how Line class is initialized
+     */
+    fun Line.getDegrees(): Int {
+        return 360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt() + 450) % 360
+    }
+
+    private fun Line.hasSamePoint(other: Line): Boolean {
         for (i in points()) {
             for (j in other.points()) {
                 if (i == j)
