@@ -1,3 +1,4 @@
+import GeometryExtensions.getDegrees
 import GeometryExtensions.points
 import GeometryExtensions.rotateDegrees
 import com.soywiz.korge.Korge
@@ -29,7 +30,9 @@ suspend fun main() = Korge(
     }
 }
 
-
+/**
+ * place 0-index zone in the center
+ */
 fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
     var angle = 0
     val z = zones.first()
@@ -45,17 +48,23 @@ fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
         angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random()
         angle %= 360
 
+        // start from (1, 0) point and rotate by angle counterclockwise
         i.initializeLine(
             lines.line(
                 Point(width / 2, height / 2),
                 Point(
-                    width / 2,
-                    height / 2 - z.size - i.getZone(z).size + (
+                    width / 2 + z.size + i.getZone(z).size - (
                             -min(z.size / 3, i.getZone(z).size) / 3..
-                                    min(z.size / 3, i.getZone(z).size) / 3).random()
+                                    min(z.size / 3, i.getZone(z).size) / 3).random(),
+                    height / 2
                 )
             )
         ).rotateDegrees(angle)
+
+//        println(angle%360)
+//        println(i.line.getDegrees(z.getCenter()))
+//        println(i.line.getDegrees(i.getZone(z).getCenter()))
+//        println()
 
         i.getZone(z).centerToPoint(Point(i.line.x2, i.line.y2))
     }
@@ -122,13 +131,14 @@ fun resolveZone(zone: Zone, circles: Container, lines: Container, connections: L
             } else if (intersections[0].z2.connections.size == 1) {
                 intersections[0].z2.stretchRoad(intersections[0], 0.5f)
             } else {
-                i.getConnection(zone).line.removeFromParent()
+                //i.getConnection(zone).line.removeFromParent()
                 break
             }
             intersections = i.getConnection(zone).intersectsList(connections)
         }
+        intersections = i.getConnection(zone).intersectsList(connections)
         // if intersects not only leaf, first try to reposition
-        if (intersections.size > 1) {
+        if (intersections.isNotEmpty()) {
             val pos = i.circle.pos
             i.toNearestValidPosition(circles)
             println("fejwi")
@@ -152,17 +162,20 @@ fun resolveZone(zone: Zone, circles: Container, lines: Container, connections: L
     }
 
     var j = 0
-    val angles = zone.getRemainingAngles()
+    var angles = mutableListOf<Int>()
+    if (!zone.getNotPlaced().isEmpty())
+        angles = zone.getRemainingAngles().toMutableList()
     // place new zones
     for (i in zone.getNotPlaced()) {
+        // lines are first drawn parallel to (1, 0) vector
         i.getConnection(zone).initializeLine(
             lines.line(
                 zone.getCenter(),
                 Point(
-                    zone.getCenter().x,
-                    zone.getCenter().y - i.size - zone.size + (
+                    zone.getCenter().x  + i.size + zone.size - (
                             -min(i.size / 3, zone.size) / 3..
-                                    min(i.size / 3, zone.size) / 3).random()
+                                    min(i.size / 3, zone.size) / 3).random(),
+                    zone.getCenter().y
                 )
             )
         ).rotateDegrees(angles[j])

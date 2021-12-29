@@ -7,6 +7,9 @@ import com.soywiz.korma.geom.distanceTo
 import kotlin.math.*
 
 object GeometryExtensions {
+    /**
+     * rotate counterclockwise
+     */
     fun Line.rotateDegrees(degrees: Int): Line {
         val radians = degrees * PI / 180
         val x2Temp = x1 + (x2 - x1) * cos(radians) + (y2 - y1) * sin(radians)
@@ -16,10 +19,12 @@ object GeometryExtensions {
     }
 
     /**
-     * Looks that strange because I calculate angle from XY(0, 1) clockwise due to how Line class is initialized
+     * returns angle from (1, 0) counterclockwise
      */
-    fun Line.getDegrees(): Int {
-        return 360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt() + 450) % 360
+    fun Line.getDegrees(center: Point): Int {
+        return if (center == pos)
+            (360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt())) % 360
+        else (360 - ((atan2(y1 - y2, x1 - x2) * 180 / PI).roundToInt())) % 360
     }
 
     private fun Line.hasSamePoint(other: Line): Boolean {

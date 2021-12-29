@@ -64,11 +64,13 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
 
     private fun closeGap(amount: Int, gapStart: Int, gapEnd: Int): List<Int> {
         val step = abs(gapEnd - gapStart) / (amount + 1)
+        println("step: " + step)
         val res = mutableListOf<Int>()
-        if (amount > 0)
-            res.add(gapStart + step)
-        for (i in 1..amount) {
-            res.add(res[i - 1] + step)
+        if (amount > 0) {
+            res.add((gapStart + step) % 360)
+            for (i in 1 until amount) {
+                res.add((res[i - 1] + step) % 360)
+            }
         }
         return res
     }
@@ -78,57 +80,78 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
      * Returns list of optimal angles for zones that are not drawn yet and connected to this one
      */
     fun getRemainingAngles(): List<Int> {
-        val res = mutableListOf<Int>()
+        //val res = mutableListOf<Int>()
         val averageAngle = 360 / connections.size
-        val angles = (connections.filter { it.isInitialized() }.map { it.line.getDegrees() }.sorted()).toMutableList()
-        if (connections.size - angles.size == 1) {
-            return closeGap(connections.size - 1, angles.first(), angles.first() + 360)
-        }
-        // see how many zones can be placed between two roads
-        val gapSizes = mutableListOf<Pair<Int, Int>>()
-        for (i in 0 until angles.lastIndex) {
-            gapSizes.add(Pair(((angles[i + 1] - angles[i]).toFloat() / (averageAngle * 1.8)).toIntFloor(), i))
-        }
-        gapSizes.add(Pair(((angles.first() + 360 - angles.last()).toFloat() / (averageAngle * 1.8)).toIntFloor(), angles.lastIndex))
-        gapSizes.sortBy { -it.first }
-        // to prevent problems with "out of range exception"
-        angles.add(angles[0])
-        var i = 0
-        while (res.size + angles.size - 1 < connections.size) {
-            if (i == gapSizes.size) {
-                angles.removeAt(angles.lastIndex)
-                angles.addAll(res)
-                angles.sort()
-                val gapSizes = mutableListOf<Pair<Int, Int>>()
-                for (i in 0 until angles.lastIndex) {
-                    gapSizes.add(Pair(angles[i + 1] - angles[i], i))
-                }
-                gapSizes.sortBy { -it.first }
-                var j = 0
-                // can check if next index is smaller more than two times.
-                while (connections.size > angles.size) {
-                    angles.add(angles[gapSizes[j].second] + gapSizes[j].first / 2)
-                    res.add(angles.last())
-                    j++
-                }
-                return res
+        val angles = (connections.filter { it.isInitialized() }
+            .map { it.line.getDegrees(getCenter()) }.sorted()).toMutableList()
+        println(angles)
+        println(connections.size)
+
+        // find the max angle gap and close it
+        var maxAngle = angles.first() + 360 - angles.last()
+        var ind = angles.lastIndex
+        for (i in 1..angles.lastIndex)
+            if (angles[i] - angles[i - 1] > maxAngle) {
+                maxAngle = angles[i] - angles[i - 1]
+                ind = i - 1
             }
-            res.addAll(
-                closeGap(
-                    if (connections.size - angles.size - res.size + 1 < gapSizes[i].first)
-                        connections.size - angles.size - res.size + 1
-                    else gapSizes[i].first,
-                    angles[gapSizes[i].second],
-                    angles[gapSizes[i].second + 1]
-                )
-            )
-            i++
-        }
+
+        val res = closeGap(connections.size - angles.size, angles[ind], angles[ind] + maxAngle)
+        println(res)
         return res
+
+//        if (connections.size - angles.size == 1)
+//            return closeGap(connections.size - 1, angles.first(), angles.first() + 180)
+//
+//        // see how many zones can be placed between two roads
+//        val gapSizes = mutableListOf<Pair<Int, Int>>()
+//        for (i in 0 until angles.lastIndex) {
+//            gapSizes.add(Pair(((angles[i + 1] - angles[i]).toFloat() / (averageAngle * 1.8)).toIntFloor(), i))
+//        }
+//        gapSizes.add(
+//            Pair(
+//                ((angles.first() + 360 - angles.last()).toFloat() / (averageAngle * 1.8)).toIntFloor(),
+//                angles.lastIndex
+//            )
+//        )
+//        gapSizes.sortBy { -it.first }
+//        // to prevent problems with "out of range exception"
+//        angles.add(angles[0])
+//        var i = 0
+//        while (res.size + angles.size - 1 < connections.size) {
+//            if (i == gapSizes.size) {
+//                angles.removeAt(angles.lastIndex)
+//                angles.addAll(res)
+//                angles.sort()
+//                val gapSizes = mutableListOf<Pair<Int, Int>>()
+//                for (k in 0 until angles.lastIndex) {
+//                    gapSizes.add(Pair(angles[k + 1] - angles[k], k))
+//                }
+//                gapSizes.sortBy { -it.first }
+//                var j = 0
+//                // can check if next index is smaller more than two times.
+//                while (connections.size > angles.size) {
+//                    angles.add(angles[gapSizes[j].second] + gapSizes[j].first / 2)
+//                    res.add(angles.last())
+//                    j++
+//                }
+//                return res
+//            }
+//            res.addAll(
+//                closeGap(
+//                    if (connections.size - angles.size - res.size + 1 < gapSizes[i].first)
+//                        connections.size - angles.size - res.size + 1
+//                    else gapSizes[i].first,
+//                    angles[gapSizes[i].second],
+//                    angles[gapSizes[i].second + 1]
+//                )
+//            )
+//            i++
+//        }
+//        return res
     }
 
     fun move(pos: Point) {
-        val prevPos = circle.pos + Point(size, size)
         circle.xy(pos)
         redrawConnections()
     }
