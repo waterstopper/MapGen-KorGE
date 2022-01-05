@@ -1,6 +1,9 @@
 package steps
 
 import com.soywiz.kmem.nextPowerOfTwo
+import com.soywiz.korim.bitmap.Bitmap32
+import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
 import com.soywiz.korma.geom.Point
 import components.Cell
 import components.MatrixMap
@@ -10,6 +13,19 @@ import kotlin.math.pow
 import kotlin.math.roundToInt
 
 class Voronoi {
+    fun visualizeMatrix(map: MatrixMap, length: Int): Bitmap32 {
+        val res = Bitmap32(length, length)
+
+        for (x in 0 until length)
+            for (y in 0 until length) {
+                res[x, y] = Colors[map.matrix[x][y].surface.color]
+            }
+        for (c in map.centers) {
+            res[c.first, c.second] = Colors.YELLOW
+        }
+        return res
+    }
+
     fun getMatrixMap(zones: List<Zone>, matrixLength: Int): MatrixMap {
         val bounds = findProperBounds(zones, matrixLength)
 
@@ -74,7 +90,7 @@ class Voronoi {
                 bounds[i] += oneCell
     }
 
-    fun assignCenters(bounds: List<Double>, zones: List<Zone>, matrixLength: Int): List<Pair<Int, Int>> {
+    private fun assignCenters(bounds: List<Double>, zones: List<Zone>, matrixLength: Int): List<Pair<Int, Int>> {
         return zones.map {
             val x = (it.circle.pos.x - bounds[0]) / (bounds[1] - bounds[0]) * matrixLength
             val y = (it.circle.pos.y - bounds[2]) / (bounds[3] - bounds[2]) * matrixLength
@@ -83,7 +99,7 @@ class Voronoi {
         }
     }
 
-    fun buildMatrix(
+    private fun buildMatrix(
         bounds: List<Double>,
         zones: List<Zone>,
         matrixLength: Int,
@@ -98,7 +114,7 @@ class Voronoi {
             }
         }
 
-        return MatrixMap(matrix)
+        return MatrixMap(matrix, centers)
     }
 
     private fun findNearest(cell: Pair<Int, Int>, centers: List<Pair<Int, Int>>): Int {

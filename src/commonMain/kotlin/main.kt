@@ -1,7 +1,9 @@
 import com.soywiz.korge.Korge
-import com.soywiz.korge.input.onClick
+import com.soywiz.korge.resources.resourceBitmap
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
+import com.soywiz.korio.file.std.resourcesVfs
 import components.Connection
 import components.Zone
 import steps.Circles
@@ -19,7 +21,7 @@ suspend fun main() = Korge(
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
 
-    var iter = 0
+    // var iter = 0
     val circles = Container()
     val lines = Container()
     stage.addChildren(listOf(circles, lines))
@@ -28,12 +30,16 @@ suspend fun main() = Korge(
     //var r = VoronoiDiagramTask()
 
     val circ = Circles()
-    circ.placeZoneCircles(zones,connections,circles,lines)
+    circ.placeZoneCircles(zones, connections, circles, lines)
 
-    val map = Voronoi().getMatrixMap(zones, 12)
+    val matrixLength = 12
 
-    println(map)
+    val map = Voronoi().getMatrixMap(zones, matrixLength)
 
+    val mapImage = Voronoi().visualizeMatrix(map, matrixLength)
+
+    mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
+    circles.image(mapImage.scaleLinear(width/matrixLength,height/matrixLength))
 //    this.onClick {
 //        circ.placeZoneCircles(zones, connections, circles, lines, iter)
 //        iter++
