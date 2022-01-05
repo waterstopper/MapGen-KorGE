@@ -1,3 +1,10 @@
+package steps
+
+import components.Biome
+import components.Connection
+import components.ConnectionType
+import components.GraphPart
+import components.Zone
 import com.soywiz.korio.file.std.resourcesVfs
 import com.soywiz.korio.lang.Charsets
 

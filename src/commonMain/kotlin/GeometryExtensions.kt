@@ -69,8 +69,8 @@ object GeometryExtensions {
     fun Circle.getIntersectMetric(circles: Container): Double {
         var res = 0.0
         circles.forEachChild { i -> res += radius + (i as Circle).radius - this.distanceTo(i) }
-        println(circles.children)
-        println("res:$res")
+        //println(circles.children)
+        //println("res:$res")
         return res
     }
 

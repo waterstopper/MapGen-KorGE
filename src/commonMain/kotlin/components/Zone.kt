@@ -1,14 +1,17 @@
+package components
+
 import GeometryExtensions.getDegrees
 import GeometryExtensions.getIntersectMetric
 import GeometryExtensions.points
-import com.soywiz.kmem.toIntFloor
-import com.soywiz.korge.view.*
+import com.soywiz.korge.view.Circle
+import com.soywiz.korge.view.Container
+import com.soywiz.korge.view.xy
 import com.soywiz.korma.geom.Point
 import kotlin.math.abs
 
 /**
  * Sizes are computed proportionally to each other.
- * Zone placement starts with 0 index-zone.
+ * components.Zone placement starts with 0 index-zone.
  */
 class Zone constructor(var type: Biome, val size: Int, val connections: MutableList<Connection>, val index: Int) :
     GraphPart {
@@ -64,7 +67,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
 
     private fun closeGap(amount: Int, gapStart: Int, gapEnd: Int): List<Int> {
         val step = abs(gapEnd - gapStart) / (amount + 1)
-        println("step: " + step)
+        //println("step: " + step)
         val res = mutableListOf<Int>()
         if (amount > 0) {
             res.add((gapStart + step) % 360)
@@ -84,8 +87,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         val averageAngle = 360 / connections.size
         val angles = (connections.filter { it.isInitialized() }
             .map { it.line.getDegrees(getCenter()) }.sorted()).toMutableList()
-        println(angles)
-        println(connections.size)
+        //println(angles)
+        //println(connections.size)
 
         // find the max angle gap and close it
         var maxAngle = angles.first() + 360 - angles.last()
@@ -222,25 +225,3 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     }
 }
 
-enum class Biome(val color: String) {
-    RANDOM("#808080"),
-    DIRT("#964B00"),
-    GRASS("#378805"),
-    LAVA("#FF0000"),
-    SNOW("#E6E1E1"),
-    SWAMP("#5D6A00");
-
-    companion object {
-        fun fromInt(value: Int): Biome {
-            return when (value) {
-                0 -> RANDOM
-                1 -> DIRT
-                2 -> GRASS
-                3 -> LAVA
-                4 -> SNOW
-                5 -> SWAMP
-                else -> throw IllegalArgumentException("No zoneType for that")
-            }
-        }
-    }
-}

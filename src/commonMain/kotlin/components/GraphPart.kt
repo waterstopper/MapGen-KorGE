@@ -1,2 +1,4 @@
+package components
+
 interface GraphPart {
 }
