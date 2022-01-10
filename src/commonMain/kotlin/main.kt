@@ -32,11 +32,10 @@ suspend fun main() = Korge(
     val circ = Circles()
     circ.placeZoneCircles(zones, connections, circles, lines)
 
-    val matrixLength = 12
+    val matrixLength = 32
 
-    val map = Voronoi().getMatrixMap(zones, matrixLength)
-
-    val mapImage = Voronoi().visualizeMatrix(map, matrixLength)
+    val voronoi =  Voronoi(zones, matrixLength)
+    val mapImage = voronoi.visualizeMatrix()
 
     mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
     circles.image(mapImage.scaleLinear(width/matrixLength,height/matrixLength))

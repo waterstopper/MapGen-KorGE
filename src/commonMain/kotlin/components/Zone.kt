@@ -16,6 +16,8 @@ import kotlin.math.abs
 class Zone constructor(var type: Biome, val size: Int, val connections: MutableList<Connection>, val index: Int) :
     GraphPart {
     lateinit var circle: Circle
+    lateinit var center: Pair<Int, Int>
+    lateinit var edge: List<Cell>
 
     /**
      * Will always return existing connection in scope of algorithm
@@ -79,7 +81,6 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     }
 
     /**
-     * TODO do this method
      * Returns list of optimal angles for zones that are not drawn yet and connected to this one
      */
     fun getRemainingAngles(): List<Int> {
@@ -214,6 +215,14 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
                 else
                     i.line.setPoints(i.line.points()[0], getCenter())
             }
+        }
+    }
+
+    fun assignEdge(map: MatrixMap) {
+        for(list in map.matrix){
+//            for(cell in list){
+//                if(cell.)
+//            }
         }
     }
 

@@ -1,37 +1,55 @@
 package steps
 
-import com.soywiz.kmem.nextPowerOfTwo
 import com.soywiz.korim.bitmap.Bitmap32
 import com.soywiz.korim.color.Colors
-import com.soywiz.korim.color.RGBA
-import com.soywiz.korma.geom.Point
 import components.Cell
 import components.MatrixMap
 import components.Zone
 import kotlin.math.hypot
-import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class Voronoi {
-    fun visualizeMatrix(map: MatrixMap, length: Int): Bitmap32 {
-        val res = Bitmap32(length, length)
+class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
+    val matrixMap = initMatrixMap()
 
-        for (x in 0 until length)
-            for (y in 0 until length) {
-                res[x, y] = Colors[map.matrix[x][y].surface.color]
+    init {
+        //assignEdges()
+        //balanceZones()
+    }
+
+    /**
+     * Used for making zone sizes to be as expected
+     */
+    fun balanceZones() {
+
+    }
+
+    fun assignEdges() {
+        for (list in matrixMap.matrix) {
+            for (cell in list) {
+                cell.isEdge = cell.isAtEdge()
             }
-        for (c in map.centers) {
-            res[c.first, c.second] = Colors.YELLOW
+        }
+    }
+
+    fun visualizeMatrix(): Bitmap32 {
+        val res = Bitmap32(matrixLength, matrixLength)
+
+        for (x in 0 until matrixLength)
+            for (y in 0 until matrixLength) {
+                res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
+            }
+        for (c in matrixMap.zones) {
+            res[c.center.first, c.center.second] = Colors.YELLOW
         }
         return res
     }
 
-    fun getMatrixMap(zones: List<Zone>, matrixLength: Int): MatrixMap {
-        val bounds = findProperBounds(zones, matrixLength)
+    fun initMatrixMap(): MatrixMap {
+        val bounds = findProperBounds()
 
-        val centers = assignCenters(bounds, zones, matrixLength)
+        assignCenters(bounds, zones, matrixLength)
 
-        return buildMatrix(bounds, zones, matrixLength, centers)
+        return buildMatrix(zones, matrixLength)
     }
 
     /**
@@ -40,7 +58,7 @@ class Voronoi {
      * 2) and each zone center should be at least one cell away from the edge
      * 3) left and top bounds have 0 coordinate
      */
-    private fun findProperBounds(zones: List<Zone>, matrixLength: Int): List<Double> {
+    private fun findProperBounds(): List<Double> {
         // x min, x max, y min, y max
         val bounds = mutableListOf(50.0, 50.0, 50.0, 50.0)
         for (z in zones) {
@@ -57,7 +75,7 @@ class Voronoi {
         makeBoundsSquare(bounds)
 
         // make centers not on edge
-        normalizeBounds(bounds, zones, matrixLength)
+        normalizeBounds(bounds, matrixLength)
 
         return bounds
     }
@@ -79,7 +97,7 @@ class Voronoi {
      * make zone centers not on edge and bound left and right edge as 0
      * matrixLength - amount of cells in a matrix row
      */
-    private fun normalizeBounds(bounds: MutableList<Double>, zones: List<Zone>, matrixLength: Int) {
+    private fun normalizeBounds(bounds: MutableList<Double>, matrixLength: Int) {
         // save 2 cells for the edges
         val oneCell = (bounds[1] - bounds[0]) / (matrixLength - 2)
 
@@ -90,43 +108,41 @@ class Voronoi {
                 bounds[i] += oneCell
     }
 
-    private fun assignCenters(bounds: List<Double>, zones: List<Zone>, matrixLength: Int): List<Pair<Int, Int>> {
-        return zones.map {
+    private fun assignCenters(bounds: List<Double>, zones: List<Zone>, matrixLength: Int) {
+        zones.forEach {
             val x = (it.circle.pos.x - bounds[0]) / (bounds[1] - bounds[0]) * matrixLength
             val y = (it.circle.pos.y - bounds[2]) / (bounds[3] - bounds[2]) * matrixLength
 
-            Pair(x.roundToInt(), y.roundToInt())
+            it.center = Pair(x.roundToInt(), y.roundToInt())
         }
     }
 
     private fun buildMatrix(
-        bounds: List<Double>,
         zones: List<Zone>,
-        matrixLength: Int,
-        centers: List<Pair<Int, Int>>
+        matrixLength: Int
     ): MatrixMap {
 
         val matrix = List<MutableList<Cell>>(matrixLength) { mutableListOf() }
         for (i in 0 until matrixLength) {
             for (j in 0 until matrixLength) {
-                val ind = findNearest(Pair(i, j), centers)
-                matrix[i].add(Cell(ind, zones[ind].type))
+                val zone = findNearestZoneCenter(Pair(i, j), zones)
+                matrix[i].add(Cell(Pair(i, j), zone))
             }
         }
 
-        return MatrixMap(matrix, centers)
+        return MatrixMap(matrix, zones)
     }
 
-    private fun findNearest(cell: Pair<Int, Int>, centers: List<Pair<Int, Int>>): Int {
-        var nearestInd = 0
+    private fun findNearestZoneCenter(cell: Pair<Int, Int>, zones: List<Zone>): Zone {
+        var nearest = zones[0]
         var smallest = Double.MAX_VALUE
-        for (i in 0..centers.lastIndex) {
-            if (cell.distance(centers[i]) < smallest) {
-                smallest = cell.distance(centers[i])
-                nearestInd = i
+        for (i in 0..zones.lastIndex) {
+            if (cell.distance(zones[i].center) < smallest) {
+                smallest = cell.distance(zones[i].center)
+                nearest = zones[i]
             }
         }
-        return nearestInd
+        return nearest
     }
 
     private fun Pair<Int, Int>.distance(other: Pair<Int, Int>): Double {
