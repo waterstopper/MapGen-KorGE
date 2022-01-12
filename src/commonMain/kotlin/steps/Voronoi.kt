@@ -16,33 +16,79 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
         assignEdges()
         //balanceZones()
 
-        createConnections()
+        createPassages()
     }
 
     /**
      * add gaps at the edge of connected zones
      */
-    fun createConnections() {
+    private fun createPassages() {
         val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
         // lists of cells with only one adjacent zone
-        val goodCandidates = mutableListOf<MutableList<Cell>>()
+        val goodCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
         // lists with many adjacent zones
-        val badCandidates = mutableListOf<MutableList<Cell>>()
+        val badCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
 
         for (list in matrixMap.matrix) {
             for (cell in list) {
-                for (c in cell.adjacentEdges) {
-                    if (cell.zone.getNullableConnection(c.zone) != null
-                        && !(resolvedConnections.contains(Pair(cell.zone, c.zone))
-                                || resolvedConnections.contains(Pair(c.zone, cell.zone)))
-                    ) {
-                        resolvedConnections.add(Pair(cell.zone, c.zone))
-                        cell.cellType = CellType.EMPTY
-                        c.cellType = CellType.EMPTY
+                if (cell.adjacentEdges.isNotEmpty()) {
+                    // a good candidate
+                    if (cell.adjacentEdges.all {
+                            it.zone == cell.adjacentEdges[0].zone
+                                    && it.adjacentEdges.all { i -> i.zone == cell.zone }
+                        }) {
+                        if (cell.zone.getNullableConnection(cell.adjacentEdges[0].zone) != null) {
+                            val first = if (cell.zone.index > cell.adjacentEdges[0].zone.index)
+                                cell.adjacentEdges[0].zone else cell.zone
+                            val second = if (first == cell.zone) cell.adjacentEdges[0].zone else cell.zone
+                            if (goodCandidates[Pair(first, second)] == null)
+                                goodCandidates[Pair(first, second)] = mutableListOf()
+                            goodCandidates[Pair(first, second)]!!.add(cell)
+                        }
+                    }
+                    // bad candidate
+                    else {
+                        for (c in cell.adjacentEdges)
+                            if (cell.zone.getNullableConnection(c.zone) != null) {
+                                val first = if (cell.zone.index > c.zone.index)
+                                    c.zone else cell.zone
+                                val second = if (first == cell.zone) c.zone else cell.zone
+                                if (badCandidates[Pair(first, second)] == null)
+                                    badCandidates[Pair(first, second)] = mutableListOf()
+                                badCandidates[Pair(first, second)]!!.add(cell)
+                            }
                     }
                 }
             }
         }
+
+        for (conn in goodCandidates.keys)
+            resolveOnePassage(conn, goodCandidates, resolvedConnections)
+
+        for (conn in badCandidates.keys)
+            if (!resolvedConnections.contains(conn))
+                resolveOnePassage(conn, badCandidates, resolvedConnections)
+    }
+
+    /**
+     * add passage to resolvedConnections, and choose random cell from candidates
+     * that will be a passage
+     */
+    private fun resolveOnePassage(
+        pass: Pair<Zone, Zone>,
+        candidates: Map<Pair<Zone, Zone>, MutableList<Cell>>,
+        resolvedConnections: MutableList<Pair<Zone, Zone>>
+    ) {
+        resolvedConnections.add(pass)
+        if (candidates[pass]!!.size > 2) {
+            candidates[pass]!!.removeAt(0)
+            candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
+        }
+        val chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+        val neighborOfChosen = chosenCell.adjacentEdges[(0..chosenCell.adjacentEdges.lastIndex).random()]
+
+        chosenCell.cellType = CellType.EMPTY
+        neighborOfChosen.cellType = CellType.EMPTY
     }
 
     /**
