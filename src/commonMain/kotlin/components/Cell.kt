@@ -7,6 +7,7 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
     lateinit var matrix: MatrixMap
     var isEdge = false
     var adjacentEdges: List<Cell> = listOf()
+    var cellType = CellType.OBSTACLE
 
     /**
      * checks whether cell is at the edge of a map or there is a different zone in 8 neighboring cells
@@ -40,3 +41,4 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
         return res
     }
 }
+

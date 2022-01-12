@@ -20,28 +20,44 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     lateinit var edge: List<Cell>
 
     /**
-     * Will always return existing connection in scope of algorithm
+     * will always return existing connection in scope of algorithm
      */
     fun getConnection(zone: Zone): Connection {
         return connections.find { it.z1 === zone || it.z2 === zone }!!
     }
 
+    fun getNullableConnection(zone: Zone): Connection? {
+        return connections.find { it.z1 === zone || it.z2 === zone }
+    }
+
+    /**
+     *
+     */
     init {
         if (type == Biome.RANDOM) {
             type = Biome.fromInt((1..5).random())
         }
     }
 
+    /**
+     * place zone circle at the source point
+     */
     fun centerToPoint(source: Point) {
         circle.xy(Point(source.x - size, source.y - size))
     }
 
+    /**
+     * get zone circle's center
+     */
     fun getCenter(): Point = Point(circle.x + size, circle.y + size)
 
     fun setCenter(p: Point) {
         circle.pos = Point(p.x - size, p.y - size)
     }
 
+    /**
+     * get all zones that were placed on the map
+     */
     fun getPlaced(): List<Zone> {
         return connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
     }
@@ -54,6 +70,9 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         connections.sortBy { it.getZone(this)::circle.isInitialized }
     }
 
+    /**
+     * multiply road length by scale
+     */
     fun stretchRoad(road: Connection, scale: Float) {
         if (road.z1 == this) {
             road.line.x1 = road.line.x2 + (road.line.x1 - road.line.x2) * scale
@@ -67,9 +86,12 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         redrawConnections()
     }
 
+    /**
+     * add amount of roads in the gap from gapStart degrees to gapEnd degrees
+     */
     private fun closeGap(amount: Int, gapStart: Int, gapEnd: Int): List<Int> {
         val step = abs(gapEnd - gapStart) / (amount + 1)
-        //println("step: " + step)
+
         val res = mutableListOf<Int>()
         if (amount > 0) {
             res.add((gapStart + step) % 360)
@@ -81,7 +103,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     }
 
     /**
-     * Returns list of optimal angles for zones that are not drawn yet and connected to this one
+     * returns a list of optimal angles for zones that are not drawn yet and connected to this one
      */
     fun getRemainingAngles(): List<Int> {
         //val res = mutableListOf<Int>()
@@ -219,7 +241,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     }
 
     fun assignEdge(map: MatrixMap) {
-        for(list in map.matrix){
+        for (list in map.matrix) {
 //            for(cell in list){
 //                if(cell.)
 //            }

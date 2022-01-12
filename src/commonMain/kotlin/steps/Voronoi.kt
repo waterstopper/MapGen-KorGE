@@ -3,6 +3,7 @@ package steps
 import com.soywiz.korim.bitmap.Bitmap32
 import com.soywiz.korim.color.Colors
 import components.Cell
+import components.CellType
 import components.MatrixMap
 import components.Zone
 import kotlin.math.hypot
@@ -12,12 +13,40 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
     val matrixMap = initMatrixMap()
 
     init {
-        //assignEdges()
+        assignEdges()
         //balanceZones()
+
+        createConnections()
     }
 
     /**
-     * Used for making zone sizes to be as expected
+     * add gaps at the edge of connected zones
+     */
+    fun createConnections() {
+        val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
+        // lists of cells with only one adjacent zone
+        val goodCandidates = mutableListOf<MutableList<Cell>>()
+        // lists with many adjacent zones
+        val badCandidates = mutableListOf<MutableList<Cell>>()
+
+        for (list in matrixMap.matrix) {
+            for (cell in list) {
+                for (c in cell.adjacentEdges) {
+                    if (cell.zone.getNullableConnection(c.zone) != null
+                        && !(resolvedConnections.contains(Pair(cell.zone, c.zone))
+                                || resolvedConnections.contains(Pair(c.zone, cell.zone)))
+                    ) {
+                        resolvedConnections.add(Pair(cell.zone, c.zone))
+                        cell.cellType = CellType.EMPTY
+                        c.cellType = CellType.EMPTY
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * used for making zone sizes to be as expected
      */
     fun balanceZones() {
 
@@ -29,6 +58,12 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
                 cell.isEdge = cell.isAtEdge()
             }
         }
+
+        for (list in matrixMap.matrix) {
+            for (cell in list) {
+                cell.adjacentEdges = cell.getEdge()
+            }
+        }
     }
 
     fun visualizeMatrix(): Bitmap32 {
@@ -36,7 +71,10 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
 
         for (x in 0 until matrixLength)
             for (y in 0 until matrixLength) {
-                res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
+                if (matrixMap.matrix[x][y].cellType == CellType.EMPTY)
+                    res[x, y] = Colors.BLUE
+                else
+                    res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
             }
         for (c in matrixMap.zones) {
             res[c.center.first, c.center.second] = Colors.YELLOW
@@ -49,7 +87,14 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
 
         assignCenters(bounds, zones, matrixLength)
 
-        return buildMatrix(zones, matrixLength)
+        val res = buildMatrix(zones, matrixLength)
+
+        // init matrix field in cells
+        for (list in res.matrix)
+            for (cell in list)
+                cell.matrix = res
+
+        return res
     }
 
     /**
