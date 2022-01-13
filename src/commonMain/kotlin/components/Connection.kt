@@ -7,7 +7,7 @@ import com.soywiz.korge.view.Line
 
 /**
  * IMPORTANT:
- * Roads connect only two zones.
+ * roads connect only two zones.
  * For a more complex connection create a 0-sized zone, which will act as a junction between zones
  */
 class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionType, val creatureLevel: Int) : GraphPart {
@@ -15,18 +15,16 @@ class Connection constructor(val z1: Zone, val z2: Zone, val type: ConnectionTyp
 
     fun isInitialized() = ::line.isInitialized
 
-    fun getZone(source: Zone): Zone {
-        return if (z2 === source) z1 else z2
-    }
+    fun getZone(source: Zone): Zone = if (z2 === source) z1 else z2
 
     fun intersectsAny(lines: Container): Boolean {
         lines.forEachChild { i -> if (line.intersects(i as Line)) return true }
         return false
     }
 
-    fun intersectsList(connections: List<Connection>): List<Connection> {
-        return connections.filter { it.isInitialized() && line.intersects(it.line) }
-    }
+    fun intersectsList(connections: List<Connection>): List<Connection> =
+        connections.filter { it.isInitialized() && line.intersects(it.line) }
+
 
     /**
      * make sure that z1 has x1 y1 coords, z2 has x2 y2 coords for "redraw connections" method.

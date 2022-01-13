@@ -106,12 +106,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
      * returns a list of optimal angles for zones that are not drawn yet and connected to this one
      */
     fun getRemainingAngles(): List<Int> {
-        //val res = mutableListOf<Int>()
-        val averageAngle = 360 / connections.size
         val angles = (connections.filter { it.isInitialized() }
             .map { it.line.getDegrees(getCenter()) }.sorted()).toMutableList()
-        //println(angles)
-        //println(connections.size)
 
         // find the max angle gap and close it
         var maxAngle = angles.first() + 360 - angles.last()
@@ -177,7 +173,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
 //        return res
     }
 
-    fun move(pos: Point) {
+    private fun move(pos: Point) {
         circle.xy(pos)
         redrawConnections()
     }
@@ -229,7 +225,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         }
     }
 
-    fun redrawConnections() {
+    private fun redrawConnections() {
         for (i in connections) {
             if (i.isInitialized()) {
                 if (i.z1 == this)
@@ -240,16 +236,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         }
     }
 
-    fun assignEdge(map: MatrixMap) {
-        for (list in map.matrix) {
-//            for(cell in list){
-//                if(cell.)
-//            }
-        }
-    }
-
     /**
-     * To see in debug
+     * to see in debug
      */
     override fun toString(): String {
         return "$index, $type, $size"

@@ -1,4 +1,3 @@
 package components
 
-interface GraphPart {
-}
+interface GraphPart

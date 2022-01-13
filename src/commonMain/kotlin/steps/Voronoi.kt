@@ -2,6 +2,7 @@ package steps
 
 import com.soywiz.korim.bitmap.Bitmap32
 import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
 import components.Cell
 import components.CellType
 import components.MatrixMap
@@ -9,7 +10,7 @@ import components.Zone
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
-class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
+class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
     val matrixMap = initMatrixMap()
 
     init {
@@ -20,7 +21,7 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
     }
 
     /**
-     * add gaps at the edge of connected zones
+     * add passages at the edge of connected zones
      */
     private fun createPassages() {
         val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
@@ -36,28 +37,12 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
                     if (cell.adjacentEdges.all {
                             it.zone == cell.adjacentEdges[0].zone
                                     && it.adjacentEdges.all { i -> i.zone == cell.zone }
-                        }) {
-                        if (cell.zone.getNullableConnection(cell.adjacentEdges[0].zone) != null) {
-                            val first = if (cell.zone.index > cell.adjacentEdges[0].zone.index)
-                                cell.adjacentEdges[0].zone else cell.zone
-                            val second = if (first == cell.zone) cell.adjacentEdges[0].zone else cell.zone
-                            if (goodCandidates[Pair(first, second)] == null)
-                                goodCandidates[Pair(first, second)] = mutableListOf()
-                            goodCandidates[Pair(first, second)]!!.add(cell)
-                        }
-                    }
+                        })
+                        addCandidate(cell, cell.adjacentEdges[0], goodCandidates)
                     // bad candidate
-                    else {
+                    else
                         for (c in cell.adjacentEdges)
-                            if (cell.zone.getNullableConnection(c.zone) != null) {
-                                val first = if (cell.zone.index > c.zone.index)
-                                    c.zone else cell.zone
-                                val second = if (first == cell.zone) c.zone else cell.zone
-                                if (badCandidates[Pair(first, second)] == null)
-                                    badCandidates[Pair(first, second)] = mutableListOf()
-                                badCandidates[Pair(first, second)]!!.add(cell)
-                            }
-                    }
+                            addCandidate(cell, c, badCandidates)
                 }
             }
         }
@@ -68,6 +53,20 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
         for (conn in badCandidates.keys)
             if (!resolvedConnections.contains(conn))
                 resolveOnePassage(conn, badCandidates, resolvedConnections)
+    }
+
+    /**
+     * add Pair(cell.zone, compared.zone) to candidates map in order of zone indexes
+     */
+    private fun addCandidate(cell: Cell, compared: Cell, candidates: MutableMap<Pair<Zone, Zone>, MutableList<Cell>>) {
+        if (cell.zone.getNullableConnection(compared.zone) != null) {
+            val first = if (cell.zone.index > compared.zone.index)
+                compared.zone else cell.zone
+            val second = if (first == cell.zone) cell.adjacentEdges[0].zone else cell.zone
+            if (candidates[Pair(first, second)] == null)
+                candidates[Pair(first, second)] = mutableListOf()
+            candidates[Pair(first, second)]!!.add(cell)
+        }
     }
 
     /**
@@ -87,8 +86,8 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
         val chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
         val neighborOfChosen = chosenCell.adjacentEdges[(0..chosenCell.adjacentEdges.lastIndex).random()]
 
-        chosenCell.cellType = CellType.EMPTY
-        neighborOfChosen.cellType = CellType.EMPTY
+        chosenCell.cellType = CellType.ROAD
+        neighborOfChosen.cellType = CellType.ROAD
     }
 
     /**
@@ -98,29 +97,36 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
 
     }
 
-    fun assignEdges() {
-        for (list in matrixMap.matrix) {
-            for (cell in list) {
-                cell.isEdge = cell.isAtEdge()
-            }
-        }
+    /**
+     * assign edge fields of cells in the matrix
+     */
+    private fun assignEdges() {
+        for (list in matrixMap.matrix)
+            for (cell in list)
+                cell.isAtEdge()
 
-        for (list in matrixMap.matrix) {
-            for (cell in list) {
+        for (list in matrixMap.matrix)
+            for (cell in list)
                 cell.adjacentEdges = cell.getEdge()
-            }
-        }
     }
 
+    /**
+     * for debugging mainly
+     * yellow - centers of zones
+     * blue - roads, passages
+     * gray - mines, castles
+     */
     fun visualizeMatrix(): Bitmap32 {
         val res = Bitmap32(matrixLength, matrixLength)
 
         for (x in 0 until matrixLength)
             for (y in 0 until matrixLength) {
-                if (matrixMap.matrix[x][y].cellType == CellType.EMPTY)
+
+                if (matrixMap.matrix[x][y].cellType == CellType.ROAD)
                     res[x, y] = Colors.BLUE
-                else
-                    res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
+                else if (Constants.OBSTACLES.contains(matrixMap.matrix[x][y].cellType)) {
+                    res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color].minus(RGBA(0x2A2A2A))
+                } else res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
             }
         for (c in matrixMap.zones) {
             res[c.center.first, c.center.second] = Colors.YELLOW
@@ -128,7 +134,7 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
         return res
     }
 
-    fun initMatrixMap(): MatrixMap {
+    private fun initMatrixMap(): MatrixMap {
         val bounds = findProperBounds()
 
         assignCenters(bounds, zones, matrixLength)
@@ -144,7 +150,7 @@ class Voronoi(val zones: List<Zone>, val matrixLength: Int) {
     }
 
     /**
-     * Bounds that
+     * bounds that
      * 1) have equal height and width
      * 2) and each zone center should be at least one cell away from the edge
      * 3) left and top bounds have 0 coordinate

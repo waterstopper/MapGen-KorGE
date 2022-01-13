@@ -2,7 +2,6 @@ import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
 import com.soywiz.korma.geom.Point
-import com.soywiz.korma.geom.angleTo
 import com.soywiz.korma.geom.distanceTo
 import kotlin.math.*
 
@@ -64,16 +63,17 @@ object GeometryExtensions {
     }
 
     /**
-     * smaller metric means better position (less circles around)
+     * smaller metric means better position (fewer circles around)
      */
     fun Circle.getIntersectMetric(circles: Container): Double {
         var res = 0.0
         circles.forEachChild { i -> res += radius + (i as Circle).radius - this.distanceTo(i) }
-        //println(circles.children)
-        //println("res:$res")
         return res
     }
 
+    /*
+    return points of this line
+     */
     fun Line.points(): List<Point> {
         return listOf(Point(this.x1, this.y1), Point(this.x2, this.y2))
     }

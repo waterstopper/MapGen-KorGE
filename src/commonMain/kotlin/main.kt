@@ -7,6 +7,7 @@ import com.soywiz.korio.file.std.resourcesVfs
 import components.Connection
 import components.Zone
 import steps.Circles
+import steps.ObstacleMapManager
 import steps.TemplateParser
 import steps.Voronoi
 
@@ -32,13 +33,15 @@ suspend fun main() = Korge(
     val circ = Circles()
     circ.placeZoneCircles(zones, connections, circles, lines)
 
-    val matrixLength = 32
+    val matrixLength = 42
 
     val voronoi =  Voronoi(zones, matrixLength)
+    ObstacleMapManager(voronoi.matrixMap)
+
     val mapImage = voronoi.visualizeMatrix()
 
-    mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
-    circles.image(mapImage.scaleLinear(width/matrixLength,height/matrixLength))
+    //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
+    lines.image(mapImage.scaleLinear(width/matrixLength,height/matrixLength))
 //    this.onClick {
 //        circ.placeZoneCircles(zones, connections, circles, lines, iter)
 //        iter++
