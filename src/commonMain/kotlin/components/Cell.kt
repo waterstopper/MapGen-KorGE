@@ -23,7 +23,10 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
         }
         for (i in position.first - 1..position.first + 1)
             for (j in position.second - 1..position.second + 1) {
-                if (matrix.matrix[i][j].zone != zone) {
+                if (matrix.matrix[i][j].zone != zone
+                    && ((i == position.first || j == position.second)
+                            && (i != position.first || j != position.second))
+                ) {
                     isEdge = true
                     cellType = CellType.EDGE
                     return
@@ -40,7 +43,7 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
         val res = mutableListOf<Cell>()
         for (i in max(0, position.first - 1)..min(matrix.matrix.lastIndex, position.first + 1))
             for (j in max(0, position.second - 1)..min(matrix.matrix.lastIndex, position.second + 1)) {
-                if (matrix.matrix[i][j].zone != zone)
+                if (matrix.matrix[i][j].zone != zone && ((i == position.first || j == position.second) && (i != position.first || j != position.second)))
                     res.add(matrix.matrix[i][j])
 
             }
@@ -64,6 +67,44 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
                 }
 
         return sum.toFloat() / all
+    }
+
+    fun getNeighbors(): List<Cell> {
+        val res = mutableListOf<Cell>()
+        for (i in max(0, position.first - 1)..min(matrix.matrix.lastIndex, position.first + 1))
+            for (j in max(0, position.second - 1)..min(matrix.matrix.lastIndex, position.second + 1))
+            // take only side neighbors for now
+                if ((i == position.first || j == position.second) && (i != position.first || j != position.second))
+                    res.add(matrix.matrix[i][j])
+
+
+        return res
+    }
+
+    fun getAllNeighbors(): List<Cell> {
+        val res = mutableListOf<Cell>()
+        for (i in max(0, position.first - 1)..min(matrix.matrix.lastIndex, position.first + 1))
+            for (j in max(0, position.second - 1)..min(matrix.matrix.lastIndex, position.second + 1))
+                if ((i != position.first || j != position.second))
+                    res.add(matrix.matrix[i][j])
+
+
+        return res
+    }
+
+    /**
+     * TODO: might get out of matrix bounds if we return matrix[-1][i] for example
+     */
+    fun getOpposite(cell: Cell): Cell {
+        val xAdd = position.first - cell.position.first
+        val yAdd = position.second - cell.position.second
+        if (matrix.matrix.size == position.first + xAdd
+            || matrix.matrix.size == position.second + yAdd
+            || -1 == position.first + xAdd
+            || -1 == position.first + yAdd
+        )
+            return this
+        return matrix.matrix[position.first + xAdd][position.second + yAdd]
     }
 }
 

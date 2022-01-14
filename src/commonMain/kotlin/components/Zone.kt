@@ -119,7 +119,6 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
             }
 
         val res = closeGap(connections.size - angles.size, angles[ind], angles[ind] + maxAngle)
-        println(res)
         return res
 
 //        if (connections.size - angles.size == 1)

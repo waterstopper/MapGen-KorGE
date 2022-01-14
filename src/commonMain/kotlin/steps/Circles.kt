@@ -146,7 +146,6 @@ class Circles {
             if (intersections.isNotEmpty()) {
                 val pos = i.circle.pos
                 i.toNearestValidPosition(circles)
-                println("fejwi")
                 // if still intersects, move back and make a portal instead of a road
                 if (i.getConnection(zone).intersectsAny(lines)) {
                     i.getConnection(zone).line.removeFromParent()

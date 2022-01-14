@@ -17,13 +17,12 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         assignEdges()
         //balanceZones()
 
-        createPassages()
     }
 
     /**
      * add passages at the edge of connected zones
      */
-    private fun createPassages() {
+    fun createPassages() {
         val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
         // lists of cells with only one adjacent zone
         val goodCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
@@ -83,11 +82,31 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
             candidates[pass]!!.removeAt(0)
             candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
         }
-        val chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+        var chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+        var iter = 0
+        // make sure that passages are not near
+        while (chosenCell.getNeighbors().any { it.cellType == CellType.ROAD } && iter < 50) {
+            chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+            iter++
+        }
         val neighborOfChosen = chosenCell.adjacentEdges[(0..chosenCell.adjacentEdges.lastIndex).random()]
 
         chosenCell.cellType = CellType.ROAD
         neighborOfChosen.cellType = CellType.ROAD
+
+        for (cell in chosenCell.getAllNeighbors()) {
+
+            if (Constants.OBSTACLES.contains(cell.cellType))
+                cell.cellType = CellType.EDGE
+        }
+        for (cell in neighborOfChosen.getAllNeighbors()) {
+
+            if (Constants.OBSTACLES.contains(cell.cellType))
+                cell.cellType = CellType.EDGE
+        }
+        // connect
+        chosenCell.getOpposite(neighborOfChosen).cellType = CellType.EMPTY
+        neighborOfChosen.getOpposite(chosenCell).cellType = CellType.EMPTY
     }
 
     /**

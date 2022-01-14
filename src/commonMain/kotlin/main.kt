@@ -36,7 +36,9 @@ suspend fun main() = Korge(
     val matrixLength = 42
 
     val voronoi =  Voronoi(zones, matrixLength)
-    ObstacleMapManager(voronoi.matrixMap)
+    val obstacleMapManager = ObstacleMapManager(voronoi.matrixMap)
+    voronoi.createPassages()
+    obstacleMapManager.connectRegions()
 
     val mapImage = voronoi.visualizeMatrix()
 
