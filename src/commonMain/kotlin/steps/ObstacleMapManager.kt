@@ -28,7 +28,7 @@ class ObstacleMapManager(private val matrixMap: MatrixMap) {
             for (cell in list)
                 if (!Constants.SUPER_EMPTY.contains(cell.cellType)
                     && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
-                    && Random.nextFloat() > Constants.RANDOM_OBSTACLE_CHANCE
+                    && Random.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
                 )
                     cell.cellType = CellType.OBSTACLE
     }

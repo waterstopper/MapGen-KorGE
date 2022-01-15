@@ -20,13 +20,13 @@ class Circles {
     private fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
         var angle = 0
         val z = zones.first()
-        z.circle = circles.circle(z.size.toDouble(), Colors[z.type.color])
+        z.circle = circles.circle(z.size.toDouble(), z.type.color)
         z.centerToPoint(Point(width / 2, height / 2))
 
         for (i in z.connections) {
             i.getZone(z).circle = circles.circle(
                 i.getZone(z).size.toDouble(),
-                Colors[i.getZone(z).type.color]
+                i.getZone(z).type.color
             )
 
             angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random()
@@ -185,7 +185,7 @@ class Circles {
             ).rotateDegrees(angles[j])
             i.circle = circles.circle(
                 i.size.toDouble(),
-                Colors[i.type.color]
+                i.type.color
             )
             i.setCenter(i.getConnection(zone).line.points()[1])
             j++

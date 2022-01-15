@@ -144,8 +144,8 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
                 if (matrixMap.matrix[x][y].cellType == CellType.ROAD)
                     res[x, y] = Colors.BLUE
                 else if (Constants.OBSTACLES.contains(matrixMap.matrix[x][y].cellType)) {
-                    res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color].minus(RGBA(0x2A2A2A))
-                } else res[x, y] = Colors[matrixMap.matrix[x][y].zone.type.color]
+                    res[x, y] = matrixMap.matrix[x][y].zone.type.color.minus(RGBA(0x2A2A2A))
+                } else res[x, y] = matrixMap.matrix[x][y].zone.type.color
             }
         for (c in matrixMap.zones) {
             res[c.center.first, c.center.second] = Colors.YELLOW

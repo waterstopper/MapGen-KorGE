@@ -1,12 +1,21 @@
 package components
 
-enum class Biome(val color: String) {
-    RANDOM("#808080"),
-    DIRT("#964B00"),
-    GRASS("#378805"),
-    LAVA("#FF0000"),
-    SNOW("#E6E1E1"),
-    SWAMP("#5D6A00");
+import com.soywiz.korim.color.RGBA
+
+enum class Biome(val color: RGBA) {
+    RANDOM(RGBA(250,250,250)),
+    WATER(RGBA(8,28,128)),
+    SAND(RGBA(214,182,148)),
+    DIRT(RGBA(99,48,8)),
+    GRASS(RGBA(24, 91,16)),
+    SWAMP(RGBA(0,44,0)),
+    LAVA(RGBA(48,48,48)),
+    WASTELAND(RGBA(165,85,16)),
+    DESERT(RGBA(181,138,24)),
+    SNOW(RGBA(220,220,220)),
+    NEW_DESERT(RGBA(192,160,0)),
+    PAVEMENT(RGBA(160,160,160)),
+    NEW_WASTELAND(RGBA(192,192,160));
 
     companion object {
         fun fromInt(value: Int): Biome {
