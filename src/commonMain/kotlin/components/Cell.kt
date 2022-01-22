@@ -14,15 +14,15 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
      * checks whether cell is at the edge of a map or there is a different zone in 8 neighboring cells
      */
     fun isAtEdge() {
-        if (position.first == 0 || position.first == matrix.matrix.lastIndex
-            || position.second == 0 || position.second == matrix.matrix.lastIndex
-        ) {
-            isEdge = true
-            cellType = CellType.EDGE
-            return
-        }
-        for (i in position.first - 1..position.first + 1)
-            for (j in position.second - 1..position.second + 1) {
+//        if (position.first == 0 || position.first == matrix.matrix.lastIndex
+//            || position.second == 0 || position.second == matrix.matrix.lastIndex
+//        ) {
+//            isEdge = true
+//            cellType = CellType.EDGE
+//            return
+//        }
+        for (i in max(0, position.first - 1)..min(matrix.matrix.lastIndex, position.first + 1))
+            for (j in max(0, position.second - 1)..min(matrix.matrix.lastIndex, position.second + 1))
                 if (matrix.matrix[i][j].zone != zone
                     && ((i == position.first || j == position.second)
                             && (i != position.first || j != position.second))
@@ -31,7 +31,7 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
                     cellType = CellType.EDGE
                     return
                 }
-            }
+
 
         isEdge = false
     }
@@ -101,7 +101,7 @@ class Cell(val position: Pair<Int, Int>, val zone: Zone) {
         if (matrix.matrix.size == position.first + xAdd
             || matrix.matrix.size == position.second + yAdd
             || -1 == position.first + xAdd
-            || -1 == position.first + yAdd
+            || -1 == position.second + yAdd
         )
             return this
         return matrix.matrix[position.first + xAdd][position.second + yAdd]

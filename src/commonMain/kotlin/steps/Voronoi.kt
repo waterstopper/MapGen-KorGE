@@ -94,16 +94,16 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         chosenCell.cellType = CellType.ROAD
         neighborOfChosen.cellType = CellType.ROAD
 
-        for (cell in chosenCell.getAllNeighbors()) {
-
-            if (Constants.OBSTACLES.contains(cell.cellType))
-                cell.cellType = CellType.EDGE
-        }
-        for (cell in neighborOfChosen.getAllNeighbors()) {
-
-            if (Constants.OBSTACLES.contains(cell.cellType))
-                cell.cellType = CellType.EDGE
-        }
+//        for (cell in chosenCell.getAllNeighbors()) {
+//
+//            if (Constants.OBSTACLES.contains(cell.cellType))
+//                cell.cellType = CellType.EDGE
+//        }
+//        for (cell in neighborOfChosen.getAllNeighbors()) {
+//
+//            if (Constants.OBSTACLES.contains(cell.cellType))
+//                cell.cellType = CellType.EDGE
+//        }
         // connect
         chosenCell.getOpposite(neighborOfChosen).cellType = CellType.EMPTY
         neighborOfChosen.getOpposite(chosenCell).cellType = CellType.EMPTY
@@ -145,6 +145,9 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
                     res[x, y] = Colors.BLUE
                 else if (Constants.OBSTACLES.contains(matrixMap.matrix[x][y].cellType)) {
                     res[x, y] = matrixMap.matrix[x][y].zone.type.color.minus(RGBA(0x2A2A2A))
+                    if(matrixMap.matrix[x][y].cellType == CellType.EDGE){
+                        res[x,y] = Colors.PINK
+                    }
                 } else res[x, y] = matrixMap.matrix[x][y].zone.type.color
             }
         for (c in matrixMap.zones) {

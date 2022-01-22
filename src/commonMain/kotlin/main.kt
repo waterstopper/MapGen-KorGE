@@ -1,4 +1,8 @@
+import com.soywiz.korev.Key
+import com.soywiz.korev.addEventListener
 import com.soywiz.korge.Korge
+import com.soywiz.korge.input.onClick
+import com.soywiz.korge.input.onDown
 import com.soywiz.korge.resources.resourceBitmap
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
@@ -18,7 +22,7 @@ suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
     val t = TemplateParser()
-    var (zones, connections) = t.parse("mapTwoLayers.txt")
+    var (zones, connections) = t.parse("map.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
 
@@ -31,19 +35,39 @@ suspend fun main() = Korge(
     //var r = VoronoiDiagramTask()
 
     val circ = Circles()
-    circ.placeZoneCircles(zones, connections, circles, lines)
 
     val matrixLength = 42
+    var obstacleMapManager: ObstacleMapManager? = null
+    var voronoi: Voronoi? = null
 
-    val voronoi =  Voronoi(zones, matrixLength)
-    val obstacleMapManager = ObstacleMapManager(voronoi.matrixMap)
-    voronoi.createPassages()
-    obstacleMapManager.connectRegions()
+    this.onClick {
 
-    val mapImage = voronoi.visualizeMatrix()
+        if (!it.isCtrlDown) {
+            circ.placeZoneCircles(zones, connections, circles, lines)
 
-    //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
-    lines.image(mapImage.scaleLinear(width/matrixLength,height/matrixLength))
+
+
+            voronoi = Voronoi(zones, matrixLength)
+            obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
+            voronoi!!.createPassages()
+
+
+            val mapImage = voronoi!!.visualizeMatrix()
+
+            //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
+            lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
+        } else {
+            println("Ctrl")
+            obstacleMapManager?.connectRegions()
+            //obstacleMapManager.connectRegions()
+
+            val mapImage = voronoi?.visualizeMatrix()
+            if (mapImage != null) {
+                println("good")
+                lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
+            }
+        }
+    }
 //    this.onClick {
 //        circ.placeZoneCircles(zones, connections, circles, lines, iter)
 //        iter++
