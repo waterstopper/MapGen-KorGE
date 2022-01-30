@@ -24,11 +24,24 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
      */
     fun createPassages() {
         val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
+
+        val (goodCandidates, badCandidates) = createCandidates()
+
+        for (conn in goodCandidates.keys)
+            resolveOnePassage(conn, goodCandidates, resolvedConnections)
+
+        for (conn in badCandidates.keys)
+            if (!resolvedConnections.contains(conn))
+                resolveOnePassage(conn, badCandidates, resolvedConnections)
+    }
+
+    private fun createCandidates():
+            Pair<HashMap<Pair<Zone, Zone>, MutableList<Cell>>,
+                    HashMap<Pair<Zone, Zone>, MutableList<Cell>>> {
         // lists of cells with only one adjacent zone
         val goodCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
         // lists with many adjacent zones
         val badCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
-
         for (list in matrixMap.matrix) {
             for (cell in list) {
                 if (cell.adjacentEdges.isNotEmpty()) {
@@ -46,12 +59,7 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
             }
         }
 
-        for (conn in goodCandidates.keys)
-            resolveOnePassage(conn, goodCandidates, resolvedConnections)
-
-        for (conn in badCandidates.keys)
-            if (!resolvedConnections.contains(conn))
-                resolveOnePassage(conn, badCandidates, resolvedConnections)
+        return Pair(goodCandidates, badCandidates)
     }
 
     /**
@@ -61,7 +69,7 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         if (cell.zone.getNullableConnection(compared.zone) != null) {
             val first = if (cell.zone.index > compared.zone.index)
                 compared.zone else cell.zone
-            val second = if (first == cell.zone) cell.adjacentEdges[0].zone else cell.zone
+            val second = if (first == cell.zone) compared.zone else cell.zone
             if (candidates[Pair(first, second)] == null)
                 candidates[Pair(first, second)] = mutableListOf()
             candidates[Pair(first, second)]!!.add(cell)
@@ -78,11 +86,11 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         resolvedConnections: MutableList<Pair<Zone, Zone>>
     ) {
         resolvedConnections.add(pass)
-        if (candidates[pass]!!.size > 2) {
-            candidates[pass]!!.removeAt(0)
-            candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
-        }
-        var chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+//        if (candidates[pass]!!.size > 2) {
+//            candidates[pass]!!.removeAt(0)
+//            candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
+//        }
+        var chosenCell = candidates[pass]!![0]
         var iter = 0
         // make sure that passages are not near
         while (chosenCell.getNeighbors().any { it.cellType == CellType.ROAD } && iter < 50) {
@@ -145,8 +153,8 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
                     res[x, y] = Colors.BLUE
                 else if (Constants.OBSTACLES.contains(matrixMap.matrix[x][y].cellType)) {
                     res[x, y] = matrixMap.matrix[x][y].zone.type.color.minus(RGBA(0x2A2A2A))
-                    if(matrixMap.matrix[x][y].cellType == CellType.EDGE){
-                        res[x,y] = Colors.PINK
+                    if (matrixMap.matrix[x][y].cellType == CellType.EDGE) {
+                        res[x, y] = Colors.PINK
                     }
                 } else res[x, y] = matrixMap.matrix[x][y].zone.type.color
             }
