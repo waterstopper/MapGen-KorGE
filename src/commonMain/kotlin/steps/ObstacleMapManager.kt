@@ -71,9 +71,7 @@ class ObstacleMapManager(private val matrixMap: MatrixMap) {
      */
     fun connectRegions() {
         for (zone in matrixMap.zones) {
-            print(zone.index.toString() + " ")
             val root = findRoot(zone)
-            println(root.zone)
             do {
                 val res = calculateCosts(root)
             } while (res)
@@ -82,10 +80,16 @@ class ObstacleMapManager(private val matrixMap: MatrixMap) {
 
     /**
      * TODO: how to make it so that second return is not required?
+     * Root should be in zone and all its neighbors should be in zone too
      */
     private fun findRoot(zone: Zone): Cell {
         matrixMap.matrix.forEach {
-            it.forEach { cell -> if (Constants.EMPTY.contains(cell.cellType) && cell.zone == zone) return cell }
+            it.forEach { cell ->
+                if (Constants.EMPTY.contains(cell.cellType)
+                    && cell.zone == zone
+                    && cell.getNeighbors().all { neighbor -> neighbor.zone == zone }
+                ) return cell
+            }
         }
         return matrixMap.matrix[0][0]
     }

@@ -86,11 +86,13 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         resolvedConnections: MutableList<Pair<Zone, Zone>>
     ) {
         resolvedConnections.add(pass)
+        // Why it was here?
+
 //        if (candidates[pass]!!.size > 2) {
 //            candidates[pass]!!.removeAt(0)
 //            candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
 //        }
-        var chosenCell = candidates[pass]!![0]
+        var chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
         var iter = 0
         // make sure that passages are not near
         while (chosenCell.getNeighbors().any { it.cellType == CellType.ROAD } && iter < 50) {
