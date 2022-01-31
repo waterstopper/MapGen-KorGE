@@ -1,17 +1,11 @@
-import com.soywiz.korev.Key
-import com.soywiz.korev.addEventListener
 import com.soywiz.korge.Korge
 import com.soywiz.korge.input.onClick
-import com.soywiz.korge.input.onDown
-import com.soywiz.korge.resources.resourceBitmap
 import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
-import com.soywiz.korim.color.RGBA
-import com.soywiz.korio.file.std.resourcesVfs
 import components.Connection
 import components.Zone
-import steps.Circles
 import steps.ObstacleMapManager
+import steps.Pipeline
 import steps.TemplateParser
 import steps.Voronoi
 
@@ -27,31 +21,39 @@ suspend fun main() = Korge(
     connections = connections as MutableList<Connection>
 
     // var iter = 0
-    val circles = Container()
-    val lines = Container()
-    stage.addChildren(listOf(circles, lines))
 
-    val circ = Circles()
 
     val matrixLength = 42
     var obstacleMapManager: ObstacleMapManager? = null
     var voronoi: Voronoi? = null
 
+    var pipeline = Pipeline(zones, connections, matrixLength, stage, width)
+
     this.onClick {
-        circ.placeZoneCircles(zones, connections, circles, lines)
-
-        voronoi = Voronoi(zones, matrixLength)
-        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
-        voronoi!!.createPassages()
-
-        obstacleMapManager!!.connectRegions()
-
-        val mapImage = voronoi!!.visualizeMatrix()
-
-        //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
-        lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
-
+        pipeline = Pipeline(zones, connections, matrixLength, stage, width)
     }
+//    this.onClick {
+//        val circles = Container()
+//        val lines = Container()
+//        stage.addChildren(listOf(circles, lines))
+//
+//        val circ = Circles()
+//
+//        circ.placeZoneCircles(zones, connections, circles, lines)
+//        println(circles.children.size)
+//
+//        voronoi = Voronoi(zones, matrixLength)
+//        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
+//        voronoi!!.createPassages()
+//
+//        obstacleMapManager!!.connectRegions()
+//
+//        val mapImage = voronoi!!.visualizeMatrix()
+//
+//        //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
+//        lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
+//    }
+
 //    this.onClick {
 //
 //        if (!it.isCtrlDown) {
