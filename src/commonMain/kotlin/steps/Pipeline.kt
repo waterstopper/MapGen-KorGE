@@ -5,6 +5,7 @@ import com.soywiz.korge.view.Stage
 import com.soywiz.korge.view.image
 import components.Connection
 import components.Zone
+import export.Writer
 
 class Pipeline(
     val zones: MutableList<Zone>,
@@ -13,7 +14,7 @@ class Pipeline(
     val stage: Stage,
     val imageLength: Double
 ) {
-    //val voronoi:Voronoi = Voronoi()
+    var voronoi: Voronoi? = null //Voronoi(zones, matrixLength)
 
 
     init {
@@ -30,18 +31,23 @@ class Pipeline(
 
         circ.placeZoneCircles(zones, connections, circles, lines)
 
-        val voronoi = Voronoi(zones, matrixLength)
-        val obstacleMapManager = ObstacleMapManager(voronoi.matrixMap)
+        voronoi = Voronoi(zones, matrixLength)
+        val obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
 
-        if (!voronoi.createPassages())
+        if (!voronoi!!.createPassages())
             createMap()
 
         obstacleMapManager.connectRegions()
 
-        val mapImage = voronoi.visualizeMatrix()
+        val mapImage = voronoi!!.visualizeMatrix()
 
         //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
         lines.image(mapImage.scaleLinear(imageLength / matrixLength, imageLength / matrixLength))
+    }
+
+    suspend fun exportMap() {
+        val w = Writer(voronoi!!)
+        w.writeHeader()
     }
 
     fun drawMap() {

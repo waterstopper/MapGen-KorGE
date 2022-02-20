@@ -4,6 +4,7 @@ import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
 import components.Connection
 import components.Zone
+import export.Writer
 import steps.ObstacleMapManager
 import steps.Pipeline
 import steps.TemplateParser
@@ -15,6 +16,7 @@ const val width = 320
 suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
+
     val t = TemplateParser()
     var (zones, connections) = t.parse("mapTwoLayers.txt")
     zones = zones as MutableList<Zone>
@@ -23,15 +25,19 @@ suspend fun main() = Korge(
     // var iter = 0
 
 
-    val matrixLength = 42
+    val matrixLength = 64
     var obstacleMapManager: ObstacleMapManager? = null
     var voronoi: Voronoi? = null
 
     var pipeline = Pipeline(zones, connections, matrixLength, stage, width)
 
+    pipeline.exportMap()
+
     this.onClick {
         pipeline = Pipeline(zones, connections, matrixLength, stage, width)
     }
+
+
 //    this.onClick {
 //        val circles = Container()
 //        val lines = Container()
