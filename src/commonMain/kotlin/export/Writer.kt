@@ -1,6 +1,7 @@
 package export
 
 import com.soywiz.korio.file.std.resourcesVfs
+import components.Biome
 import steps.Voronoi
 import kotlin.math.pow
 
@@ -88,13 +89,19 @@ class Writer(val map: Voronoi) {
     }
 
     private suspend fun writeSurface() {
+
         val size = map.matrixMap.matrix.size
         val len = ((size + 1).toDouble().pow(2) * I_NODE_SIZE).toInt()
-        for (list in map.matrixMap.matrix) {
-            for (i in list) {
-                writeNBytes(i.zone.type.ordinal, 2)
+
+        // transpose matrix - this way it resembles the view in "visualizeMatrix()" in KorGE
+        for (y in 0 until size) {
+            for (x in 0 until size) {
+                writeNBytes(map.matrixMap.matrix[x][y].zone.type.ordinal, 2)
             }
+            writeNBytes(Biome.WATER.ordinal, 2)
         }
+        for (i in 0..map.matrixMap.matrix.size)
+            writeNBytes(Biome.WATER.ordinal, 2)
 
         //writeNBytes(0, len)
     }
