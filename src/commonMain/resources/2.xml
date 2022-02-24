@@ -1,0 +1,8 @@
+<Group id="2">
+    <Item id="dirt_crack_3" name="OBJ_CRACK">
+        <Sprite id="decals.dirt_crack_3" level="0"/>
+        <PassModifier offset="00" value="-1"/>
+        <PassModifier offset="-10" value="-1"/>
+        <Surf id="DIRT"/>
+    </Item>
+</Group>

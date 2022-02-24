@@ -148,4 +148,24 @@ class ObstacleMapManager(private val matrixMap: MatrixMap) {
         val current = queue.removeHead()
 
     }
+
+    /**
+     * used for finding squares 2x2 and 3x3
+     */
+    fun findAllNSquares(n: Int): List<Cell> {
+        val res = mutableListOf<Cell>()
+
+        for (x in 2..matrixMap.matrix.lastIndex)
+            for (y in 2..matrixMap.matrix.lastIndex) {
+                var isSquare = true
+                for (x1 in -(n - 1)..0)
+                    for (y1 in -(n - 1)..0)
+                        if (!Constants.OBSTACLES.contains(matrixMap.matrix[x + x1][y + y1].cellType))
+                            isSquare = false
+                if (isSquare)
+                    res.add(matrixMap.matrix[x][y])
+            }
+
+        return res
+    }
 }

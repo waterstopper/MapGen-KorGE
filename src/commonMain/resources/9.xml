@@ -1,0 +1,54 @@
+<Group id="9">
+    <Item id="lava_2" name="SURF_LAVA">
+        <Sprite id="decals.lava_2" level="0"/>
+        <PassModifier offset="-2-2" value="-1"/>
+        <PassModifier offset="-1-2" value="-1"/>
+        <PassModifier offset="0-2" value="-1"/>
+        <PassModifier offset="-2-1" value="-1"/>
+        <PassModifier offset="-1-1" value="-1"/>
+        <PassModifier offset="0-1" value="-1"/>
+        <PassModifier offset="-20" value="-1"/>
+        <PassModifier offset="-10" value="-1"/>
+        <PassModifier offset="00" value="-1"/>
+        <Surf id="LAVA"/>
+    </Item>
+    <Item id="mire_03" name="SURF_SWAMP">
+        <Sprite id="decals.mire_03" level="0"/>
+        <PassModifier offset="-2-2" value="-1"/>
+        <PassModifier offset="-1-2" value="-1"/>
+        <PassModifier offset="0-2" value="-1"/>
+        <PassModifier offset="-2-1" value="-1"/>
+        <PassModifier offset="-20" value="-1"/>
+        <PassModifier offset="-1-1" value="-1"/>
+        <PassModifier offset="-10" value="-1"/>
+        <PassModifier offset="0-1" value="-1"/>
+        <PassModifier offset="00" value="-1"/>
+        <Surf id="SWAMP"/>
+    </Item>
+    <Item id="mountains_1" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_1"/>
+        <PassModifier offset="-2-2" value="-1"/>
+        <PassModifier offset="-2-1" value="-1"/>
+        <PassModifier offset="-20" value="-1"/>
+        <PassModifier offset="-1-2" value="-1"/>
+        <PassModifier offset="-1-1" value="-1"/>
+        <PassModifier offset="-10" value="-1"/>
+        <PassModifier offset="0-2" value="-1"/>
+        <PassModifier offset="0-1" value="-1"/>
+        <PassModifier offset="00" value="-1"/>
+        <Surf id="DIRT"/>
+    </Item>
+    <Item id="mountains_4" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_4"/>
+        <PassModifier offset="-2-2" value="-1"/>
+        <PassModifier offset="-2-1" value="-1"/>
+        <PassModifier offset="-20" value="-1"/>
+        <PassModifier offset="-1-2" value="-1"/>
+        <PassModifier offset="-1-1" value="-1"/>
+        <PassModifier offset="-10" value="-1"/>
+        <PassModifier offset="0-2" value="-1"/>
+        <PassModifier offset="0-1" value="-1"/>
+        <PassModifier offset="00" value="-1"/>
+        <Surf id="SNOW"/>
+    </Item>
+</Group>

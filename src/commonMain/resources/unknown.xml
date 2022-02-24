@@ -1,0 +1,281 @@
+<Group id="1">
+    <Item id="dirt_crack_4" name="OBJ_CRACK">
+        <Sprite id="decals.dirt_crack_4" level="0"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="grass_crack_1" name="OBJ_CRACK">
+        <Sprite id="decals.grass_crack_1" level="0"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="flowers_7" name="OBJ_FLOWERS">
+        <Sprite id="decals.flowers_7" level="0"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="lava_3" name="SURF_LAVA">
+        <Sprite id="decals.lava_3" level="0"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="rocks_2" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_2"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_4" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_4"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_7" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_7"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_8" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_8"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_9" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_9"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_11" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_11"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_18" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_18"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_21" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_21"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_22" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_22"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_23" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_23"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_25" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_25"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_26" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_26"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_28" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_28"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_29" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_29"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_30" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_30"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="rocks_31" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_31"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="stumbs_4" name="OBJ_STUMB">
+        <Sprite id="decals.stumbs_1" offset="0-7"/>
+        <Sprite id="decals.stumbs_2" offset="-62"/>
+        <Sprite id="decals.stumbs_3" offset="12-2"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="stumbs_6" name="OBJ_STUMB">
+        <Sprite id="decals.stumbs_5"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="stumbs_7" name="OBJ_STUMB">
+        <Sprite id="decals.stumbs_6"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="log_1" name="OBJ_LOG">
+        <Sprite id="decals.log_1"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="bush_1" name="OBJ_BUSH">
+        <Sprite id="trees.bush_1"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_1" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_1"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_3" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_3"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_5" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_5"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_6" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_6"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_7" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_7"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_m1" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_6" offset="-62"/>
+        <Sprite id="trees.cactus_5" offset="40"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="cactus_m2" name="OBJ_CACTUS">
+        <Sprite id="trees.cactus_5" offset="-6-2"/>
+        <Sprite id="trees.cactus_6" offset="51"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_1" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_1"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_2" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_2"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_3" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_3"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_4" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_4"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_5" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_5"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_6" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_1" offset="20"/>
+        <Sprite id="trees.palms_2" offset="-20"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="palms_9" name="OBJ_PALMTREE">
+        <Sprite id="trees.palms_8"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_1" name="OBJ_OAKTREE">
+        <Sprite id="trees.trees_1"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_2" name="OBJ_OAKTREE">
+        <Sprite id="trees.trees_2"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_3" name="OBJ_OAKTREE">
+        <Sprite id="trees.trees_3"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_6" name="OBJ_TREES">
+        <Sprite id="trees.trees_6"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_7" name="OBJ_TREES">
+        <Sprite id="trees.trees_7"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_8" name="OBJ_TREES">
+        <Sprite id="trees.trees_8"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="trees_9" name="OBJ_TREES">
+        <Sprite id="trees.trees_9"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_6" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_6"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_7" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_7"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_8" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_8"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_11" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_11"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_12" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_12"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="dplants_14" name="OBJ_DEADTREE">
+        <Sprite id="trees.dplants_14"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="mountains_1_3" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_1_3"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_3" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_3"/>
+        <PassModifier value="-1"/>
+    </Item>
+    <Item id="mountains_4_3" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_4_3"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_6" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_6"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_7" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_7"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_8" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_8"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_9" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_9"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_10" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_10"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="volcano_2" name="OBJ_VOLCANO">
+        <Sound id="volcano"/>
+        <Sprite id="mountains.volcano_2"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="volcano_3" name="OBJ_VOLCANO">
+        <Sound id="volcano"/>
+        <Sprite id="mountains.volcano_3"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="volcano_4" name="OBJ_VOLCANO">
+        <Sound id="volcano"/>
+        <Sprite id="mountains.volcano_4"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="volcano_5" name="OBJ_VOLCANO">
+        <Sound id="volcano"/>
+        <Sprite id="mountains.volcano_5"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_swamp1_3" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_swamp1_3"/>
+        <PassModifier offset="00" value="-1"/>
+    </Item>
+    <Item id="mountains_15_3" name="OBJ_MOUNTAIN">
+        <Sprite id="mountains.mountains_15_3"/>
+        <PassModifier offset="22" value="-1"/>
+    </Item>
+    <Item id="sawmill_trees1">
+        <Sprite id="trees.trees_4" offset="-4-2"/>
+        <Sprite id="decals.stumbs_4" offset="-9-1"/>
+        <Sprite id="decals.stumbs_4" offset="50"/>
+        <PassModifier value="-1"/>
+    </Item>
+</Group>

@@ -1,0 +1,29 @@
+<Group id="0">[<Item id="dirt_crack_1" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_1" level="0"/>
+	</Item> <Item id="dirt_crack_2" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_2" level="0"/>
+	</Item> <Item id="skeleton" name="OBJ_SKELETON">
+		<Sprite id="decals.skeleton"/>
+	</Item> <Item id="flowers_1" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_1" level="0"/>
+	</Item> <Item id="flowers_2" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_2" level="0"/>
+	</Item> <Item id="flowers_3" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_3"/>
+	</Item> <Item id="flowers_8" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_8"/>
+	</Item> <Item id="mushrooms_1" name="OBJ_MUSHROOMS">
+		<Sprite id="decals.mushrooms_1" level="0"/>
+	</Item> <Item id="rocks_1" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_1" level="0"/>
+	</Item> <Item id="rocks_10" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_10"/>
+	</Item> <Item id="stumbs_1" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_1"/>
+	</Item> <Item id="stumbs_2" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_2"/>
+	</Item> <Item id="stumbs_3" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_3"/>
+	</Item> <Item id="stumbs_5" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_4"/>
+	</Item>]</Group>

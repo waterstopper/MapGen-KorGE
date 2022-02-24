@@ -1,0 +1,4366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<HMMConfig Version="1.0" name="Default HMM Config">
+
+<LanguageFile lang="Russian" primary="1" file="hmm\lng\russian.txt" />
+<!-- 
+<LanguageFile lang="Polish" file="hmm\lng\polish.txt" />
+<LanguageFile lang="Italian" file="hmm\lng\italian.txt" />
+<LanguageFile lang="Slovak" file="hmm\lng\slovak.txt" />
+<LanguageFile lang="German" file="hmm\lng\german.txt" />
+<LanguageFile lang="French" file="hmm\lng\french.txt" /> -->
+
+<SpriteFile config="hmm\gfx\spriteset.xml" />
+<SoundFile config="hmm\sfx\soundset.xml" />
+
+<!-- Game objects and decorations defination structures and params:
+
+Sample avatar defination:
+
+	<Avatars>
+			<Sprite id="mygroup.mysprite1" offset="0,0" />
+			<Sprite id="mygroup.mysprite2" />
+			<PassModifier offset="0,0" value="-1" />
+			<PassModifier offset="1,0" value="-1" />
+		</Item>
+	</Avatars>
+
+Sample decoration defination:
+	
+	<Decorations>
+		<Group id="group_id">
+			<Item id="MyDecoration" name="Das ist main dekoration!">
+				<Avatar id="MyAvatar" />
+				<Avatar id="MyAvatar" offset="1,0" />
+			</Item>
+		</Group>
+	</Decorations>
+
+Sample visitable construction defination:
+
+	<Visitables>
+		<Item type="VC_OBSTOWER" scout="5" entrance="0,0">
+			<Avatar id="MyAvatar" />
+		</Item>
+	</Visitables>
+
+
+	<Ownerable>
+		<Item type="VC_MAGICNODE" scout="5" entrance="0,0">
+			<Modifier type="MAGIC_PNT" value="1" rate="1" />
+			<Avatar id="MyAvatar" />
+		</Item>
+	</Ownerable>
+-->
+
+
+<!-- Avatars -->
+<Avatars>
+	<Item id="dirt_crack_1" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_1" level="0" />
+	</Item>
+	<Item id="dirt_crack_2" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_2" level="0" />
+	</Item>
+	<Item id="dirt_crack_3" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_3" level="0" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+	</Item>
+	<Item id="dirt_crack_4" name="OBJ_CRACK">
+		<Sprite id="decals.dirt_crack_4" level="0" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="grass_crack_1" name="OBJ_CRACK">
+		<Sprite id="decals.grass_crack_1" level="0" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="skeleton" name="OBJ_SKELETON">
+		<Sprite id="decals.skeleton" />
+	</Item>
+
+	<Item id="flowers_1" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_1" level="0" />
+	</Item>
+	<Item id="flowers_2" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_2" level="0" />
+	</Item>
+	<Item id="flowers_3" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_3" />
+	</Item>
+	<Item id="flowers_4" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_4" />
+	</Item>
+	<Item id="flowers_5" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_5" />
+	</Item>
+	<Item id="flowers_6" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="flowers_7" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_7" level="0"/>
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="flowers_8" name="OBJ_FLOWERS">
+		<Sprite id="decals.flowers_8" />
+	</Item>
+
+	<Item id="mushrooms_1" name="OBJ_MUSHROOMS">
+		<Sprite id="decals.mushrooms_1" level="0" />
+	</Item>
+
+	<Item id="hole_01" name="OBJ_HOLE">
+		<Sprite id="common.holes_0000" level="0" />
+	</Item>
+	<Item id="hole_02" name="OBJ_HOLE">
+		<Sprite id="common.holes_0001" level="0" />
+	</Item>
+	<Item id="hole_03" name="OBJ_HOLE">
+		<Sprite id="common.holes_0002" level="0" />
+	</Item>
+	<Item id="hole_04" name="OBJ_HOLE">
+		<Sprite id="common.holes_0003" level="0" />
+	</Item>
+	<Item id="hole_05" name="OBJ_HOLE">
+		<Sprite id="common.holes_0004" level="0" />
+	</Item>
+
+	<Item id="lake_1" name="SURF_LAKE">
+		<Sprite id="decals.lake_1" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="lake_2" name="SURF_LAKE">
+		<Sprite id="decals.lake_2" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+
+	<Item id="lava_1" name="SURF_LAVA">
+		<Sprite id="decals.lava_1" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="lava_2" name="SURF_LAVA">
+		<Sprite id="decals.lava_2" level="0" />
+		<PassModifier offset="-2,-2" value="-1" />
+		<PassModifier offset="-1,-2" value="-1" />
+		<PassModifier offset="0,-2" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-2,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="lava_3" name="SURF_LAVA">
+		<Sprite id="decals.lava_3" level="0" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="lake_01" name="OBJ_LAKE">
+		<Sprite id="decals.lake_01" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="mire_01" name="SURF_SWAMP">
+		<Sprite id="decals.mire_01" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mire_02" name="SURF_SWAMP">
+		<Sprite id="decals.mire_02" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mire_03" name="SURF_SWAMP">
+		<Sprite id="decals.mire_03" level="0" />
+		<PassModifier offset="-2,-2" value="-1" />
+		<PassModifier offset="-1,-2" value="-1" />
+		<PassModifier offset="0,-2" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+		<PassModifier offset="-2,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="rocks_1" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_1" level="0" />
+	</Item>
+	<Item id="rocks_2" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_3" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_4" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_5" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_6" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_7" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_7" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_8" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_8" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_9" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_9" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_10" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_10" />
+	</Item>
+	<Item id="rocks_11" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_11" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_12" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_12" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_13" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_13" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_14" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_14" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_15" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_15" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_16" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_16" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_17" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_17" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="rocks_18" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_18" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_19" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_19" level="0" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="rocks_20" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_20" level="0" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="rocks_21" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_21" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_22" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_22" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_23" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_23" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_24" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_24" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="rocks_25" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_25" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_26" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_26" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_27" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_27" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_28" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_28" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_29" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_29" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_30" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_30" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rocks_31" name="OBJ_ROCK">
+		<Sprite id="decals.rocks_31" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="stumbs_1" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_1" />
+	</Item>
+	<Item id="stumbs_2" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_2" />
+	</Item>
+	<Item id="stumbs_3" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_3" />
+	</Item>
+	<Item id="stumbs_4" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_1" offset="0,-7" />
+		<Sprite id="decals.stumbs_2" offset="-6,2" />
+		<Sprite id="decals.stumbs_3" offset="12,-2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stumbs_5" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_4" />
+	</Item>
+	<Item id="stumbs_6" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stumbs_7" name="OBJ_STUMB">
+		<Sprite id="decals.stumbs_6" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="log_1" name="OBJ_LOG">
+		<Sprite id="decals.log_1" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="bush_1" name="OBJ_BUSH">
+		<Sprite id="trees.bush_1" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="cactus_1" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_2" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_3" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_4" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_5" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_6" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_7" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_7" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_m1" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_6" offset="-6,2" />
+		<Sprite id="trees.cactus_5" offset="4,0" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cactus_m2" name="OBJ_CACTUS">
+		<Sprite id="trees.cactus_5" offset="-6,-2" />
+		<Sprite id="trees.cactus_6" offset="5,1" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="palms_1" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_2" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_3" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_4" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_5" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_6" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_1" offset="2,0" />
+		<Sprite id="trees.palms_2" offset="-2,0" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_7" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_8" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_7" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="palms_9" name="OBJ_PALMTREE">
+		<Sprite id="trees.palms_8" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="pines_1" name="OBJ_PINETREE">
+		<Sprite id="trees.pines_1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="pines_2" name="OBJ_PINETREE">
+		<Sprite id="trees.pines_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="pines_3" name="OBJ_PINETREE">
+		<Sprite id="trees.pines_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="pines_4" name="OBJ_PINETREE">
+		<Sprite id="trees.pines_4" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="trees_1" name="OBJ_OAKTREE">
+		<Sprite id="trees.trees_1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_2" name="OBJ_OAKTREE">
+		<Sprite id="trees.trees_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_3" name="OBJ_OAKTREE">
+		<Sprite id="trees.trees_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_4" name="OBJ_OAKTREE">
+		<Sprite id="trees.trees_4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_5" name="OBJ_OAKTREE">
+		<Sprite id="trees.trees_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_6" name="OBJ_TREES">
+		<Sprite id="trees.trees_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_7" name="OBJ_TREES">
+		<Sprite id="trees.trees_7" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_8" name="OBJ_TREES">
+		<Sprite id="trees.trees_8" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trees_9" name="OBJ_TREES">
+		<Sprite id="trees.trees_9" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="dplants_1" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_2" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_3" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_4" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_5" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_6" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_6" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_7" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_7" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_8" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_8" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_9" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_9" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_10" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_10" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_11" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_11" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_12" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_12" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_13" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_13" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dplants_14" name="OBJ_DEADTREE">
+		<Sprite id="trees.dplants_14" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<!--===============================================-->
+	<Item id="mountains_1" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_1" />
+		<PassModifier offset="-2,-2" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+		<PassModifier offset="-2,0" value="-1" />
+		<PassModifier offset="-1,-2" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-2" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_1_1" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_1_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="mountains_1_2" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_1_2" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+	</Item>
+	<Item id="mountains_1_3" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_1_3" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="mountains_2" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_2" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_3" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="mountains_4" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_4" />
+		<PassModifier offset="-2,-2" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+		<PassModifier offset="-2,0" value="-1" />
+		<PassModifier offset="-1,-2" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-2" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_4_1" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_4_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="mountains_4_2" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_4_2" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+	</Item>
+	<Item id="mountains_4_3" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_4_3" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="mountains_5" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_5" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_6" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_6" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_7" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_7" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_8" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_8" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_9" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_9" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_10" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_10" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="volcano_1" name="OBJ_VOLCANO">
+		<Sound id="volcano" />
+		<Sprite id="mountains.volcano_1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="volcano_2" name="OBJ_VOLCANO">
+		<Sound id="volcano" />
+		<Sprite id="mountains.volcano_2" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="volcano_3" name="OBJ_VOLCANO">
+		<Sound id="volcano" />
+		<Sprite id="mountains.volcano_3" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="volcano_4" name="OBJ_VOLCANO">
+		<Sound id="volcano" />
+		<Sprite id="mountains.volcano_4" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="volcano_5" name="OBJ_VOLCANO">
+		<Sound id="volcano" />
+		<Sprite id="mountains.volcano_5" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="mountains_swamp1_1" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_swamp1_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="mountains_swamp1_2" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_swamp1_2" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+	</Item>
+	<Item id="mountains_swamp1_3" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_swamp1_3" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_11" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_11" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_12" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_12" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_13" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_13" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_14" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_14" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mountains_15_1" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_15_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="mountains_15_2" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_15_2" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-2,-1" value="-1" />
+	</Item>
+	<Item id="mountains_15_3" name="OBJ_MOUNTAIN">
+		<Sprite id="mountains.mountains_15_3" />
+		<PassModifier offset="2,2" value="-1" />
+	</Item>
+
+
+	<!--===============================================-->
+	<SeqItem id="randctl_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.randctl_wall" />
+	<SeqItem id="citadel_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.citadel_wall" />
+	<SeqItem id="stronghold_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.stronghold_wall" />
+	<SeqItem id="tower_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.tower_wall" />
+	<SeqItem id="dungeon_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.dungeon_wall" />
+	<SeqItem id="fortress_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.fortress_wall" />
+	<SeqItem id="necropolis_wall" name="OBJ_WALL" sequence="16" passModifier="-1" spriteSeq="path_elements.necropolis_wall" />
+	<SeqItem id="stone_road" name="OBJ_ROAD_STONE" sequence="16" passModifier="4" spriteSeq="path_elements.stone_road" level="0" />
+	<SeqItem id="dirt_road" name="OBJ_ROAD_DIRT" sequence="16" passModifier="4" spriteSeq="path_elements.dirt_road" level="0" />
+	<SeqItem id="snow_road" name="OBJ_ROAD_SNOW" sequence="16" passModifier="4" spriteSeq="path_elements.snow_road" level="0" />
+	<SeqItem id="river" name="OBJ_RIVER" sequence="16" passModifier="8" spriteSeq="path_elements.river" level="0" />
+	<SeqItem id="lava_river" name="OBJ_LAVA_RIVER" sequence="16" passModifier="8" spriteSeq="path_elements.lava_river" level="0" />
+	<!--===============================================-->
+
+	<Item id="citadel_stower">
+		<Sprite id="constructions.citadel_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-45" />
+	</Item>
+	<Item id="citadel_mtower">
+		<Sprite id="constructions.citadel_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-53" />
+	</Item>
+	<Item id="citadel_ltower">
+		<Sprite id="constructions.citadel_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-70" />
+	</Item>
+	<Item id="citadel_ll">
+		<Sprite id="constructions.citadel_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_lr">
+		<Sprite id="constructions.citadel_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_rl">
+		<Sprite id="constructions.citadel_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_rr">
+		<Sprite id="constructions.citadel_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="citadel_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="stronghold_stower">
+		<Sprite id="constructions.stronghold_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-45" />
+	</Item>
+	<Item id="stronghold_mtower">
+		<Sprite id="constructions.stronghold_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-51" />
+	</Item>
+	<Item id="stronghold_ltower">
+		<Sprite id="constructions.stronghold_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="2,-75" />
+	</Item>
+	<Item id="stronghold_ll">
+		<Sprite id="constructions.stronghold_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_lr">
+		<Sprite id="constructions.stronghold_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_rl">
+		<Sprite id="constructions.stronghold_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_rr">
+		<Sprite id="constructions.stronghold_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stronghold_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="tower_stower">
+		<Sprite id="constructions.tower_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-62" />
+	</Item>
+	<Item id="tower_mtower">
+		<Sprite id="constructions.tower_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-70" />
+	</Item>
+	<Item id="tower_ltower">
+		<Sprite id="constructions.tower_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-82" />
+	</Item>
+	<Item id="tower_ll">
+		<Sprite id="constructions.tower_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_lr">
+		<Sprite id="constructions.tower_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_rl">
+		<Sprite id="constructions.tower_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_rr">
+		<Sprite id="constructions.tower_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tower_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="dungeon_stower">
+		<Sprite id="constructions.dungeon_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-36" />
+	</Item>
+	<Item id="dungeon_mtower">
+		<Sprite id="constructions.dungeon_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-56" />
+	</Item>
+	<Item id="dungeon_ltower">
+		<Sprite id="constructions.dungeon_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-57" />
+	</Item>
+	<Item id="dungeon_ll">
+		<Sprite id="constructions.dungeon_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_lr">
+		<Sprite id="constructions.dungeon_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_rl">
+		<Sprite id="constructions.dungeon_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_rr">
+		<Sprite id="constructions.dungeon_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dungeon_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="fortress_stower">
+		<Sprite id="constructions.fortress_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-60" />
+	</Item>
+	<Item id="fortress_mtower">
+		<Sprite id="constructions.fortress_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-68" />
+	</Item>
+	<Item id="fortress_ltower">
+		<Sprite id="constructions.fortress_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-80" />
+	</Item>
+	<Item id="fortress_ll">
+		<Sprite id="constructions.fortress_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_lr">
+		<Sprite id="constructions.fortress_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_rl">
+		<Sprite id="constructions.fortress_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_rr">
+		<Sprite id="constructions.fortress_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fortress_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="necropolis_stower">
+		<Sprite id="constructions.necropolis_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-60" />
+	</Item>
+	<Item id="necropolis_mtower">
+		<Sprite id="constructions.necropolis_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-68" />
+	</Item>
+	<Item id="necropolis_ltower">
+		<Sprite id="constructions.necropolis_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-80" />
+	</Item>
+	<Item id="necropolis_ll">
+		<Sprite id="constructions.necropolis_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_lr">
+		<Sprite id="constructions.necropolis_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_rl">
+		<Sprite id="constructions.necropolis_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_rr">
+		<Sprite id="constructions.necropolis_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="necropolis_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="randctl_stower">
+		<Sprite id="constructions.randctl_stower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-60" />
+	</Item>
+	<Item id="randctl_mtower">
+		<Sprite id="constructions.randctl_mtower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-68" />
+	</Item>
+	<Item id="randctl_ltower">
+		<Sprite id="constructions.randctl_ltower" />
+		<PassModifier value="-1" />
+		<Flag offset="3,-80" />
+	</Item>
+	<Item id="randctl_ll">
+		<Sprite id="constructions.randctl_ll" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_lr">
+		<Sprite id="constructions.randctl_lr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_rl">
+		<Sprite id="constructions.randctl_rl" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_rr">
+		<Sprite id="constructions.randctl_rr" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_lent">
+		<Sprite id="path_elements.dirt_road_0005" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_rent">
+		<Sprite id="path_elements.dirt_road_0010" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="randctl_square">
+		<Sprite id="path_elements.dirt_road_0015" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<!--===============================================-->
+	<Item id="stone_well" name="OBJ_STONEWELL">
+		<Sprite id="constructions.stone_well" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stone_well_snow" name="OBJ_STONEWELL">
+		<Sprite id="constructions.stone_well_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport1">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport2">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport3">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_red_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_red_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_red_ext">
+		<Sprite id="constructions.teleport_red_ext" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_green_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_green_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_green_ext">
+		<Sprite id="constructions.teleport_green_ext" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_blue_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_blue_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_blue_ext">
+		<Sprite id="constructions.teleport_blue_ext" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_cyan_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_cyan_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_cyan_ext">
+		<Sprite id="constructions.teleport_cyan_ext" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_magenta_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_magenta_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_magenta_ext">
+		<Sprite id="constructions.teleport_magenta_ext" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_yellow_ent">
+		<Sound id="teleport"/>
+		<Sprite id="constructions.teleport_yellow_ent" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="teleport_yellow_ext">
+		<Sprite id="constructions.teleport_yellow_ext" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="tent_red">
+		<Sprite id="constructions.tent_red" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_red_snow">
+		<Sprite id="constructions.tent_red_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_green">
+		<Sprite id="constructions.tent_green" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_green_snow">
+		<Sprite id="constructions.tent_green_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_blue">
+		<Sprite id="constructions.tent_blue" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_blue_snow">
+		<Sprite id="constructions.tent_blue_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_cyan">
+		<Sprite id="constructions.tent_cyan" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_cyan_snow">
+		<Sprite id="constructions.tent_cyan_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_magenta">
+		<Sprite id="constructions.tent_magenta" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_magenta_snow">
+		<Sprite id="constructions.tent_magenta_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_yellow">
+		<Sprite id="constructions.tent_yellow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tent_yellow_snow">
+		<Sprite id="constructions.tent_yellow_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="gazebo">
+		<Sprite id="constructions.gazebo" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="gazebo_snow">
+		<Sprite id="constructions.gazebo_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine1">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine1_snow">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine1_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine2">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine2_snow">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine2_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine3">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="shrine3_snow">
+		<Sound id="shrine" />
+		<Sprite id="constructions.shrine3_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="stables_1">
+		<Sound id="stables" />
+		<Sprite id="constructions.stables_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="+1,0" value="-1" />
+	</Item>
+	<Item id="stables_2">
+		<Sprite id="constructions.stables_2" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="stables_snow_1">
+		<Sound id="stables" />
+		<Sprite id="constructions.stables_snow_1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="+1,0" value="-1" />
+	</Item>
+	<Item id="stables_snow_2">
+		<Sprite id="constructions.stables_snow_2" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+
+	<Item id="idol">
+		<Sprite id="constructions.idol" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="idol_snow">
+		<Sprite id="constructions.idol_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fountain">
+		<Sprite id="constructions.fountain" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fountain_snow">
+		<Sprite id="constructions.fountain_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="magic_spring">
+		<Sprite id="constructions.magic_spring" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="temple">
+		<Sprite id="constructions.temple" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sword_in_the_stone">
+		<Sprite id="constructions.sword_in_the_stone" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sword_in_the_stone_snow">
+		<Sprite id="constructions.sword_in_the_stone_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="fort">
+		<Sprite id="constructions.fort" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="fort_snow">
+		<Sprite id="constructions.fort_snow" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="library">
+		<Sprite id="constructions.library" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="library_snow">
+		<Sprite id="constructions.library_snow" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="blacksmith">
+		<Sound id="blacksmith" />
+		<Sprite id="constructions.blacksmith" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="blacksmith_snow">
+		<Sound id="blacksmith" />
+		<Sprite id="constructions.blacksmith_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stone_henge">
+		<Sound id="shrine" />
+		<Sprite id="constructions.magic_stone" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stone_henge_snow">
+		<Sound id="shrine" />
+		<Sprite id="constructions.magic_stone_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stone_henge_new">
+		<Sound id="shrine" />
+		<Sprite id="constructions.stone_henge" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="stone_henge_snow_new">
+		<Sound id="shrine" />
+		<Sprite id="constructions.stone_henge_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="prophets_statue">
+		<Sound id="shrine" />
+		<Sprite id="constructions.prophets_statue" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="prophets_statue_snow">
+		<Sound id="shrine" />
+		<Sprite id="constructions.prophets_statue_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="arena_1">
+		<Sound id="arena" />
+		<Sprite id="constructions.arena_1" />
+		<PassModifier offset="1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="-1,-2" value="-1" />
+	</Item>
+	<Item id="arena_2">
+		<Sprite id="constructions.arena_2" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+
+	<Item id="obelisk1">
+		<Sprite id="constructions.obelisk1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="obelisk2">
+		<Sprite id="constructions.obelisk2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="obelisk1_snow">
+		<Sprite id="constructions.obelisk1_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="obelisk2_snow">
+		<Sprite id="constructions.obelisk2_snow" />
+		<PassModifier value="-2" />
+	</Item>
+	<Item id="obelisk3_snow">
+		<Sprite id="constructions.obelisk3_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="wooden_sign1" name="OBJ_WOODENSIGN">
+		<Sprite id="constructions.wooden_sign1" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="wooden_sign2" name="OBJ_WOODENSIGN">
+		<Sprite id="constructions.wooden_sign2" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="wooden_sign3" name="OBJ_WOODENSIGN">
+		<Sprite id="constructions.wooden_sign3" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="wooden_sign4" name="OBJ_WOODENSIGN">
+		<Sprite id="constructions.wooden_sign4" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="wooden_sign5" name="OBJ_WOODENSIGN">
+		<Sprite id="constructions.wooden_sign5" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="obs_tower3">
+		<Sprite id="constructions.obs_tower3" />
+		<Flag offset="2,-85" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="obs_tower3_snow">
+		<Sprite id="constructions.obs_tower3_snow" />
+		<Flag offset="2,-85" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="garden_of_revelation">
+		<Sprite id="constructions.garden_of_revelation" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="witch_hut">
+		<Sprite id="constructions.witch_hut" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="witch_hut_snow">
+		<Sprite id="constructions.witch_hut_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="tree_of_knowledge">
+		<Sprite id="constructions.tree_of_knowledge" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="monolith_snow">
+		<Sprite id="constructions.monolith_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="monolith_waste">
+		<Sprite id="constructions.monolith_waste" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="windmill">
+		<Sprite id="constructions.windmill" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="windmill_snow">
+		<Sprite id="constructions.windmill_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<!-- Treasuries -->
+	<Item id="shipwreck">
+		<Sprite id="constructions.shipwreck" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="ice_cave">
+		<Sprite id="constructions.ice_cave" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="pyramid">
+		<Sprite id="constructions.pyramid" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="maya_pyramid">
+		<Sprite id="constructions.maya_pyramid" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="gargoyles_treasury">
+		<Sprite id="constructions.gargoyles_treasury" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="gargoyles_treasury_snow">
+		<Sprite id="constructions.gargoyles_treasury_snow" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="hydras_treasury">
+		<Sprite id="constructions.hydras_treasury" level="0"/>
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+	</Item>
+	<Item id="medusas_treasury">
+		<Sprite id="constructions.medusas_treasury" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="medusas_treasury_snow">
+		<Sprite id="constructions.medusas_treasury_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="ogres_treasury">
+		<Sprite id="constructions.ogres_treasury" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="ogres_treasury_snow">
+		<Sprite id="constructions.ogres_treasury_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="mages_treasury">
+		<Sprite id="constructions.mages_treasury" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="mages_treasury_snow">
+		<Sprite id="constructions.mages_treasury_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="druids_treasury">
+		<Sprite id="constructions.druids_treasury" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="druids_treasury_snow">
+		<Sprite id="constructions.druids_treasury_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+<!--
+	<Item id="mage_citadel">
+		<Sprite id="constructions.mage_citadel" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+-->
+
+	<!-- Dwellings -->
+	<Item id="peasants_hut">
+		<Sprite id="constructions.peasants_hut" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="peasants_hut_snow">
+		<Sprite id="constructions.peasants_hut_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="archers_hut">
+		<Sound id="archers_hut" />
+		<Sprite id="constructions.archers_hut" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="archers_hut_snow">
+		<Sound id="archers_hut" />
+		<Sprite id="constructions.archers_hut_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="halflings_hut">
+		<Sprite id="constructions.halflings_hut" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="halflings_hut_snow">
+		<Sprite id="constructions.halflings_hut_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="centaurs_cave">
+		<Sprite id="constructions.centaurs_cave" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="centaurs_cave_snow">
+		<Sprite id="constructions.centaurs_cave_snow" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="crypt">
+		<Sprite id="constructions.crypt" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="crypt_snow">
+		<Sprite id="constructions.crypt_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="hydra_pond">
+		<Sound id="hydra_pond" />
+		<Sprite id="constructions.hydra_pond" level="0"/>
+		<PassModifier offset="-2,-1" value="-1" />
+		<PassModifier offset="-2,0" value="-1" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="goblins_hut">
+		<Sprite id="constructions.goblins_hut" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="goblins_hut_snow">
+		<Sprite id="constructions.goblins_hut_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="treehouse">
+		<Sprite id="constructions.treehouse" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="watch_tower">
+		<Sprite id="constructions.watch_tower" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="watch_tower_snow">
+		<Sprite id="constructions.watch_tower_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="boars_pen">
+		<Sprite id="constructions.boars_pen" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="boars_pen_snow">
+		<Sprite id="constructions.boars_pen_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="boars_pen_pinfold">
+		<Sprite id="constructions.boars_pen_pinfold" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dwarf_cottage">
+		<Sprite id="constructions.dwarf_cottage" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="dwarf_cottage_snow">
+		<Sprite id="constructions.dwarf_cottage_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="ogres_adobe">
+		<Sprite id="constructions.ogres_adobe" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="golem_foundry">
+		<Sprite id="constructions.golem_foundry" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="golem_foundry_snow">
+		<Sprite id="constructions.golem_foundry_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="coffin">
+		<Sprite id="constructions.coffin" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trinity">
+		<Sprite id="constructions.trinity" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="trinity_snow">
+		<Sprite id="constructions.trinity_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="elven_homestead">
+		<Sprite id="constructions.elven_homestead" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="elven_homestead_snow">
+		<Sprite id="constructions.elven_homestead_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="warg_cave">
+		<Sprite id="constructions.warg_cave" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="warg_cave_snow">
+		<Sprite id="constructions.warg_cave_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="guard_tower">
+		<Sprite id="constructions.guard_tower" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="guard_tower_snow">
+		<Sprite id="constructions.guard_tower_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="griffin_nest">
+		<Sprite id="constructions.griffin_nest" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="mage_tower">
+		<Sprite id="constructions.mage_tower" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="swordsman_armory">
+		<Sprite id="constructions.swordsman_armory" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="swordsman_armory_snow">
+		<Sprite id="constructions.swordsman_armory_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+
+	<Item id="excavation_dirt">
+		<Sprite id="constructions.excavation_dirt" level="0"/>
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="excavation_sand">
+		<Sprite id="constructions.excavation_sand" level="0"/>
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="excavation_snow">
+		<Sprite id="constructions.excavation_snow" level="0"/>
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cemetery">
+		<Sound id="haunted_house" />
+		<Sprite id="constructions.cemetery" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cemetery_snow">
+		<Sound id="haunted_house" />
+		<Sprite id="constructions.cemetery_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="cemetery_sand">
+		<Sprite id="constructions.cemetery_sand" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="medusa_temple">
+		<Sprite id="constructions.medusa_temple" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rogue_wagon">
+		<Sprite id="constructions.rogue_wagon" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="rogue_wagon_snow">
+		<Sprite id="constructions.rogue_wagon_snow" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="desert_tent">
+		<Sprite id="constructions.desert_tent" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="haunted_house">
+		<Sound id="haunted_house" />
+		<Sprite id="constructions.haunted_house" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="haunted_house_snow">
+		<Sprite id="constructions.haunted_house_snow" />
+		<PassModifier value="-1" />
+	</Item>
+
+	<Item id="dummy">
+		<Sprite id="constructions.dummy" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="monk_abbey">
+		<Sprite id="constructions.monk_abbey" />
+		<PassModifier value="-1" />
+	</Item>		
+
+	<Item id="monk_abbey_snow">
+		<Sprite id="constructions.monk_abbey_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="mausoleum">
+		<Sprite id="constructions.mausoleum" />
+		<PassModifier value="-1" />
+	</Item>		
+
+	<Item id="mausoleum_snow">
+		<Sprite id="constructions.mausoleum_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="magic_school">
+		<Sprite id="constructions.magic_school" />
+		<PassModifier value="-1" />
+	</Item>		
+
+	<Item id="magic_school_snow">
+		<Sprite id="constructions.magic_school_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="pegasus_waterfall">
+		<Sprite id="constructions.pegasus_waterfall" />
+		<PassModifier value="-1" />
+	</Item>		
+
+	<Item id="pegasus_waterfall_snow">
+		<Sprite id="constructions.pegasus_waterfall_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="white_wolf_den">
+		<Sprite id="constructions.white_wolf_den" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<Item id="white_wolf_den_snow">
+		<Sprite id="constructions.white_wolf_den_snow" />
+		<PassModifier value="-1" />
+	</Item>		
+
+
+	<!-- Mines -->
+	<Item id="mine_mountain">
+		<Sprite id="mines.mountain" />
+		<Sprite id="mines.entrance" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="1,0" value="-1" />
+		<Flag offset="10,-19" />
+	</Item>
+	<Item id="mine_mountain_lava">
+		<Sprite id="mines.mountain_lava" />
+		<Sprite id="mines.entrance" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="1,0" value="-1" />
+		<Flag offset="10,-19" />
+	</Item>
+	<Item id="mine_mountain_swamp">
+		<Sprite id="mines.mountain_swamp" />
+		<Sprite id="mines.entrance" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="1,0" value="-1" />
+		<Flag offset="10,-19" />
+	</Item>
+	<Item id="mine_mountain_snow">
+		<Sprite id="mines.mountain_snow" />
+		<Sprite id="mines.entrance" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="1,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<PassModifier offset="1,0" value="-1" />
+		<Flag offset="10,-19" />
+	</Item>
+	<Item id="mine_sign">
+		<Sound id="mine" />
+		<Sprite id="mines.sign" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mine_gold_truck">
+		<Sound id="mine" />
+		<Sprite id="mines.rails" level="0" />
+		<Sprite id="mines.gold_truck" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mine_gems_truck">
+		<Sound id="mine" />
+		<Sprite id="mines.rails" level="0" />
+		<Sprite id="mines.gems_truck" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mine_crystal_truck">
+		<Sound id="mine" />
+		<Sprite id="mines.rails" level="0" />
+		<Sprite id="mines.crystal_truck" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mine_sulfur_truck">
+		<Sound id="mine" />
+		<Sprite id="mines.rails" level="0" />
+		<Sprite id="mines.sulfur_truck" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="mine_ore_pit">
+		<Sound id="mine" />
+		<Sprite id="mines.ore_pit" level="0" />
+		<Sprite id="mines.sign" offset="0,8" />
+		<Sprite id="mines.ore_flag" />
+		<PassModifier offset="-1,-1" value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+		<PassModifier offset="-1,0" value="-1" />
+		<PassModifier offset="0,0" value="-1" />
+		<Flag offset="-14,-12" />
+	</Item>
+	<Item id="mine_ore_lift">
+		<Sprite id="mines.ore_lift" />
+		<PassModifier offset="0,0" value="-1" />
+	</Item>
+	<Item id="alch_lab_entrance">
+		<Sound id="alch_lab" />
+		<Sprite id="mines.alch_lab_road" level="0" />
+		<Sprite id="mines.sign" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="alch_lab_vat">
+		<Sprite id="mines.alch_lab_vat" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="alch_lab_barrel">
+		<Sound id="alch_lab" />
+		<Sprite id="mines.alch_lab_barrel" />
+		<Flag offset="0,-48" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sawmill_entrance">
+		<Sound id="sawmill" />
+		<Sprite id="mines.sawmill_road" level="0" />
+		<Sprite id="mines.sign" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sawmill_trees1">
+		<Sprite id="trees.trees_4" offset="-4,-2" />
+		<Sprite id="decals.stumbs_4" offset="-9,-1" />
+		<Sprite id="decals.stumbs_4" offset="5,0" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sawmill_trees2">
+		<Sprite id="trees.trees_5" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sawmill_cart">
+		<Sprite id="mines.sawmill_cart" />
+		<PassModifier value="-1" />
+	</Item>
+	<Item id="sawmill">
+		<Sound id="sawmill" />
+		<Sprite id="mines.sawmill" />
+		<Flag offset="-5,-30" />
+		<PassModifier value="-1" />
+		<PassModifier offset="0,-1" value="-1" />
+	</Item>
+</Avatars>
+
+<!-- Combat obstacles -->
+<CombatObstacles>
+	<Item sprite="decals.rocks_3" offset="2,1" size="2" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.rocks_5" offset="-9,1" size="1" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.rocks_6" offset="2,1" size="2" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.rocks_12" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+	</Item>
+	<Item sprite="decals.rocks_13" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+	</Item>
+	<Item sprite="decals.rocks_14" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+	</Item>
+	<Item sprite="decals.rocks_15" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+	</Item>
+	<Item sprite="decals.rocks_16" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+	</Item>
+	<Item sprite="decals.rocks_27" offset="2,1" size="2" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.flowers_4" offset="2,1" size="2" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.flowers_5" offset="-9,1" size="1" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="decals.flowers_6" offset="-9,1" size="1" level="1">
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="trees.cactus_2" offset="-9,1" size="1" level="1">
+		<Surf id="WASTELAND" />
+		<Surf id="DESERT" />
+		<Surf id="NDESERT" />
+	</Item>
+	<Item sprite="trees.cactus_4" offset="2,1" size="2" level="1">
+		<Surf id="WASTELAND" />
+		<Surf id="DESERT" />
+		<Surf id="NDESERT" />
+	</Item>
+	<Item sprite="trees.trees_4" offset="-9,1" size="1" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+	</Item>
+	<Item sprite="trees.trees_5" offset="-9,1" size="1" level="1">
+		<Surf id="DIRT" />
+		<Surf id="GRASS" />
+	</Item>
+	<Item sprite="trees.palms_6" offset="2,1" size="2" level="1">
+		<Surf id="SAND" />
+		<Surf id="DESERT" />
+		<Surf id="NDESERT" />
+	</Item>
+	<Item sprite="trees.palms_7" offset="2,1" size="2" level="1">
+		<Surf id="SAND" />
+		<Surf id="DESERT" />
+		<Surf id="NDESERT" />
+	</Item>
+	<Item sprite="trees.pines_1" offset="2,1" size="2" level="1">
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="trees.pines_2" offset="2,1" size="2" level="1">
+		<Surf id="GRASS" />
+		<Surf id="SWAMP" />
+	</Item>
+	<Item sprite="trees.pines_3" offset="2,1" size="2" level="1">
+		<Surf id="SNOW" />
+	</Item>
+	<Item sprite="trees.pines_4" offset="2,1" size="2" level="1">
+		<Surf id="SNOW" />
+	</Item>
+	<Item sprite="trees.dplants_1" offset="2,1" size="2" level="1">
+		<Surf id="SWAMP" />
+		<Surf id="LAVA" />
+	</Item>
+	<Item sprite="trees.dplants_2" offset="2,1" size="2" level="1">
+		<Surf id="SWAMP" />
+		<Surf id="LAVA" />
+	</Item>
+	<Item sprite="trees.dplants_3" offset="-9,1" size="1" level="1">
+		<Surf id="SWAMP" />
+		<Surf id="LAVA" />
+	</Item>
+	<Item sprite="trees.dplants_4" offset="2,1" size="2" level="1">
+		<Surf id="LAVA" />
+	</Item>
+	<Item sprite="trees.dplants_5" offset="2,1" size="2" level="1">
+		<Surf id="LAVA" />
+	</Item>
+	<Item sprite="trees.dplants_9" offset="2,1" size="2" level="1">
+		<Surf id="SNOW" />
+	</Item>
+	<Item sprite="trees.dplants_10" offset="2,1" size="2" level="1">
+		<Surf id="SNOW" />
+	</Item>
+	<Item sprite="trees.dplants_13" offset="2,1" size="2" level="1">
+		<Surf id="SNOW" />
+	</Item>
+</CombatObstacles>
+
+<!-- Decorations -->
+<Decorations>
+	<Group id="Decals">
+		<Item id="dirt_crack_1"> <Avatar id="dirt_crack_1" /> </Item>
+		<Item id="dirt_crack_2"> <Avatar id="dirt_crack_2" /> </Item>
+		<Item id="dirt_crack_3"> <Avatar id="dirt_crack_3" /> </Item>
+		<Item id="dirt_crack_4"> <Avatar id="dirt_crack_4" /> </Item>
+		<Item id="grass_crack_1"> <Avatar id="grass_crack_1" /> </Item>
+		<Item id="skeleton"> <Avatar id="skeleton" /> </Item>
+		<Item id="flowers_1"> <Avatar id="flowers_1" /> </Item>
+		<Item id="flowers_2"> <Avatar id="flowers_2" /> </Item>
+		<Item id="flowers_3"> <Avatar id="flowers_3" /> </Item>
+		<Item id="flowers_4"> <Avatar id="flowers_4" /> </Item>
+		<Item id="flowers_5"> <Avatar id="flowers_5" /> </Item>
+		<Item id="flowers_6"> <Avatar id="flowers_6" /> </Item>
+		<Item id="flowers_7"> <Avatar id="flowers_7" /> </Item>
+		<Item id="flowers_8"> <Avatar id="flowers_8" /> </Item>
+		<Item id="mushrooms_1"> <Avatar id="mushrooms_1" /> </Item>
+		<Item id="hole_01"> <Avatar id="hole_01" /> </Item>
+		<Item id="hole_02"> <Avatar id="hole_02" /> </Item>
+		<Item id="hole_03"> <Avatar id="hole_03" /> </Item>
+		<Item id="hole_04"> <Avatar id="hole_04" /> </Item>
+		<Item id="hole_05"> <Avatar id="hole_05" /> </Item>
+		<Item id="lake_1"> <Avatar id="lake_1" /> </Item>
+		<Item id="lake_2"> <Avatar id="lake_2" /> </Item>
+		<Item id="lava_1"> <Avatar id="lava_1" /> </Item>
+		<Item id="lava_2"> <Avatar id="lava_2" /> </Item>
+		<Item id="lava_3"> <Avatar id="lava_3" /> </Item>
+		<Item id="lake_01"> <Avatar id="lake_01" /> </Item>
+		<Item id="mire_01"> <Avatar id="mire_01" /> </Item>
+		<Item id="mire_02"> <Avatar id="mire_02" /> </Item>
+		<Item id="mire_03"> <Avatar id="mire_03" /> </Item>
+		<Item id="rocks_1"> <Avatar id="rocks_1" /> </Item>
+		<Item id="rocks_2"> <Avatar id="rocks_2" /> </Item>
+		<Item id="rocks_3"> <Avatar id="rocks_3" /> </Item>
+		<Item id="rocks_4"> <Avatar id="rocks_4" /> </Item>
+		<Item id="rocks_5"> <Avatar id="rocks_5" /> </Item>
+		<Item id="rocks_6"> <Avatar id="rocks_6" /> </Item>
+		<Item id="rocks_7"> <Avatar id="rocks_7" /> </Item>
+		<Item id="rocks_8"> <Avatar id="rocks_8" /> </Item>
+		<Item id="rocks_9"> <Avatar id="rocks_9" /> </Item>
+		<Item id="rocks_10"> <Avatar id="rocks_10" /> </Item>
+		<Item id="rocks_11"> <Avatar id="rocks_11" /> </Item>
+		<Item id="rocks_12"> <Avatar id="rocks_12" /> </Item>
+		<Item id="rocks_13"> <Avatar id="rocks_13" /> </Item>
+		<Item id="rocks_14"> <Avatar id="rocks_14" /> </Item>
+		<Item id="rocks_15"> <Avatar id="rocks_15" /> </Item>
+		<Item id="rocks_16"> <Avatar id="rocks_16" /> </Item>
+		<Item id="rocks_17"> <Avatar id="rocks_17" /> </Item>
+		<Item id="rocks_18"> <Avatar id="rocks_18" /> </Item>
+		<Item id="rocks_19"> <Avatar id="rocks_19" /> </Item>
+		<Item id="rocks_20"> <Avatar id="rocks_20" /> </Item>
+		<Item id="rocks_21"> <Avatar id="rocks_21" /> </Item>
+		<Item id="rocks_22"> <Avatar id="rocks_22" /> </Item>
+		<Item id="rocks_23"> <Avatar id="rocks_23" /> </Item>
+		<Item id="rocks_24"> <Avatar id="rocks_24" /> </Item>
+		<Item id="rocks_25"> <Avatar id="rocks_25" /> </Item>
+		<Item id="rocks_26"> <Avatar id="rocks_26" /> </Item>
+		<Item id="rocks_27"> <Avatar id="rocks_27" /> </Item>
+		<Item id="rocks_28"> <Avatar id="rocks_28" /> </Item>
+		<Item id="rocks_29"> <Avatar id="rocks_29" /> </Item>
+		<Item id="rocks_30"> <Avatar id="rocks_30" /> </Item>
+		<Item id="rocks_31"> <Avatar id="rocks_31" /> </Item>
+		<Item id="stumbs_1"> <Avatar id="stumbs_1" /> </Item>
+		<Item id="stumbs_2"> <Avatar id="stumbs_2" /> </Item>
+		<Item id="stumbs_3"> <Avatar id="stumbs_3" /> </Item>
+		<Item id="stumbs_4"> <Avatar id="stumbs_4" /> </Item>
+		<Item id="stumbs_5"> <Avatar id="stumbs_5" /> </Item>
+		<Item id="stumbs_6"> <Avatar id="stumbs_6" /> </Item>
+		<Item id="stumbs_7"> <Avatar id="stumbs_7" /> </Item>
+		<Item id="log_1"> <Avatar id="log_1" /> </Item>
+	</Group>
+	<Group id="Plants">
+		<Item id="bush_1"> <Avatar id="bush_1" /> </Item>
+		<Item id="cactus_1"> <Avatar id="cactus_1" /> </Item>
+		<Item id="cactus_2"> <Avatar id="cactus_2" /> </Item>
+		<Item id="cactus_3"> <Avatar id="cactus_3" /> </Item>
+		<Item id="cactus_4"> <Avatar id="cactus_4" /> </Item>
+		<Item id="cactus_5"> <Avatar id="cactus_5" /> </Item>
+		<Item id="cactus_6"> <Avatar id="cactus_6" /> </Item>
+		<Item id="cactus_7"> <Avatar id="cactus_7" /> </Item>
+		<Item id="cactus_m1"> <Avatar id="cactus_m1" /> </Item>
+		<Item id="cactus_m2"> <Avatar id="cactus_m2" /> </Item>
+		<Item id="palms_1"> <Avatar id="palms_1" /> </Item>
+		<Item id="palms_2"> <Avatar id="palms_2" /> </Item>
+		<Item id="palms_3"> <Avatar id="palms_3" /> </Item>
+		<Item id="palms_4"> <Avatar id="palms_4" /> </Item>
+		<Item id="palms_5"> <Avatar id="palms_5" /> </Item>
+		<Item id="palms_6"> <Avatar id="palms_6" /> </Item>
+		<Item id="palms_7"> <Avatar id="palms_7" /> </Item>
+		<Item id="palms_8"> <Avatar id="palms_8" /> </Item>
+		<Item id="palms_9"> <Avatar id="palms_9" /> </Item>
+		<Item id="pines_1"> <Avatar id="pines_1" /> </Item>
+		<Item id="pines_2"> <Avatar id="pines_2" /> </Item>
+		<Item id="pines_3"> 
+			<Avatar offset="-1,-1" id="pines_2" /> 
+			<Avatar offset="0,-1" id="pines_1" /> 
+			<Avatar offset="-1,0" id="pines_2" /> 
+			<Avatar offset="0,0" id="pines_1" /> 
+		</Item>
+		<Item id="pines_4"> <Avatar id="pines_3" /> </Item>
+		<Item id="pines_5"> <Avatar id="pines_4" /> </Item>
+		<Item id="pines_6"> 
+			<Avatar offset="-1,-1" id="pines_4" /> 
+			<Avatar offset="0,-1" id="pines_3" /> 
+			<Avatar offset="-1,0" id="pines_4" /> 
+			<Avatar offset="0,0" id="pines_3" /> 
+		</Item>
+		<Item id="trees_1"> <Avatar id="trees_1" /> </Item>
+		<Item id="trees_2"> <Avatar id="trees_2" /> </Item>
+		<Item id="trees_3"> <Avatar id="trees_3" /> </Item>
+		<Item id="trees_4"> <Avatar id="trees_4" /> </Item>
+		<Item id="trees_5"> <Avatar id="trees_5" /> </Item>
+		<Item id="trees_6"> <Avatar id="trees_6" /> </Item>
+		<Item id="trees_7"> <Avatar id="trees_7" /> </Item>
+		<Item id="trees_8"> <Avatar id="trees_8" /> </Item>
+		<Item id="trees_9"> <Avatar id="trees_9" /> </Item>
+		<Item id="dplants_1"> <Avatar id="dplants_1" /> </Item>
+		<Item id="dplants_2"> <Avatar id="dplants_2" /> </Item>
+		<Item id="dplants_3"> <Avatar id="dplants_3" /> </Item>
+		<Item id="dplants_4"> <Avatar id="dplants_4" /> </Item>
+		<Item id="dplants_5"> <Avatar id="dplants_5" /> </Item>
+		<Item id="dplants_6"> <Avatar id="dplants_6" /> </Item>
+		<Item id="dplants_7"> <Avatar id="dplants_7" /> </Item>
+		<Item id="dplants_8"> <Avatar id="dplants_8" /> </Item>
+		<Item id="dplants_9"> <Avatar id="dplants_9" /> </Item>
+		<Item id="dplants_10"> <Avatar id="dplants_10" /> </Item>
+		<Item id="dplants_11"> <Avatar id="dplants_11" /> </Item>
+		<Item id="dplants_12"> <Avatar id="dplants_12" /> </Item>
+		<Item id="dplants_13"> <Avatar id="dplants_13" /> </Item>
+		<Item id="dplants_14"> <Avatar id="dplants_14" /> </Item>
+	</Group>
+	<Group id="Mountains">
+		<Item id="mountains_1"> <Avatar id="mountains_1" /> </Item>
+		<Item id="mountains_1g"> 
+			<Avatar id="mountains_1_1" offset="0,1" /> 
+			<Avatar id="mountains_1_2" offset="1,0" /> 
+			<Avatar id="mountains_1_3" offset="1,-1" /> 
+		</Item>
+		<Item id="mountains_2"> <Avatar id="mountains_2" /> </Item>
+		<Item id="mountains_3"> <Avatar id="mountains_3" /> </Item>
+		<Item id="mountains_4"> <Avatar id="mountains_4" /> </Item>
+		<Item id="mountains_4g"> 
+			<Avatar id="mountains_4_1" offset="0,1" /> 
+			<Avatar id="mountains_4_2" offset="1,0" /> 
+			<Avatar id="mountains_4_3" offset="1,-1" /> 
+		</Item>
+		<Item id="mountains_5"> <Avatar id="mountains_5" /> </Item>
+		<Item id="mountains_6"> <Avatar id="mountains_6" /> </Item>
+		<Item id="mountains_7"> <Avatar id="mountains_7" /> </Item>
+		<Item id="mountains_8"> <Avatar id="mountains_8" /> </Item>
+		<Item id="mountains_9"> <Avatar id="mountains_9" /> </Item>
+		<Item id="mountains_10"> <Avatar id="mountains_10" /> </Item>
+		<Item id="volcano_1"> <Avatar id="volcano_1" /> </Item>
+		<Item id="volcano_2"> <Avatar id="volcano_2" /> </Item>
+		<Item id="volcano_3"> <Avatar id="volcano_3" /> </Item>
+		<Item id="volcano_4"> <Avatar id="volcano_4" /> </Item>
+		<Item id="volcano_5"> <Avatar id="volcano_5" /> </Item>
+		<Item id="mountains_swamp"> 
+			<Avatar id="mountains_swamp1_1" offset="0,1" /> 
+			<Avatar id="mountains_swamp1_2" offset="1,0" /> 
+			<Avatar id="mountains_swamp1_3" offset="1,-1" /> 
+		</Item>
+		<Item id="mountains_11"> <Avatar id="mountains_11" /> </Item>
+		<Item id="mountains_12"> <Avatar id="mountains_12" /> </Item>
+		<Item id="mountains_13"> <Avatar id="mountains_13" /> </Item>
+		<Item id="mountains_14"> <Avatar id="mountains_14" /> </Item>
+		<!-- doesn't work, let the Robert do the thing -->
+<!--		
+		<Item id="mountains_sand"> 
+			<Avatar id="mountains_15_1" offset="0,1" /> 
+			<Avatar id="mountains_15_2" offset="1,0" /> 
+			<Avatar id="mountains_15_3" offset="-1,-3" />
+		</Item>
+-->
+	</Group>
+</Decorations>
+
+<!-- Path elements (type : 0-wall, 1-road, 2-river)-->
+<PathElements>
+	<Item id="citadel_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.citadel_wall" />
+	<Item id="stronghold_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.stronghold_wall" />
+	<Item id="tower_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.tower_wall" />
+	<Item id="dungeon_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.dungeon_wall" />
+	<Item id="fortress_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.fortress_wall" />
+	<Item id="necropolis_wall" name="OBJ_WALL" type="0" pass="-1" sprite="path_elements.necropolis_wall" />
+	<Item id="stone_road" name="OBJ_ROAD_STONE" type="1" pass="4" level="0" sprite="path_elements.stone_road" />
+	<Item id="dirt_road" name="OBJ_ROAD_DIRT" type="1" pass="4" level="0" sprite="path_elements.dirt_road" />
+	<Item id="snow_road" name="OBJ_ROAD_SNOW" type="1" pass="4" level="0" sprite="path_elements.snow_road" />
+	<Item id="river" name="OBJ_RIVER" type="1" pass="8" level="0" sprite="path_elements.river" />
+	<Item id="lava_river" name="OBJ_LAVA_RIVER" type="1" pass="8" level="0" sprite="path_elements.lava_river" />
+</PathElements>
+
+<!-- Treasures presets -->
+
+<!--
+	Treasures:
+		Crystals + Gold (Ogres)
+		Sulfur + Gold (Minotaurs)
+		Mercury + Gold (Druids)
+		Gems + Gold (Rocs)
+		Crystals + Sulfur + Mercury + Gems (Liches)
+		Artifact + gold (Sceletons + Zombies)
+		Artifacts + gold (Black Draggons)
+-->
+
+<!-- Visitables -->
+<Visitables>
+	<Item id="teleport1" name="OBJ_LIGHTSTONE" msg="VOID"  vmsg="VOID" type="TELEPORT" mode="3" index="1" > 
+		<Avatar id="teleport1"/> 
+	</Item>
+	<Item id="teleport2" name="OBJ_LIGHTSTONE" msg="VOID"  vmsg="VOID" type="TELEPORT" mode="3" index="2" > 
+		<Avatar id="teleport2"/> 
+	</Item>
+	<Item id="teleport3" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="3" index="3" > 
+		<Avatar id="teleport3"/> 
+	</Item>
+	<Item id="teleport_red_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="10" > 
+		<Avatar id="teleport_red_ent"/> 
+	</Item>
+	<Item id="teleport_red_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="10" > 
+		<Avatar id="teleport_red_ext"/> 
+	</Item>
+	<Item id="teleport_green_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="11" > 
+		<Avatar id="teleport_green_ent"/> 
+	</Item>
+	<Item id="teleport_green_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="11" > 
+		<Avatar id="teleport_green_ext"/> 
+	</Item>
+	<Item id="teleport_blue_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="12" > 
+		<Avatar id="teleport_blue_ent"/> 
+	</Item>
+	<Item id="teleport_blue_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="12" > 
+		<Avatar id="teleport_blue_ext"/> 
+	</Item>
+	<Item id="teleport_cyan_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="13" > 
+		<Avatar id="teleport_cyan_ent"/> 
+	</Item>
+	<Item id="teleport_cyan_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="13" > 
+		<Avatar id="teleport_cyan_ext"/> 
+	</Item>
+	<Item id="teleport_magenta_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="14" > 
+		<Avatar id="teleport_magenta_ent"/> 
+	</Item>
+	<Item id="teleport_magenta_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="14" > 
+		<Avatar id="teleport_magenta_ext"/> 
+	</Item>
+	<Item id="teleport_yellow_ent" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="1" index="15" > 
+		<Avatar id="teleport_yellow_ent"/> 
+	</Item>
+	<Item id="teleport_yellow_ext" name="OBJ_LIGHTSTONE" msg="VOID" vmsg="VOID" type="TELEPORT" mode="0" index="15" > 
+		<Avatar id="teleport_yellow_ext"/> 
+	</Item>
+	<Item id="tent_red" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="0" > 
+		<Avatar id="tent_red"/> 
+	</Item>
+	<Item id="tent_red_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="0" > 
+		<Avatar id="tent_red_snow"/> 
+	</Item>
+	<Item id="tent_green" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="1" > 
+		<Avatar id="tent_green"/> 
+	</Item>
+	<Item id="tent_green_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="1" > 
+		<Avatar id="tent_green_snow"/> 
+	</Item>
+	<Item id="tent_blue" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="2" > 
+		<Avatar id="tent_blue"/> 
+	</Item>
+	<Item id="tent_blue_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="2" > 
+		<Avatar id="tent_blue_snow"/> 
+	</Item>
+	<Item id="tent_cyan" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="3" > 
+		<Avatar id="tent_cyan"/> 
+	</Item>
+	<Item id="tent_cyan_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="3" > 
+		<Avatar id="tent_cyan_snow"/> 
+	</Item>
+	<Item id="tent_magenta" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="4" > 
+		<Avatar id="tent_magenta"/> 
+	</Item>
+	<Item id="tent_magenta_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="4" > 
+		<Avatar id="tent_magenta_snow"/> 
+	</Item>
+	<Item id="tent_yellow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="5" > 
+		<Avatar id="tent_yellow"/> 
+	</Item>
+	<Item id="tent_yellow_snow" name="OBJ_TENT" msg="OBJ_TENT_MSG" vmsg="OBJ_TENT_VMSG" type="KEYMASTER" key="5" > 
+		<Avatar id="tent_yellow_snow"/> 
+	</Item>
+	<Item id="shrine1" name="OBJ_SHRINE1" msg="OBJ_SHRINE1_MSG" vmsg="VOID" type="SHRINE" level="1" > 
+		<Avatar id="shrine1"/> 
+	</Item>
+	<Item id="shrine1_snow" name="OBJ_SHRINE1" msg="OBJ_SHRINE1_MSG" vmsg="VOID" type="SHRINE" level="1" > 
+		<Avatar id="shrine1_snow"/> 
+	</Item>
+	<Item id="shrine2" name="OBJ_SHRINE2" msg="OBJ_SHRINE2_MSG" vmsg="VOID" type="SHRINE" level="2" > 
+		<Avatar id="shrine2"/> 
+	</Item>
+	<Item id="shrine2_snow" name="OBJ_SHRINE2" msg="OBJ_SHRINE2_MSG" vmsg="VOID" type="SHRINE" level="2" > 
+		<Avatar id="shrine2_snow"/> 
+	</Item>
+	<Item id="shrine3" name="OBJ_SHRINE3" msg="OBJ_SHRINE3_MSG" vmsg="VOID" type="SHRINE" level="3" > 
+		<Avatar id="shrine3"/> 
+	</Item>
+	<Item id="shrine3_snow" name="OBJ_SHRINE3" msg="OBJ_SHRINE3_MSG" vmsg="VOID" type="SHRINE" level="3" > 
+		<Avatar id="shrine3_snow"/> 
+	</Item>
+	<Item id="stone_well" name="OBJ_STONEWELL" msg="OBJ_STONEWELL_MSG" vmsg="OBJ_STONEWELL_VMSG" type="MANASOURCE" manapts="1" > 
+		<Avatar id="stone_well"/> 
+	</Item>
+	<Item id="stone_well_snow" name="OBJ_STONEWELL" msg="OBJ_STONEWELL_MSG" vmsg="OBJ_STONEWELL_VMSG" type="MANASOURCE" manapts="1" > 
+		<Avatar id="stone_well_snow"/> 
+	</Item>
+	<Item id="tree_of_knowledge" name="OBJ_TREEOFKNOWLEDGE" msg="OBJ_TREEOFKNOWLEDGE_MSG" vmsg="OBJ_TREEOFKNOWLEDGE_VMSG" type="KNWLTREE"> 
+		<Avatar id="tree_of_knowledge"/> 
+	</Item>
+	<Item id="monolith_snow" name="OBJ_MONOLITH" msg="OBJ_MONOLITH_MSG" vmsg="OBJ_MONOLITH_VMSG" type="KNWLTREE"> 
+		<Avatar id="monolith_snow"/> 
+	</Item>
+
+	<Item id="monolith_waste" name="OBJ_MONOLITH" msg="OBJ_MONOLITH_MSG" vmsg="OBJ_MONOLITH_VMSG" type="KNWLTREE"> 
+		<Avatar id="monolith_waste"/> 
+	</Item>
+	<Item id="windmill" name="OBJ_WINDMILL" msg="OBJ_WINDMILL_MSG" vmsg="OBJ_WINDMILL_VMSG" type="WINDMILL"> 
+		<Avatar id="windmill"/> 
+	</Item>
+	<Item id="windmill_snow" name="OBJ_WINDMILL" msg="OBJ_WINDMILL_MSG" vmsg="OBJ_WINDMILL_VMSG" type="WINDMILL"> 
+		<Avatar id="windmill_snow"/> 
+	</Item>
+	<Item id="gazebo" name="OBJ_GAZEBO" msg="OBJ_GAZEBO_MSG" vmsg="OBJ_GAZEBO_VMSG" type="GAZEBO"> 
+		<Avatar id="gazebo"/> 
+	</Item>
+	<Item id="gazebo_snow" name="OBJ_GAZEBO" msg="OBJ_GAZEBO_MSG" vmsg="OBJ_GAZEBO_VMSG" type="GAZEBO"> 
+		<Avatar id="gazebo_snow"/> 
+	</Item>
+	<Item id="stables" name="OBJ_STABLES" msg="OBJ_STABLES_MSG" vmsg="OBJ_STABLES_VMSG" type="STABLES" actpts="20"> 
+		<Avatar id="stables_1" offset="-1,0"/> 
+		<Avatar id="stables_2" offset="0,-1"/> 
+	</Item>
+	<Item id="stables_snow" name="OBJ_STABLES" msg="OBJ_STABLES_MSG" vmsg="OBJ_STABLES_VMSG" type="STABLES" actpts="20"> 
+		<Avatar id="stables_snow_1" offset="-1,0"/> 
+		<Avatar id="stables_snow_2" offset="0,-1"/> 
+	</Item>
+	<Item id="idol" name="OBJ_IDOL" msg="OBJ_IDOL_MSG" vmsg="OBJ_IDOL_VMSG" type="MLMODIFIER" luck="+1"> 
+		<Avatar id="idol"/> 
+	</Item>
+	<Item id="idol_snow" name="OBJ_IDOL" msg="OBJ_IDOL_MSG" vmsg="OBJ_IDOL_VMSG" type="MLMODIFIER" luck="+1"> 
+		<Avatar id="idol_snow"/> 
+	</Item>
+	<Item id="fountain" name="OBJ_FOUNTAIN" msg="OBJ_FOUNTAIN_MSG" vmsg="OBJ_FOUNTAIN_VMSG" type="MLMODIFIER" luck="+1"> 
+		<Avatar id="fountain"/> 
+	</Item>
+	<Item id="fountain_snow" name="OBJ_FOUNTAIN" msg="OBJ_FOUNTAIN_MSG" vmsg="OBJ_FOUNTAIN_VMSG" type="MLMODIFIER" luck="+1"> 
+		<Avatar id="fountain_snow"/> 
+	</Item>
+	<Item id="trinity" name="OBJ_TRINITY" msg="OBJ_TRINITY_MSG" vmsg="OBJ_TRINITY_VMSG" type="WEEKLYMIN" GOLD="+1000"> 
+		<Avatar id="trinity"/> 
+	</Item>
+	<Item id="trinity_snow" name="OBJ_TRINITY" msg="OBJ_TRINITY_MSG" vmsg="OBJ_TRINITY_VMSG" type="WEEKLYMIN" GOLD="+1000"> 
+		<Avatar id="trinity_snow"/> 
+	</Item>
+	<Item id="magic_spring" name="OBJ_MAGICSPRING" msg="OBJ_MAGICSPRING_MSG" vmsg="OBJ_MAGICSPRING_VMSG" type="MANASOURCE" manapts="2" > 
+		<Avatar id="magic_spring"/> 
+	</Item>
+	<Item id="temple" name="OBJ_TEMPLE" msg="OBJ_TEMPLE_MSG" vmsg="OBJ_TEMPLE_VMSG" type="MLMODIFIER" morale="+1"> 
+		<Avatar id="temple"/> 
+	</Item>
+	<Item id="sword_in_the_stone" name="OBJ_SWORDINTHESTONE" msg="OBJ_SWORDINTHESTONE_MSG" vmsg="OBJ_SWORDINTHESTONE_VMSG" type="PSMODIFIER" ATTACK="+1"> 
+		<Avatar id="sword_in_the_stone"/> 
+	</Item>
+	<Item id="sword_in_the_stone_snow" name="OBJ_SWORDINTHESTONE" msg="OBJ_SWORDINTHESTONE_MSG" vmsg="OBJ_SWORDINTHESTONE_VMSG" type="PSMODIFIER" ATTACK="+1"> 
+		<Avatar id="sword_in_the_stone_snow"/> 
+	</Item>
+	<Item id="fort" name="OBJ_FORT" msg="OBJ_FORT_MSG" vmsg="OBJ_FORT_VMSG" type="PSMODIFIER" DEFENCE="+2"> 
+		<Avatar id="fort"/> 
+	</Item>
+	<Item id="fort_snow" name="OBJ_FORT" msg="OBJ_FORT_MSG" vmsg="OBJ_FORT_VMSG" type="PSMODIFIER" DEFENCE="+2"> 
+		<Avatar id="fort_snow"/> 
+	</Item>
+	<Item id="library" name="OBJ_LIBRARY" msg="OBJ_LIBRARY_MSG" vmsg="OBJ_LIBRARY_VMSG" type="PSMODIFIER" ATTACK="+1" DEFENCE="+1" POWER="+1" KNOWLEDGE="+1"> 
+		<Avatar id="library"/> 
+	</Item>
+	<Item id="library_snow" name="OBJ_LIBRARY" msg="OBJ_LIBRARY_MSG" vmsg="OBJ_LIBRARY_VMSG" type="PSMODIFIER" ATTACK="+1" DEFENCE="+1" POWER="+1" KNOWLEDGE="+1"> 
+		<Avatar id="library_snow"/> 
+	</Item>
+	<Item id="blacksmith" name="OBJ_BLACKSMITH" msg="OBJ_BLACKSMITH_MSG" vmsg="OBJ_BLACKSMITH_VMSG" type="PSMODIFIER" DEFENCE="+1"> 
+		<Avatar id="blacksmith"/> 
+	</Item>
+	<Item id="blacksmith_snow" name="OBJ_BLACKSMITH" msg="OBJ_BLACKSMITH_MSG" vmsg="OBJ_BLACKSMITH_VMSG" type="PSMODIFIER" DEFENCE="+1"> 
+		<Avatar id="blacksmith_snow"/> 
+	</Item>
+	<Item id="stone_henge" name="OBJ_MAGICSTONE" msg="OBJ_MAGICSTONE_MSG" vmsg="OBJ_MAGICSTONE_VMSG" type="PSMODIFIER" POWER="+1"> 
+		<Avatar id="stone_henge"/> 
+	</Item>
+	<Item id="stone_henge_snow" name="OBJ_MAGICSTONE" msg="OBJ_MAGICSTONE_MSG" vmsg="OBJ_MAGICSTONE_VMSG" type="PSMODIFIER" POWER="+1"> 
+		<Avatar id="stone_henge_snow"/> 
+	</Item>
+	<Item id="prophets_statue" name="OBJ_PROPHETSSTATUE" msg="OBJ_PROPHETSSTATUE_MSG" vmsg="OBJ_PROPHETSSTATUE_VMSG" type="PSMODIFIER" POWER="+1" KNOWLEDGE="+1"> 
+		<Avatar id="prophets_statue"/> 
+	</Item>
+	<Item id="prophets_statue_snow" name="OBJ_PROPHETSSTATUE" msg="OBJ_PROPHETSSTATUE_MSG" vmsg="OBJ_PROPHETSSTATUE_VMSG" type="PSMODIFIER" POWER="+1" KNOWLEDGE="+1"> 
+		<Avatar id="prophets_statue_snow"/> 
+	</Item>
+	<Item id="arena" name="OBJ_ARENA" msg="OBJ_ARENA_MSG" vmsg="OBJ_ARENA_VMSG" type="PSMODIFIER" ATTACK="+1" DEFENCE="+1"> 
+		<Avatar id="arena_1" offset="-1,0" /> 
+		<Avatar id="arena_2" offset="0,-1" /> 
+	</Item>
+	<Item id="obelisk1" name="OBJ_OBELISK" msg="OBJ_OBELISK_MSG" vmsg="OBJ_OBELISK_VMSG" type="OBELISK"> 
+		<Avatar id="obelisk1"/> 
+	</Item>
+	<Item id="obelisk2" name="OBJ_OBELISK" msg="OBJ_OBELISK_MSG" vmsg="OBJ_OBELISK_VMSG" type="OBELISK"> 
+		<Avatar id="obelisk2"/> 
+	</Item>
+	<Item id="obelisk1_snow" name="OBJ_OBELISK" msg="OBJ_OBELISK_MSG" vmsg="OBJ_OBELISK_VMSG" type="OBELISK"> 
+		<Avatar id="obelisk1_snow"/> 
+	</Item>
+	<Item id="obelisk2_snow" name="OBJ_OBELISK" msg="OBJ_OBELISK_MSG" vmsg="OBJ_OBELISK_VMSG" type="OBELISK"> 
+		<Avatar id="obelisk2_snow"/> 
+	</Item>
+	<Item id="obelisk3_snow" name="OBJ_OBELISK" msg="OBJ_OBELISK_MSG" vmsg="OBJ_OBELISK_VMSG" type="OBELISK"> 
+		<Avatar id="obelisk3_snow"/> 
+	</Item>
+	<Item id="wooden_sign1" name="OBJ_WOODENSIGN" msg="VOID" vmsg="VOID" type="SIGN"> 
+		<Avatar id="wooden_sign1"/> 
+	</Item>
+	<Item id="wooden_sign2" name="OBJ_WOODENSIGN" msg="VOID" vmsg="VOID" type="SIGN"> 
+		<Avatar id="wooden_sign2"/> 
+	</Item>
+	<Item id="wooden_sign3" name="OBJ_WOODENSIGN" msg="VOID" vmsg="VOID" type="SIGN"> 
+		<Avatar id="wooden_sign3"/> 
+	</Item>
+	<Item id="wooden_sign4" name="OBJ_WOODENSIGN" msg="VOID" vmsg="VOID" type="SIGN"> 
+		<Avatar id="wooden_sign4"/> 
+	</Item>
+	<Item id="wooden_sign5" name="OBJ_WOODENSIGN" msg="VOID" vmsg="VOID" type="SIGN"> 
+		<Avatar id="wooden_sign5"/> 
+	</Item>
+	<Item id="garden_of_revelation" name="OBJ_GARDENOFREVELATION" msg="OBJ_GARDENOFREVELATION_MSG" vmsg="OBJ_GARDENOFREVELATION_VMSG" type="PSMODIFIER" KNOWLEDGE="+1"> 
+		<Avatar offset="-1,-1" id="trees_8"/> 
+		<Avatar id="garden_of_revelation"/> 
+	</Item>
+	<Item id="witch_hut" name="OBJ_WITCHHUT" msg="OBJ_WITCHHUT_MSG1" vmsg="OBJ_WITCHHUT_MSG2" type="WITCHHUT"> 
+		<Avatar id="witch_hut"/> 
+	</Item>
+	<Item id="witch_hut_snow" name="OBJ_WITCHHUT" msg="OBJ_WITCHHUT_MSG1" vmsg="OBJ_WITCHHUT_MSG2" type="WITCHHUT"> 
+		<Avatar id="witch_hut_snow"/> 
+	</Item>
+	<Item id="peasants_hut" name="DWEL_CITD_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PEASANT"> 
+		<Avatar id="peasants_hut"/> 
+	</Item>
+	<Item id="peasants_hut_snow" name="DWEL_CITD_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PEASANT"> 
+		<Avatar id="peasants_hut_snow"/> 
+	</Item>
+	<Item id="archers_hut" name="DWEL_CITD_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ARCHER"> 
+		<Avatar id="archers_hut"/> 
+	</Item>
+	<Item id="archers_hut_snow" name="DWEL_CITD_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ARCHER"> 
+		<Avatar id="archers_hut_snow"/> 
+	</Item>
+	<Item id="centaurs_cave" name="DWEL_DUNG_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="CENTAUR"> 
+		<Avatar id="centaurs_cave"/> 
+	</Item>
+	<Item id="centaurs_cave_snow" name="DWEL_DUNG_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="CENTAUR"> 
+		<Avatar id="centaurs_cave_snow"/> 
+	</Item>
+	<Item id="crypt" name="DWEL_DUNG_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GARGOYLE"> 
+		<Avatar id="crypt"/> 
+	</Item>
+	<Item id="crypt_snow" name="DWEL_DUNG_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GARGOYLE"> 
+		<Avatar id="crypt_snow"/> 
+	</Item>
+	<Item id="hydra_pond" name="DWEL_DUNG_L5" msg="VOID" vmsg="VOID" type="DWELLING" ctype="HYDRA"> 
+		<Avatar id="hydra_pond"/> 
+	</Item>
+	<Item id="goblins_hut" name="DWEL_STRH_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GOBLIN"> 
+		<Avatar id="goblins_hut"/> 
+	</Item>
+	<Item id="goblins_hut_snow" name="DWEL_STRH_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GOBLIN"> 
+		<Avatar id="goblins_hut_snow"/> 
+	</Item>
+	<Item id="treehouse" name="DWEL_FORT_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="SPRITE"> 
+		<Avatar id="treehouse"/> 
+	</Item>
+	<Item id="watch_tower" name="OBJ_WATCHTOWER" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ORC"> 
+		<Avatar id="watch_tower"/> 
+	</Item>
+	<Item id="watch_tower_snow" name="OBJ_WATCHTOWER" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ORC"> 
+		<Avatar id="watch_tower_snow"/> 
+	</Item>
+	<Item id="dwarf_cottage" name="DWEL_FORT_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="DWARF"> 
+		<Avatar id="dwarf_cottage"/> 
+	</Item>
+	<Item id="dwarf_cottage_snow" name="DWEL_FORT_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="DWARF"> 
+		<Avatar id="dwarf_cottage_snow"/> 
+	</Item>
+	<Item id="golem_foundry" name="OBJ_GOLEMFOUNDRY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="LIVINGARMOR"> 
+		<Avatar id="golem_foundry"/> 
+	</Item>
+	<Item id="golem_foundry_snow" name="OBJ_GOLEMFOUNDRY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="LIVINGARMOR"> 
+		<Avatar id="golem_foundry_snow"/> 
+	</Item>
+
+	<Item id="ogres_adobe" name="OBJ_OGREADOBE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="OGRE"> 
+		<Avatar id="ogres_adobe"/> 
+	</Item>
+
+	<Item id="elven_homestead" name="OBJ_ELVENHOMESTEAD" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ELF"> 
+		<Avatar id="elven_homestead"/> 
+	</Item>
+	<Item id="elven_homestead_snow" name="OBJ_ELVENHOMESTEAD" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ELF"> 
+		<Avatar id="elven_homestead_snow"/> 
+	</Item>
+	<Item id="warg_cave" name="OBJ_WARGCAVE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="warg_cave"/> 
+	</Item>
+	<Item id="warg_cave_snow" name="OBJ_WARGCAVE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="warg_cave_snow"/> 
+	</Item>
+	<Item id="guard_tower" name="DWEL_CITD_L3" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PIKEMAN"> 
+		<Avatar id="guard_tower"/> 
+	</Item>
+	<Item id="guard_tower_snow" name="DWEL_CITD_L3" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PIKEMAN"> 
+		<Avatar id="guard_tower_snow"/> 
+	</Item>
+
+	<Item id="griffin_nest" name="OBJ_GRIFFINNEST" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GRIFFIN"> 
+		<Avatar id="griffin_nest"/> 
+	</Item>
+	<Item id="mage_tower" name="DWEL_TOWR_L5" msg="VOID" vmsg="VOID" type="DWELLING" ctype="MAGE"> 
+		<Avatar id="mage_tower"/> 
+	</Item>
+
+	<Item id="monk_abbey" name="OBJ_MONKABBEY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="MONK"> 
+		<Avatar id="monk_abbey"/> 
+	</Item>
+
+	<Item id="monk_abbey_snow" name="OBJ_MONKABBEY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="MONK"> 
+		<Avatar id="monk_abbey_snow"/> 
+	</Item>
+
+
+	<Item id="mausoleum" name="OBJ_MAUSOLEUM" msg="VOID" vmsg="VOID" type="DWELLING" ctype="LICH"> 
+		<Avatar id="mausoleum"/> 
+	</Item>
+
+	<Item id="mausoleum_snow" name="OBJ_MAUSOLEUM" msg="VOID" vmsg="VOID" type="DWELLING" ctype="LICH"> 
+		<Avatar id="mausoleum_snow"/> 
+	</Item>
+
+
+	<Item id="magic_school" name="OBJ_MAGICSCHOOL" msg="VOID" vmsg="VOID" type="DWELLING" ctype="YOUNGMAGE"> 
+		<Avatar id="magic_school"/> 
+	</Item>
+
+	<Item id="magic_school_snow" name="OBJ_MAGICSCHOOL" msg="VOID" vmsg="VOID" type="DWELLING" ctype="YOUNGMAGE"> 
+		<Avatar id="magic_school_snow"/> 
+	</Item>
+
+
+	<Item id="pegasus_waterfall" name="OBJ_PEGASUSWATERFALL" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PEGASUS"> 
+		<Avatar id="pegasus_waterfall"/> 
+	</Item>
+
+
+	<Item id="pegasus_waterfall_snow" name="OBJ_PEGASUSWATERFALL" msg="VOID" vmsg="VOID" type="DWELLING" ctype="PEGASUS"> 
+		<Avatar id="pegasus_waterfall_snow"/> 
+	</Item>
+
+
+	<Item id="white_wolf_den" name="OBJ_WHITEWOLFDEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WHITEWOLF"> 
+		<Avatar id="white_wolf_den"/> 
+	</Item>
+
+	<Item id="white_wolf_den_snow" name="OBJ_WHITEWOLFDEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WHITEWOLF"> 
+		<Avatar id="white_wolf_den_snow"/> 
+	</Item>
+	<Item id="excavation" name="DWEL_NECR_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="SKELETON"> 
+		<Avatar id="excavation_dirt"/> 
+	</Item>
+	<Item id="excavation_sand" name="DWEL_NECR_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="SKELETON"> 
+		<Avatar id="excavation_sand"/> 
+	</Item>
+	<Item id="excavation_snow" name="DWEL_NECR_L1" msg="VOID" vmsg="VOID" type="DWELLING" ctype="SKELETON"> 
+		<Avatar id="excavation_snow"/> 
+	</Item>
+	<Item id="cemetery" name="DWEL_NECR_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ZOMBIE"> 
+		<Avatar id="cemetery"/> 
+	</Item>
+	<Item id="cemetery_snow" name="DWEL_NECR_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ZOMBIE"> 
+		<Avatar id="cemetery_snow"/> 
+	</Item>
+	<Item id="cemetery_sand" name="DWEL_NECR_L2" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ZOMBIE"> 
+		<Avatar id="cemetery_sand"/> 
+	</Item>
+	<Item id="medusa_temple" name="OBJ_MEDUSATEMPLE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="MEDUSA"> 
+		<Avatar id="medusa_temple"/> 
+	</Item>
+	<Item id="rogue_wagon" name="OBJ_ROGUEWAGON" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ROGUE"> 
+		<Avatar id="rogue_wagon"/> 
+	</Item>
+	<Item id="rogue_wagon_snow" name="OBJ_ROGUEWAGON" msg="VOID" vmsg="VOID" type="DWELLING" ctype="ROGUE"> 
+		<Avatar id="rogue_wagon_snow"/> 
+	</Item>
+	<Item id="desert_tent" name="OBJ_DESERTTENT" msg="VOID" vmsg="VOID" type="DWELLING" ctype="NOMAD"> 
+		<Avatar id="desert_tent"/> 
+	</Item>
+	<Item id="haunted_house" name="OBJ_HAUNTEDHOUSE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GHOST"> 
+		<Avatar id="haunted_house"/> 
+	</Item>
+	<Item id="haunted_house_snow" name="OBJ_HAUNTEDHOUSE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="GHOST"> 
+		<Avatar id="haunted_house_snow"/> 
+	</Item>
+	<Item id="druids_stones" name="OBJ_STONEHENGE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="DRUID"> 
+		<Avatar id="stone_henge_new"/> 
+	</Item>
+	<Item id="druid_stones_snow" name="OBJ_STONEHENGE" msg="VOID" vmsg="VOID" type="DWELLING" ctype="DRUID"> 
+		<Avatar id="stone_henge_snow_new"/> 
+	</Item>
+
+
+
+	<Item id="halflings_hut" name="OBJ_HALFLINGHUT" msg="VOID" vmsg="VOID" type="DWELLING" ctype="YOUNGMAGE"> 
+		<Avatar id="dummy"/> 
+	</Item>
+	<Item id="wolf_den" name="OBJ_WOLFDEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="dummy"/> 
+	</Item>
+
+	<Item id="swordsman_armory" name="OBJ_SWORDSMANARMORY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="dummy"/> 
+	</Item>
+
+	<Item id="swordsman_armory_snow" name="OBJ_SWORDSMANARMORY" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="dummy"/> 
+	</Item>
+
+
+	<Item id="wolf_den_snow" name="OBJ_WOLFDEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WARGRIDER"> 
+		<Avatar id="dummy"/> 
+	</Item>
+
+
+	<Item id="halflings_hut_snow" name="OBJ_HALFLINGHUT" msg="VOID" vmsg="VOID" type="DWELLING" ctype="YOUNGMAGE"> 
+		<Avatar id="dummy"/> 
+	</Item>
+
+	<Item id="boars_pen" name="OBJ_BOARSPEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WHITEWOLF"> 
+		<Avatar id="dummy"/> 
+		<Avatar id="dummy" offset="0,-1" /> 
+	</Item>
+	<Item id="boars_pen_snow" name="OBJ_BOARSPEN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="WHITEWOLF"> 
+		<Avatar id="dummy"/> 
+		<Avatar id="dummy" offset="0,-1" /> 
+	</Item>
+
+	<Item id="vamprire_coffin" name="OBJ_VAMPIRECOFFIN" msg="VOID" vmsg="VOID" type="DWELLING" ctype="VAMPIRE"> 
+		<Avatar id="coffin"/> 
+	</Item>
+
+
+
+	<Item id="shipwreck" name="OBJ_SHIPWRECK" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="shipwreck"/> 
+		<TrVariant prob="40">
+			<Guard type="GHOST" quant="20"/>
+			<Reward type="ARTIFACT" fparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="2" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="2" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="2" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="2" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="GHOST" quant="25"/>
+			<Reward type="ARTIFACT" fparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="3" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="3" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="3" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="3" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="GHOST" quant="35"/>
+			<Reward type="ARTIFACT" fparam="2" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="4" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="4" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="4" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="4" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="GHOST" quant="50"/>
+			<Reward type="ARTIFACT" fparam="3" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="5" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="5" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="5" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="5" />
+		</TrVariant>
+	</Item>
+	<Item id="ice_cave" name="OBJ_ICECAVE" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="ice_cave"/> 
+		<TrVariant prob="40">
+			<Guard type="CENTAUR" quant="25"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="2" />
+		</TrVariant>
+		<TrVariant prob="40">
+			<Guard type="CENTAUR" quant="50"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="5" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="CENTAUR" quant="100"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="5000" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="10" />
+		</TrVariant>
+	</Item>
+	<Item id="pyramid" name="OBJ_PYRAMID" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="pyramid"/> 
+		<TrVariant prob="40">
+			<Guard type="LICH" quant="20"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+			<Reward type="ARTIFACT" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="40">
+			<Guard type="LICH" quant="50"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="ARTIFACT" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="LICH" quant="100"/>
+			<Reward type="MINERAL" fparam="GOLD" sparam="5000" />
+			<Reward type="ARTIFACT" fparam="3" />
+		</TrVariant>
+	</Item>
+	<Item id="maya_pyramid" name="OBJ_TEMPLEOFINTI" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="maya_pyramid"/> 
+		<TrVariant prob="12">
+			<Guard type="AIRELEMENTAL" quant="10"/>
+			<Reward type="CREATGROUP" fparam="AIRELEMENTAL" sparam="10" />
+		</TrVariant>
+		<TrVariant prob="8">
+			<Guard type="AIRELEMENTAL" quant="25"/>
+			<Reward type="CREATGROUP" fparam="AIRELEMENTAL" sparam="25" />
+		</TrVariant>
+		<TrVariant prob="5">
+			<Guard type="AIRELEMENTAL" quant="50"/>
+			<Reward type="CREATGROUP" fparam="AIRELEMENTAL" sparam="50" />
+		</TrVariant>
+		<TrVariant prob="12">
+			<Guard type="EARTHELEMENTAL" quant="10"/>
+			<Reward type="CREATGROUP" fparam="EARTHELEMENTAL" sparam="10" />
+		</TrVariant>
+		<TrVariant prob="8">
+			<Guard type="EARTHELEMENTAL" quant="25"/>
+			<Reward type="CREATGROUP" fparam="EARTHELEMENTAL" sparam="25" />
+		</TrVariant>
+		<TrVariant prob="5">
+			<Guard type="EARTHELEMENTAL" quant="50"/>
+			<Reward type="CREATGROUP" fparam="EARTHELEMENTAL" sparam="50" />
+		</TrVariant>
+		<TrVariant prob="12">
+			<Guard type="FIREELEMENTAL" quant="10"/>
+			<Reward type="CREATGROUP" fparam="FIREELEMENTAL" sparam="10" />
+		</TrVariant>
+		<TrVariant prob="8">
+			<Guard type="FIREELEMENTAL" quant="25"/>
+			<Reward type="CREATGROUP" fparam="FIREELEMENTAL" sparam="25" />
+		</TrVariant>
+		<TrVariant prob="5">
+			<Guard type="FIREELEMENTAL" quant="50"/>
+			<Reward type="CREATGROUP" fparam="FIREELEMENTAL" sparam="50" />
+		</TrVariant>
+		<TrVariant prob="12">
+			<Guard type="WATERELEMENTAL" quant="10"/>
+			<Reward type="CREATGROUP" fparam="WATERELEMENTAL" sparam="10" />
+		</TrVariant>
+		<TrVariant prob="8">
+			<Guard type="WATERELEMENTAL" quant="25"/>
+			<Reward type="CREATGROUP" fparam="WATERELEMENTAL" sparam="25" />
+		</TrVariant>
+		<TrVariant prob="5">
+			<Guard type="WATERELEMENTAL" quant="50"/>
+			<Reward type="CREATGROUP" fparam="WATERELEMENTAL" sparam="50" />
+		</TrVariant>
+	</Item>
+	<Item id="gargoyles_treasury" name="OBJ_GARGOYLESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="gargoyles_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="GARGOYLE" quant="20"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="1" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="GARGOYLE" quant="30"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1500" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="GARGOYLE" quant="40"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="3" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="GARGOYLE" quant="60"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="4000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+	</Item>
+	<Item id="gargoyles_treasury_snow" name="OBJ_GARGOYLESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="gargoyles_treasury_snow"/> 
+		<TrVariant prob="40">
+			<Guard type="GARGOYLE" quant="20"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="1" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="GARGOYLE" quant="30"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1500" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="GARGOYLE" quant="40"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="3" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="GARGOYLE" quant="60"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="4000" />
+			<Reward type="MORALE" sparam="-2" />
+			<Reward type="LUCK" sparam="-2" />
+		</TrVariant>
+	</Item>
+	<Item id="hydras_treasury" name="OBJ_HYDRASTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="hydras_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="HYDRA" quant="10"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="3" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+			<Reward type="ARTIFACT" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="HYDRA" quant="15"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="5" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1500" />
+			<Reward type="ARTIFACT" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="HYDRA" quant="20"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="7" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="ARTIFACT" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="HYDRA" quant="30"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="10" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="3000" />
+			<Reward type="ARTIFACT" fparam="3" />
+		</TrVariant>
+	</Item>
+	<Item id="medusas_treasury" name="OBJ_MEDUSASTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="medusas_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="MEDUSA" quant="10"/>
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="2" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="MEDUSA" quant="20"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="3" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="3" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1500" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="MEDUSA" quant="30"/>
+			<Reward type="MINERAL" fparam="MERCURY" sparam="4" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="ARTIFACT" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="MEDUSA" quant="50"/>
+			<Reward type="MINERAL" fparam="GEMS" sparam="5" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="5" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="3000" />
+			<Reward type="ARTIFACT" fparam="2" />
+		</TrVariant>
+	</Item>
+	<Item id="medusas_treasury_snow" name="OBJ_MEDUSASTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="medusas_treasury_snow"/> 
+		<TrVariant prob="40">
+			<Guard type="MEDUSA" quant="10"/>
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="2" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="MEDUSA" quant="20"/>
+			<Reward type="MINERAL" fparam="SULFUR" sparam="3" />
+			<Reward type="MINERAL" fparam="GEMS" sparam="3" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1500" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="MEDUSA" quant="30"/>
+			<Reward type="MINERAL" fparam="MERCURY" sparam="4" />
+			<Reward type="MINERAL" fparam="SULFUR" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+			<Reward type="ARTIFACT" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="MEDUSA" quant="50"/>
+			<Reward type="MINERAL" fparam="GEMS" sparam="5" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="5" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="3000" />
+			<Reward type="ARTIFACT" fparam="2" />
+		</TrVariant>
+	</Item>
+	<Item id="ogres_treasury" name="OBJ_OGRESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="ogres_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="OGRE" quant="10"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="OGRE" quant="20"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="OGRE" quant="30"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="2" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="OGRE" quant="40"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="2" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="6" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="3000" />
+		</TrVariant>
+	</Item>
+	<Item id="ogres_treasury_snow" name="OBJ_OGRESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="ogres_treasury_snow"/> 
+		<TrVariant prob="40">
+			<Guard type="OGRE" quant="10"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="2" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="1000" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="OGRE" quant="20"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="1" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="OGRE" quant="30"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="2" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="4" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="2000" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="OGRE" quant="40"/>
+			<Reward type="FURTSKILL" fparam="ATTACK" sparam="2" />
+			<Reward type="MINERAL" fparam="CRYSTAL" sparam="6" />
+			<Reward type="MINERAL" fparam="GOLD" sparam="3000" />
+		</TrVariant>
+	</Item>
+	<Item id="druids_treasury" name="OBJ_DRUIDSTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="druids_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="DRUID" quant="10"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="2" />
+			<Reward type="MAGICSPELL" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="DRUID" quant="15"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="3" />
+			<Reward type="MAGICSPELL" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="DRUID" quant="20"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="5" />
+			<Reward type="MAGICSPELL" fparam="3" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="DRUID" quant="40"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="2" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="8" />
+			<Reward type="MAGICSPELL" fparam="4" />
+		</TrVariant>
+	</Item>
+	<Item id="druids_treasury_snow" name="OBJ_DRUIDSTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="druids_treasury_snow"/> 
+		<TrVariant prob="40">
+			<Guard type="DRUID" quant="10"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="2" />
+			<Reward type="MAGICSPELL" fparam="1" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="DRUID" quant="15"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="3" />
+			<Reward type="MAGICSPELL" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="DRUID" quant="20"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="1" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="5" />
+			<Reward type="MAGICSPELL" fparam="3" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="DRUID" quant="40"/>
+			<Reward type="FURTSKILL" fparam="KNOWLEDGE" sparam="2" />
+			<Reward type="MINERAL" fparam="MERCURY" sparam="8" />
+			<Reward type="MAGICSPELL" fparam="4" />
+		</TrVariant>
+	</Item>
+	<Item id="mages_treasury" name="OBJ_MAGESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="mages_treasury"/> 
+		<TrVariant prob="40">
+			<Guard type="MAGE" quant="10"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="MAGE" quant="15"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="3" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="MAGE" quant="20"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="4" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="MAGE" quant="35"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="2" />
+			<Reward type="MAGICSPELL" fparam="5" />
+		</TrVariant>
+	</Item>
+	<Item id="mages_treasury_snow" name="OBJ_MAGESTREASURY" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="mages_treasury_snow"/> 
+		<TrVariant prob="40">
+			<Guard type="MAGE" quant="10"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="2" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="MAGE" quant="15"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="3" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="MAGE" quant="20"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="1" />
+			<Reward type="MAGICSPELL" fparam="4" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="MAGE" quant="35"/>
+			<Reward type="FURTSKILL" fparam="POWER" sparam="2" />
+			<Reward type="MAGICSPELL" fparam="5" />
+		</TrVariant>
+	</Item>
+
+<!--
+	<Item id="mage_citadel" name="OBJ_MAGECITADEL" msg="VOID" vmsg="VOID" type="TREASURY"> 
+		<Avatar id="mage_citadel"/> 
+		<TrVariant prob="30">
+			<Guard type="MAGE" quant="30"/>
+			<Reward type="CREATGROUP" fparam="PALADIN" sparam="4" />
+		</TrVariant>
+		<TrVariant prob="30">
+			<Guard type="MAGE" quant="40"/>
+			<Reward type="CREATGROUP" fparam="CYCLOP" sparam="4" />
+		</TrVariant>
+		<TrVariant prob="20">
+			<Guard type="LICH" quant="40"/>
+			<Reward type="CREATGROUP" fparam="PLAGUE" sparam="4" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="MAGE" quant="50"/>
+			<Reward type="CREATGROUP" fparam="FIREBIRD" sparam="4" />
+		</TrVariant>
+		<TrVariant prob="10">
+			<Guard type="LICH" quant="50"/>
+			<Reward type="CREATGROUP" fparam="FIREBIRD" sparam="4" />
+		</TrVariant>
+	</Item>
+-->
+</Visitables>
+             
+<!-- Ownerables -->
+<Ownerables>
+	<Item id="obs_tower3" name="OBJ_OBSERVATIONTOWER" msg="OBJ_OBSERVATIONTOWER_MSG" type="FURTSKILL" scouting="10" ACTPTS="+1">
+		<Avatar id="obs_tower3" />
+	</Item>
+	<Item id="obs_tower3_snow" name="OBJ_OBSERVATIONTOWER" msg="OBJ_OBSERVATIONTOWER_MSG" type="FURTSKILL" scouting="10" ACTPTS="+1">
+		<Avatar id="obs_tower3_snow" />
+	</Item>
+
+	<!-- Mines -->
+	<Item id="gold_mine" name="MINE_GOLD" msg="MINE_GOLD_MSG" msgIcn="resources.big_icons_0000" type="FURTSKILL" scouting="3" MIN_GOLD="+1000">
+		<Avatar id="mine_mountain" offset="0,-2" />
+		<Avatar id="mine_gold_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gold_mine_lava" name="MINE_GOLD" msg="MINE_GOLD_MSG" msgIcn="resources.big_icons_0000" type="FURTSKILL" scouting="3" MIN_GOLD="+1000">
+		<Avatar id="mine_mountain_lava" offset="0,-2" />
+		<Avatar id="mine_gold_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gold_mine_swamp" name="MINE_GOLD" msg="MINE_GOLD_MSG" msgIcn="resources.big_icons_0000" type="FURTSKILL" scouting="3" MIN_GOLD="+1000">
+		<Avatar id="mine_mountain_swamp" offset="0,-2" />
+		<Avatar id="mine_gold_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gold_mine_snow" name="MINE_GOLD" msg="MINE_GOLD_MSG" msgIcn="resources.big_icons_0000" type="FURTSKILL" scouting="3" MIN_GOLD="+1000">
+		<Avatar id="mine_mountain_snow" offset="0,-2" />
+		<Avatar id="mine_gold_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+
+	<Item id="ore_mine" name="MINE_ORE" msg="MINE_ORE_MSG" msgIcn="resources.big_icons_0001" type="FURTSKILL" scouting="3" MIN_ORE="+2">
+		<Avatar id="mine_ore_pit" offset="0,0" />
+		<Avatar id="mine_ore_lift" offset="0,-1" />
+	</Item>
+
+	<Item id="wood_sawmill" name="MINE_WOOD" msg="MINE_WOOD_MSG" msgIcn="resources.big_icons_0002" type="FURTSKILL" scouting="3" MIN_WOOD="+2">
+		<Avatar id="sawmill_entrance" />
+		<Avatar id="sawmill_trees1" offset="-1,-1" />
+		<Avatar id="sawmill_trees2" offset="-1,-2" />
+		<Avatar id="sawmill_cart" offset="-1,0" />
+		<Avatar id="sawmill" offset="0,-1" />
+	</Item>
+	<Item id="wood_sawmill_lava" name="MINE_WOOD" msg="MINE_WOOD_MSG" msgIcn="resources.big_icons_0002" type="FURTSKILL" scouting="3" MIN_WOOD="+2">
+		<Avatar id="sawmill_entrance" />
+		<Avatar id="dplants_5" offset="-1,-1" />
+		<Avatar id="dplants_2" offset="-1,-2" />
+		<Avatar id="sawmill_cart" offset="-1,0" />
+		<Avatar id="sawmill" offset="0,-1" />
+	</Item>
+	<Item id="wood_sawmill_beach" name="MINE_WOOD" msg="MINE_WOOD_MSG" msgIcn="resources.big_icons_0002" type="FURTSKILL" scouting="3" MIN_WOOD="+2">
+		<Avatar id="sawmill_entrance" />
+		<Avatar id="palms_4" offset="-1,-1" />
+		<Avatar id="palms_5" offset="-1,-2" />
+		<Avatar id="sawmill_cart" offset="-1,0" />
+		<Avatar id="sawmill" offset="0,-1" />
+	</Item>
+	<Item id="wood_sawmill_snow" name="MINE_WOOD" msg="MINE_WOOD_MSG" msgIcn="resources.big_icons_0002" type="FURTSKILL" scouting="3" MIN_WOOD="+2">
+		<Avatar id="sawmill_entrance" />
+		<Avatar id="dplants_9" offset="-1,-1" />
+		<Avatar id="dplants_11" offset="-1,-2" />
+		<Avatar id="sawmill_cart" offset="-1,0" />
+		<Avatar id="sawmill" offset="0,-1" />
+	</Item>
+
+	<Item id="mercury_lab" name="MINE_MERCURY" msg="MINE_MERCURY_MSG" msgIcn="resources.big_icons_0003" type="FURTSKILL" scouting="3" MIN_MERCURY="+1">
+		<Avatar id="alch_lab_entrance" />
+		<Avatar id="alch_lab_vat" offset="-1,-1"/>
+		<Avatar id="alch_lab_barrel" offset="-1,0"/>
+	</Item>
+
+	<Item id="gems_mine" name="MINE_GEMS" msg="MINE_GEMS_MSG" msgIcn="resources.big_icons_0004" type="FURTSKILL" scouting="3" MIN_GEMS="+1">
+		<Avatar id="mine_mountain" offset="0,-2" />
+		<Avatar id="mine_gems_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gems_mine_lava" name="MINE_GEMS" msg="MINE_GEMS_MSG" msgIcn="resources.big_icons_0004" type="FURTSKILL" scouting="3" MIN_GEMS="+1">
+		<Avatar id="mine_mountain_lava" offset="0,-2" />
+		<Avatar id="mine_gems_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gems_mine_swamp" name="MINE_GEMS" msg="MINE_GEMS_MSG" msgIcn="resources.big_icons_0004" type="FURTSKILL" scouting="3" MIN_GEMS="+1">
+		<Avatar id="mine_mountain_swamp" offset="0,-2" />
+		<Avatar id="mine_gems_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="gems_mine_snow" name="MINE_GEMS" msg="MINE_GEMS_MSG" msgIcn="resources.big_icons_0004" type="FURTSKILL" scouting="3" MIN_GEMS="+1">
+		<Avatar id="mine_mountain_snow" offset="0,-2" />
+		<Avatar id="mine_gems_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+
+	<Item id="crystal_mine" name="MINE_CRYSTAL" msg="MINE_CRYSTAL_MSG" msgIcn="resources.big_icons_0005" type="FURTSKILL" scouting="3" MIN_CRYSTAL="+1">
+		<Avatar id="mine_mountain" offset="0,-2" />
+		<Avatar id="mine_crystal_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="crystal_mine_lava" name="MINE_CRYSTAL" msg="MINE_CRYSTAL_MSG" msgIcn="resources.big_icons_0005" type="FURTSKILL" scouting="3" MIN_CRYSTAL="+1">
+		<Avatar id="mine_mountain_lava" offset="0,-2" />
+		<Avatar id="mine_crystal_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="crystal_mine_swamp" name="MINE_CRYSTAL" msg="MINE_CRYSTAL_MSG" msgIcn="resources.big_icons_0005" type="FURTSKILL" scouting="3" MIN_CRYSTAL="+1">
+		<Avatar id="mine_mountain_swamp" offset="0,-2" />
+		<Avatar id="mine_crystal_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="crystal_mine_snow" name="MINE_CRYSTAL" msg="MINE_CRYSTAL_MSG" msgIcn="resources.big_icons_0005" type="FURTSKILL" scouting="3" MIN_CRYSTAL="+1">
+		<Avatar id="mine_mountain_snow" offset="0,-2" />
+		<Avatar id="mine_crystal_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+
+	<Item id="sulfur_mine" name="MINE_SULFUR" msg="MINE_SULFUR_MSG" msgIcn="resources.big_icons_0006" type="FURTSKILL" scouting="3" MIN_SULFUR="+1">
+		<Avatar id="mine_mountain" offset="0,-2" />
+		<Avatar id="mine_sulfur_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="sulfur_mine_lava" name="MINE_SULFUR" msg="MINE_SULFUR_MSG" msgIcn="resources.big_icons_0006" type="FURTSKILL" scouting="3" MIN_SULFUR="+1">
+		<Avatar id="mine_mountain_lava" offset="0,-2" />
+		<Avatar id="mine_sulfur_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="sulfur_mine_swamp" name="MINE_SULFUR" msg="MINE_SULFUR_MSG" msgIcn="resources.big_icons_0006" type="FURTSKILL" scouting="3" MIN_SULFUR="+1">
+		<Avatar id="mine_mountain_swamp" offset="0,-2" />
+		<Avatar id="mine_sulfur_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+	<Item id="sulfur_mine_snow" name="MINE_SULFUR" msg="MINE_SULFUR_MSG" msgIcn="resources.big_icons_0006" type="FURTSKILL" scouting="3" MIN_SULFUR="+1">
+		<Avatar id="mine_mountain_snow" offset="0,-2" />
+		<Avatar id="mine_sulfur_truck" offset="0,-1" />
+		<Avatar id="mine_sign" offset="0,0" />
+	</Item>
+
+</Ownerables>
+
+<!-- Castle templates -->
+<Castles>
+	<!--***********************************-->
+	<!--* Small castles (2-3 towers)      *-->
+	<!--***********************************-->
+
+	<!-- 5x3 (2 towers) -->
+	<Item id="small_01" size="1" orient="0">
+		<Avatar id="wall_0006" offset="-2,-2"/>
+		<Avatar id="wall_0005" offset="-2,-1"/>
+		<Avatar id="wall_0010" offset="-1,-2"/>
+		<Avatar id="wall_0003" offset="-2,0"/>
+		<Avatar id="mtower" offset="-1,-1"/>
+		<Avatar id="wall_0010" offset="0,-2"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="wall_0010" offset="1,-2"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="wall_0012" offset="2,-2"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="wall_0005" offset="2,-1"/>
+		<Avatar id="wall_0009" offset="2,0"/>
+	</Item>
+
+	<Item id="small_02" size="1" orient="1">
+		<Avatar id="wall_0006" offset="-2,-2"/>
+		<Avatar id="wall_0005" offset="-2,-1"/>
+		<Avatar id="wall_0010" offset="-1,-2"/>
+		<Avatar id="wall_0005" offset="-2,0"/>
+		<Avatar id="mtower" offset="-1,-1"/>
+		<Avatar id="wall_0012" offset="0,-2"/>
+		<Avatar id="wall_0005" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0003" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0009" offset="0,2"/>
+	</Item>
+	
+	<!-- 5x4 (3 towers) -->
+	<Item id="small_03" size="1" orient="0">
+		<Avatar id="wall_0006" offset="-2,-2"/>
+		<Avatar id="wall_0006" offset="-1,-3"/>
+		<Avatar id="wall_0005" offset="-2,-1"/>
+		<Avatar id="wall_0009" offset="-1,-2"/>
+		<Avatar id="wall_0010" offset="0,-3"/>
+		<Avatar id="wall_0003" offset="-2,0"/>
+		<Avatar id="mtower" offset="-1,-1"/>
+		<Avatar id="ltower" offset="0,-2"/>
+		<Avatar id="wall_0012" offset="1,-3"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="wall_0003" offset="1,-2"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="wall_0012" offset="2,-2"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="wall_0005" offset="2,-1"/>
+		<Avatar id="wall_0009" offset="2,0"/>
+	</Item>
+	<Item id="small_04" size="1" orient="1">
+		<Avatar id="wall_0006" offset="-3,-1"/>
+		<Avatar id="wall_0006" offset="-2,-2"/>
+		<Avatar id="wall_0005" offset="-3,0"/>
+		<Avatar id="wall_0009" offset="-2,-1"/>
+		<Avatar id="wall_0010" offset="-1,-2"/>
+		<Avatar id="wall_0003" offset="-3,1"/>
+		<Avatar id="ltower" offset="-2,-0"/>
+		<Avatar id="mtower" offset="-1,-1"/>
+		<Avatar id="wall_0012" offset="0,-2"/>
+		<Avatar id="wall_0012" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0003" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0009" offset="0,2"/>
+	</Item>
+
+	<!--***********************************-->
+	<!--* Medium castles (4-6 towers)     *-->
+	<!--***********************************-->
+
+	<!-- 5x4 (5 towers) -->
+	<Item id="medium_01" size="2" orient="0">
+		<Avatar id="wall_0006" offset="-2,-3"/>
+		<Avatar id="wall_0005" offset="-2,-2"/>
+		<Avatar id="wall_0010" offset="-1,-3"/>
+		<Avatar id="wall_0005" offset="-2,-1"/>
+		<Avatar id="ltower" offset="-1,-2"/>
+		<Avatar id="wall_0010" offset="0,-3"/>
+		<Avatar id="wall_0003" offset="-2,0"/>
+		<Avatar id="mtower" offset="-1,-1"/>
+		<Avatar id="mtower" offset="0,-2"/>
+		<Avatar id="wall_0010" offset="1,-3"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="stower" offset="1,-2"/>
+		<Avatar id="wall_0012" offset="2,-3"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="wall_0005" offset="2,-2"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="wall_0005" offset="2,-1"/>
+		<Avatar id="wall_0009" offset="2,0"/>
+	</Item>
+	<Item id="medium_02" size="2" orient="1">
+		<Avatar id="wall_0006" offset="-3,-2"/>
+		<Avatar id="wall_0005" offset="-3,-1"/>
+		<Avatar id="wall_0010" offset="-2,-2"/>
+		<Avatar id="wall_0005" offset="-3,0"/>
+		<Avatar id="ltower" offset="-2,-1"/>
+		<Avatar id="wall_0010" offset="-1,-2"/>
+		<Avatar id="wall_0005" offset="-3,1"/>
+		<Avatar id="mtower" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="wall_0012" offset="0,-2"/>
+		<Avatar id="wall_0003" offset="-3,2"/>
+		<Avatar id="ltower" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0010" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0009" offset="0,2"/>
+	</Item>
+
+	<!-- 5x5 (6 towers) -->
+	<Item id="medium_03" size="2" orient="0">
+		<Avatar id="wall_0006" offset="-2,-3"/>
+		<Avatar id="wall_0006" offset="-1,-4"/>
+		<Avatar id="wall_0005" offset="-2,-2"/>
+		<Avatar id="wall_0009" offset="-1,-3"/>
+		<Avatar id="wall_0010" offset="0,-4"/>
+		<Avatar id="wall_0005" offset="-2,-1"/>
+		<Avatar id="mtower" offset="-1,-2"/>
+		<Avatar id="ltower" offset="0,-3"/>
+		<Avatar id="wall_0012" offset="1,-4"/>
+		<Avatar id="wall_0003" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="mtower" offset="0,-2"/>
+		<Avatar id="wall_0003" offset="1,-3"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="stower" offset="1,-2"/>
+		<Avatar id="wall_0012" offset="2,-3"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="wall_0005" offset="2,-2"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="wall_0005" offset="2,-1"/>
+		<Avatar id="wall_0009" offset="2,0"/>
+	</Item>
+	<Item id="medium_04" size="2" orient="1">
+		<Avatar id="wall_0006" offset="-4,-1"/>
+		<Avatar id="wall_0006" offset="-3,-2"/>
+		<Avatar id="wall_0005" offset="-4,0"/>
+		<Avatar id="wall_0009" offset="-3,-1"/>
+		<Avatar id="wall_0010" offset="-2,-2"/>
+		<Avatar id="wall_0003" offset="-4,1"/>
+		<Avatar id="ltower" offset="-3,0"/>
+		<Avatar id="mtower" offset="-2,-1"/>
+		<Avatar id="wall_0010" offset="-1,-2"/>
+		<Avatar id="wall_0012" offset="-3,1"/>
+		<Avatar id="mtower" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="wall_0012" offset="0,-2"/>
+		<Avatar id="wall_0003" offset="-3,2"/>
+		<Avatar id="stower" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0010" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0009" offset="0,2"/>
+	</Item>
+
+	<!--***********************************-->
+	<!--* Large castles (10-12 towers)    *-->
+	<!--***********************************-->
+
+	<!-- 7x5 (12 towers) -->
+	<Item id="large_01" size="3" orient="0">
+		<Avatar id="wall_0006" offset="-3,-3"/>
+		<Avatar id="wall_0006" offset="-2,-4"/>
+		<Avatar id="wall_0005" offset="-3,-2"/>
+		<Avatar id="wall_0009" offset="-2,-3"/>
+		<Avatar id="wall_0010" offset="-1,-4"/>
+		<Avatar id="wall_0005" offset="-3,-1"/>
+		<Avatar id="ltower" offset="-2,-2"/>
+		<Avatar id="ltower" offset="-1,-3"/>
+		<Avatar id="wall_0010" offset="0,-4"/>
+		<Avatar id="wall_0003" offset="-3,0"/>
+		<Avatar id="stower" offset="-2,-1"/>
+		<Avatar id="mtower" offset="-1,-2"/>
+		<Avatar id="mtower" offset="0,-3"/>
+		<Avatar id="wall_0010" offset="1,-4"/>
+		<Avatar id="wall_0010" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="mtower" offset="0,-2"/>
+		<Avatar id="ltower" offset="1,-3"/>
+		<Avatar id="wall_0012" offset="2,-4"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="stower" offset="1,-2"/>
+		<Avatar id="wall_0003" offset="2,-3"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="mtower" offset="2,-2"/>
+		<Avatar id="wall_0012" offset="3,-3"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="stower" offset="2,-1"/>
+		<Avatar id="wall_0005" offset="3,-2"/>
+		<Avatar id="wall_0010" offset="2,0"/>
+		<Avatar id="wall_0005" offset="3,-1"/>
+		<Avatar id="wall_0009" offset="3,0"/>
+	</Item>
+	<Item id="large_02" size="3" orient="1">
+		<Avatar id="wall_0006" offset="-4,-2"/>
+		<Avatar id="wall_0006" offset="-3,-3"/>
+		<Avatar id="wall_0005" offset="-4,-1"/>
+		<Avatar id="wall_0009" offset="-3,-2"/>
+		<Avatar id="wall_0010" offset="-2,-3"/>
+		<Avatar id="wall_0005" offset="-4,0"/>
+		<Avatar id="ltower" offset="-3,-1"/>
+		<Avatar id="ltower" offset="-2,-2"/>
+		<Avatar id="wall_0010" offset="-1,-3"/>
+		<Avatar id="wall_0005" offset="-4,1"/>
+		<Avatar id="mtower" offset="-3,0"/>
+		<Avatar id="mtower" offset="-2,-1"/>
+		<Avatar id="stower" offset="-1,-2"/>
+		<Avatar id="wall_0012" offset="0,-3"/>
+		<Avatar id="wall_0003" offset="-4,2"/>
+		<Avatar id="ltower" offset="-3,1"/>
+		<Avatar id="mtower" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="wall_0005" offset="0,-2"/>
+		<Avatar id="wall_0012" offset="-3,2"/>
+		<Avatar id="stower" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0003" offset="-3,3"/>
+		<Avatar id="mtower" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-2,3"/>
+		<Avatar id="stower" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0010" offset="-1,3"/>
+		<Avatar id="wall_0005" offset="0,2"/>
+		<Avatar id="wall_0009" offset="0,3"/>
+	</Item>
+
+	<!-- 7x5 (12 towers) -->
+	<Item id="large_03" size="3" orient="0">
+		<Avatar id="wall_0006" offset="-3,-4"/>
+		<Avatar id="wall_0005" offset="-3,-3"/>
+		<Avatar id="wall_0010" offset="-2,-4"/>
+		<Avatar id="wall_0005" offset="-3,-2"/>
+		<Avatar id="ltower" offset="-2,-3"/>
+		<Avatar id="wall_0010" offset="-1,-4"/>
+		<Avatar id="wall_0003" offset="-3,-1"/>
+		<Avatar id="mtower" offset="-2,-2"/>
+		<Avatar id="ltower" offset="-1,-3"/>
+		<Avatar id="wall_0010" offset="0,-4"/>
+		<Avatar id="wall_0012" offset="-2,-1"/>
+		<Avatar id="stower" offset="-1,-2"/>
+		<Avatar id="mtower" offset="0,-3"/>
+		<Avatar id="wall_0010" offset="1,-4"/>
+		<Avatar id="wall_0003" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="mtower" offset="0,-2"/>
+		<Avatar id="ltower" offset="1,-3"/>
+		<Avatar id="wall_0010" offset="2,-4"/>
+		<Avatar id="ll" offset="-1,0"/>
+		<Avatar id="square" offset="0,-1"/>
+		<Avatar id="stower" offset="1,-2"/>
+		<Avatar id="stower" offset="2,-3"/>
+		<Avatar id="wall_0012" offset="3,-4"/>
+		<Avatar id="lent" offset="0,0"/>
+		<Avatar id="stower" offset="1,-1"/>
+		<Avatar id="mtower" offset="2,-2"/>
+		<Avatar id="wall_0005" offset="3,-3"/>
+		<Avatar id="lr" offset="1,0"/>
+		<Avatar id="wall_0006" offset="2,-1"/>
+		<Avatar id="wall_0005" offset="3,-2"/>
+		<Avatar id="wall_0009" offset="2,0"/>
+		<Avatar id="wall_0009" offset="3,-1"/>
+	</Item>
+	<Item id="large_04" size="3" orient="1">
+		<Avatar id="wall_0006" offset="-4,-3"/>
+		<Avatar id="wall_0005" offset="-4,-2"/>
+		<Avatar id="wall_0010" offset="-3,-3"/>
+		<Avatar id="wall_0005" offset="-4,-1"/>
+		<Avatar id="ltower" offset="-3,-2"/>
+		<Avatar id="wall_0010" offset="-2,-3"/>
+		<Avatar id="wall_0005" offset="-4,0"/>
+		<Avatar id="ltower" offset="-3,-1"/>
+		<Avatar id="mtower" offset="-2,-2"/>
+		<Avatar id="wall_0012" offset="-1,-3"/>
+		<Avatar id="wall_0005" offset="-4,1"/>
+		<Avatar id="mtower" offset="-3,0"/>
+		<Avatar id="stower" offset="-2,-1"/>
+		<Avatar id="wall_0003" offset="-1,-2"/>
+		<Avatar id="wall_0005" offset="-4,2"/>
+		<Avatar id="ltower" offset="-3,1"/>
+		<Avatar id="mtower" offset="-2,0"/>
+		<Avatar id="stower" offset="-1,-1"/>
+		<Avatar id="wall_0012" offset="0,-2"/>
+		<Avatar id="wall_0003" offset="-4,3"/>
+		<Avatar id="stower" offset="-3,2"/>
+		<Avatar id="stower" offset="-2,1"/>
+		<Avatar id="square" offset="-1,0"/>
+		<Avatar id="rr" offset="0,-1"/>
+		<Avatar id="wall_0010" offset="-3,3"/>
+		<Avatar id="mtower" offset="-2,2"/>
+		<Avatar id="stower" offset="-1,1"/>
+		<Avatar id="rent" offset="0,0"/>
+		<Avatar id="wall_0010" offset="-2,3"/>
+		<Avatar id="wall_0006" offset="-1,2"/>
+		<Avatar id="rl" offset="0,1"/>
+		<Avatar id="wall_0009" offset="-1,3"/>
+		<Avatar id="wall_0009" offset="0,2"/>
+	</Item>
+
+</Castles>
+
+<!--********-->
+<!-- Heroes -->
+<!--********-->
+<Heroes>
+	// Knights
+	<Item id="hero_dimitry" name="HERO_NAME_GERALD" type="KNIGHT" icon32="heroes.Gerald_32x20" icon48="heroes.Gerald_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="ARMORER" level="1"/>
+		<Spell id="STONESKIN"/>
+	</Item>
+	<Item id="hero_ambrose" name="HERO_NAME_FINEOUS" type="KNIGHT" icon32="heroes.Fineous_32x20" icon48="heroes.Fineous_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="ARCHERY" level="1"/>
+		<Spell id="SHIELD"/>
+	</Item>
+	<Item id="hero_lordkilburn" name="HERO_NAME_JACOB" type="KNIGHT" icon32="heroes.Jacob_32x20" icon48="heroes.Jacob_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="ESTATES" level="1"/>
+	</Item>
+	<Item id="hero_gvenneth" name="HERO_NAME_SCHULTZ" type="KNIGHT" icon32="heroes.Schultz_32x20" icon48="heroes.Schultz_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="2"/>
+	</Item>
+	<Item id="hero_sirgallanth" name="HERO_NAME_CANTOR" type="KNIGHT" icon32="heroes.Cantor_32x20" icon48="heroes.Cantor_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="DIPLOMACY" level="1"/>
+	</Item>
+	<Item id="hero_fineous" name="HERO_NAME_BEZ" type="KNIGHT" icon32="heroes.Bez_32x20" icon48="heroes.Bez_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="LOGISTICS" level="1"/>
+	</Item>
+	<Item id="hero_hedric" name="HERO_NAME_HEDRIC" type="KNIGHT" icon32="heroes.Hedric_32x20" icon48="heroes.Hedric_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="BALLISTICS" level="1"/>
+	</Item>
+	<Item id="hero_earoon" name="HERO_NAME_EAROON" type="KNIGHT" icon32="heroes.Earoon_32x20" icon48="heroes.Earoon_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="2"/>
+		<FurtSkill id="DEFENCE" value="2"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LEADERSHIP" level="1"/>
+		<SecSkill id="LUCK" level="1"/>
+		<Spell id="BLESS"/>
+	</Item>
+
+
+	// Barbarians
+	<Item id="hero_thundax" name="HERO_NAME_TYREX" type="BARBARIAN" icon32="heroes.Tyrex_32x20" icon48="heroes.Tyrex_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<SecSkill id="BALLISTICS" level="1"/>
+	</Item>
+	<Item id="hero_grottekvarnen" name="HERO_NAME_GROTTEKVARNEN" type="BARBARIAN" icon32="heroes.Grottekvarnen_32x20" icon48="heroes.Grottekvarnen_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="LOGISTICS" level="1"/>
+		<SecSkill id="PATHFINDING" level="1"/>
+		<Spell id="HASTE"/>
+	</Item>
+	<Item id="hero_yog" name="HERO_NAME_YOG" type="BARBARIAN" icon32="heroes.Yog_32x20" icon48="heroes.Yog_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<SecSkill id="PATHFINDING" level="1"/>
+	</Item>
+	<Item id="hero_jaclyn" name="HERO_NAME_JACLYN" type="BARBARIAN" icon32="heroes.Jaclyn_32x20" icon48="heroes.Jaclyn_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="PATHFINDING" level="1"/>
+		<SecSkill id="RESISTANCE" level="1"/>
+		<Spell id="BLOODLUST"/>
+	</Item>
+	<Item id="hero_krag" name="HERO_NAME_KRAG" type="BARBARIAN" icon32="heroes.Krag_32x20" icon48="heroes.Krag_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="2"/>
+	</Item>
+	<Item id="hero_tyro" name="HERO_NAME_BARAKA" type="BARBARIAN" icon32="heroes.Baraka_32x20" icon48="heroes.Baraka_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<SecSkill id="ARMORER" level="1"/>
+		<Spell id="STONESKIN"/>
+	</Item>
+	<Item id="hero_hapax" name="HERO_NAME_HAPAX" type="BARBARIAN" icon32="heroes.Hapax_32x20" icon48="heroes.Hapax_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<SecSkill id="ARCHERY" level="1"/>
+	</Item>
+	<Item id="hero_krull" name="HERO_NAME_KRULL" type="BARBARIAN" icon32="heroes.Krull_32x20" icon48="heroes.Krull_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="3"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="1"/>
+		<FurtSkill id="KNOWLEDGE" value="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<SecSkill id="LUCK" level="1"/>
+	</Item>
+
+	// Wizards
+	<Item id="hero_gallatin" name="HERO_NAME_CRONUS" type="WIZARD" icon32="heroes.Cronus_32x20" icon48="heroes.Cronus_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="FIREMAGIC" level="1"/>
+		<Spell id="CURSE"/>
+	</Item>
+	<Item id="hero_iona" name="HERO_NAME_IONA" type="WIZARD" icon32="heroes.Iona_32x20" icon48="heroes.Iona_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="AIRMAGIC" level="1"/>
+		<Spell id="HASTE"/>
+	</Item>
+	<Item id="hero_barok" name="HERO_NAME_BERNHARD" type="WIZARD" icon32="heroes.Bernhard_32x20" icon48="heroes.Bernhard_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="MYSTICISM" level="1"/>
+		<Spell id="DISPEL"/>
+	</Item>
+	<Item id="hero_falagar" name="HERO_NAME_POSID" type="WIZARD" icon32="heroes.Posid_32x20" icon48="heroes.Posid_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="WATERMAGIC" level="1"/>
+		<Spell id="BLESS"/>
+	</Item>
+	<Item id="hero_crodo" name="HERO_NAME_MALCOLM" type="WIZARD" icon32="heroes.Malcolm_32x20" icon48="heroes.Malcolm_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="2"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+	<Item id="hero_myrini" name="HERO_NAME_MORGANA" type="WIZARD" icon32="heroes.Morgana_32x20" icon48="heroes.Morgana_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="INTELLIGENCE" level="1"/>
+		<Spell id="CURE"/>
+	</Item>
+	<Item id="hero_victor" name="HERO_NAME_VICTOR" type="WIZARD" icon32="heroes.Victor_32x20" icon48="heroes.Victor_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="EARTHMAGIC" level="1"/>
+		<Spell id="SLOW"/>
+	</Item>
+	<Item id="hero_visarus" name="HERO_NAME_VISARUS" type="WIZARD" icon32="heroes.Visarus_32x20" icon48="heroes.Visarus_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="SORCERY" level="1"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+
+	// Warlocks
+	<Item id="hero_sabbat" name="HERO_NAME_GALLATIN" type="WARLOCK" icon32="heroes.Gallatin_32x20" icon48="heroes.Gallatin_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="SORCERY" level="1"/>
+		<SecSkill id="MYSTICISM" level="1"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+	<Item id="hero_agar" name="HERO_NAME_ALTUS" type="WARLOCK" icon32="heroes.Altus_32x20" icon48="heroes.Altus_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="INTELLIGENCE" level="1"/>
+		<Spell id="BLESS"/>
+	</Item>
+	<Item id="hero_vesper" name="HERO_NAME_ODIN" type="WARLOCK" icon32="heroes.Odin_32x20" icon48="heroes.Odin_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="SORCERY" level="1"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+	<Item id="hero_kastore" name="HERO_NAME_KASTORE" type="WARLOCK" icon32="heroes.Kastore_32x20" icon48="heroes.Kastore_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="WATERMAGIC" level="1"/>
+		<Spell id="CURE"/>
+	</Item>
+	<Item id="hero_alamar" name="HERO_NAME_ALAMAR" type="WARLOCK" icon32="heroes.Alamar_32x20" icon48="heroes.Alamar_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="EARTHMAGIC" level="1"/>
+		<Spell id="STONESKIN"/>
+	</Item>
+	<Item id="hero_sarakin" name="HERO_NAME_ELDOR" type="WARLOCK" icon32="heroes.Eldor_32x20" icon48="heroes.Eldor_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<Spell id="CURSE"/>
+	</Item>
+	<Item id="hero_marcus" name="HERO_NAME_MARCUS" type="WARLOCK" icon32="heroes.Marcus_32x20" icon48="heroes.Marcus_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="AIRMAGIC" level="1"/>
+		<SecSkill id="LOGISTICS" level="1"/>
+		<Spell id="HASTE"/>
+	</Item>
+	<Item id="hero_fondo" name="HERO_NAME_FONDO" type="WARLOCK" icon32="heroes.Fondo_32x20" icon48="heroes.Fondo_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="POWER" value="3"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="FIREMAGIC" level="2"/>
+		<Spell id="BLOODLUST"/>
+	</Item>
+
+	// Sorceresses
+	<Item id="hero_ariel" name="HERO_NAME_FERENTONA" type="SORCERESS" icon32="heroes.Ferentona_32x20" icon48="heroes.Ferentona_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="LUCK" level="1"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<Spell id="BLESS"/>
+	</Item>
+	<Item id="hero_gem" name="HERO_NAME_GEM" type="SORCERESS" icon32="heroes.Gem_32x20" icon48="heroes.Gem_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="LUCK" level="1"/>
+		<SecSkill id="LEARNING" level="1"/>
+		<Spell id="CURE"/>
+	</Item>
+	<Item id="hero_carlawn" name="HERO_NAME_ARVEN" type="SORCERESS" icon32="heroes.Arven_32x20" icon48="heroes.Arven_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="EARTHMAGIC" level="1"/>
+		<Spell id="SLOW"/>
+	</Item>
+	<Item id="hero_troyan" name="HERO_NAME_SAMIRA" type="SORCERESS" icon32="heroes.Samira_32x20" icon48="heroes.Samira_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="LUCK" level="1"/>
+		<SecSkill id="DIPLOMACY" level="1"/>
+		<Spell id="DISPEL"/>
+	</Item>
+	<Item id="hero_astra" name="HERO_NAME_MYRINI" type="SORCERESS" icon32="heroes.Myrini_32x20" icon48="heroes.Myrini_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="WISDOM" level="1"/>
+		<SecSkill id="INTELLIGENCE" level="1"/>
+		<Spell id="SHIELD"/>
+	</Item>
+	<Item id="hero_rebecca" name="HERO_NAME_REBECCA" type="SORCERESS" icon32="heroes.Rebecca_32x20" icon48="heroes.Rebecca_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="LUCK" level="1"/>
+		<SecSkill id="LOGISTICS" level="1"/>
+		<Spell id="HASTE"/>
+	</Item>
+	<Item id="hero_rait" name="HERO_NAME_RAIT" type="SORCERESS" icon32="heroes.Rait_32x20" icon48="heroes.Rait_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="AIRMAGIC" level="1"/>
+		<SecSkill id="SORCERY" level="1"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+	<Item id="hero_dvergar" name="HERO_NAME_DVERGAR" type="SORCERESS" icon32="heroes.Dvergar_32x20" icon48="heroes.Dvergar_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="3"/>
+		<SecSkill id="LUCK" level="1"/>
+		<SecSkill id="ARCHERY" level="1"/>
+		<Spell id="STONESKIN"/>
+	</Item>
+
+	// Necromancers
+	<Item id="hero_urof" name="HERO_NAME_UROF" type="NECROMANCER" icon32="heroes.Urof_32x20" icon48="heroes.Urof_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="EARTHMAGIC" level="1"/>
+		<Spell id="STONESKIN"/>
+	</Item>
+	<Item id="hero_khasam" name="HERO_NAME_TAMIKA" type="NECROMANCER" icon32="heroes.Tamika_32x20" icon48="heroes.Tamika_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="PATHFINDING" level="1"/>
+		<Spell id="CURSE"/>
+	</Item>
+	<Item id="hero_roxana" name="HERO_NAME_SHRA" type="NECROMANCER" icon32="heroes.Shra_32x20" icon48="heroes.Shra_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="2"/>
+		<Spell id="MAGICARROW"/>
+	</Item>
+	<Item id="hero_charity" name="HERO_NAME_RUTHVEN" type="NECROMANCER" icon32="heroes.Ruthven_32x20" icon48="heroes.Ruthven_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="FIREMAGIC" level="1"/>
+		<Spell id="BLOODLUST"/>
+	</Item>
+	<Item id="hero_ranloo" name="HERO_NAME_RANLOO" type="NECROMANCER" icon32="heroes.Ranloo_32x20" icon48="heroes.Ranloo_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="LOGISTICS" level="1"/>
+		<Spell id="SLOW"/>
+	</Item>
+	<Item id="hero_sandro" name="HERO_NAME_SANDRU" type="NECROMANCER" icon32="heroes.Sandru_32x20" icon48="heroes.Sandru_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="OFFENCE" level="1"/>
+		<Spell id="CURSE"/>
+	</Item>
+	<Item id="hero_jack" name="HERO_NAME_JACK" type="NECROMANCER" icon32="heroes.Jack_32x20" icon48="heroes.Jack_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="INTELLIGENCE" level="1"/>
+		<Spell id="CURSE"/>
+	</Item>
+	<Item id="hero_knechtruprecht" name="HERO_NAME_KNECHTRUPRECTH" type="NECROMANCER" icon32="heroes.KnechtRuprecht_32x20" icon48="heroes.KnechtRuprecht_48x48">
+		<Cost GOLD="2500" />
+		<FurtSkill id="ATTACK" value="1"/>
+		<FurtSkill id="DEFENCE" value="1"/>
+		<FurtSkill id="POWER" value="2"/>
+		<FurtSkill id="KNOWLEDGE" value="2"/>
+		<SecSkill id="NECROMANCY" level="1"/>
+		<SecSkill id="ARMORER" level="1"/>
+		<Spell id="SHIELD"/>
+	</Item>
+</Heroes>
+
+<!-- Artifacts -->
+<Artifacts>
+<!-- 1: Treasure -->
+	<!-- Attack +1 -->
+	<Item id="SilverSword" name="ART_SILVERSWORD" desc="ART_SILVERSWORD_DESC" level="1" assign="HANDS" icon="silver_sword" type="FURTSKILL" ATTACK="+1"/> 
+	<!-- Attack +1 -->
+	<Item id="PeasantsSickle" name="ART_PEASANTSSICKLE" desc="ART_PEASANTSSICKLE_DESC" level="1" assign="HANDS" icon="peasants_sickle" type="FURTSKILL" ATTACK="+1"/> 
+	<!-- Defense +1 -->
+	<Item id="Plate" name="ART_PLATE" desc="ART_PLATE_DESC" level="1" assign="TORSO" icon="plate" type="FURTSKILL" DEFENCE="+1"/> 
+	<!-- Defense +1 -->
+	<Item id="DragonShield" name="ART_DRAGONSHIELD" desc="ART_DRAGONSHIELD_DESC" level="1" assign="HANDS" icon="dragon_shield" type="FURTSKILL" DEFENCE="+1"/> 
+	<!-- Power +1 -->
+	<Item id="MonksRing" name="ART_MONKSRING" desc="ART_MONKSRING_DESC" level="1" assign="FINGERS" icon="monks_ring" type="FURTSKILL" POWER="+1"/>
+	<!-- Knowledge +1 -->
+	<Item id="MinorScrollOfKnowledge" name="ART_MINORSCROLLOFKNOWLEDGE" desc="ART_MINORSCROLLOFKNOWLEDGE_DESC" level="1" assign="MISC" icon="minor_scroll_of_knowledge" type="FURTSKILL" KNOWLEDGE="+1"/>
+	<!-- Knowledge +1 -->
+	<Item id="ParchmentScroll" name="ART_PARCHMENTSCROLL" desc="ART_PARCHMENTSCROLL_DESC" level="1" assign="MISC" icon="parchment_scroll" type="FURTSKILL" KNOWLEDGE="+1"/>
+	<!-- Knowledge +1 -->
+	<Item id="PendantOfWisdom" name="ART_PENDANTOFWISDOM" desc="ART_PENDANTOFWISDOM_DESC" level="1" assign="NECK" icon="pendant_of_wisdom" type="FURTSKILL" KNOWLEDGE="+1"/>
+	<!-- Morale +1 -->
+	<Item id="MedalOfHonor" name="ART_MEDAL" desc="ART_MEDAL_DESC" level="1" assign="MISC" icon="pedant" type="FURTSKILL" MORALE="+1"/>
+	<!-- Morale +1 -->
+	<Item id="MedalOfDistinction" name="ART_MEDALOFDISTINCTION" desc="ART_MEDALOFDISTINCTION_DESC" level="1" assign="MISC" icon="medal_of_distinction" type="FURTSKILL" MORALE="+1"/>
+	<!-- Luck +1 -->
+	<Item id="LuckyDice" name="ART_LUCKYDICE" desc="ART_LUCKYDICE_DESC" level="1" assign="MISC" icon="lucky_dice" type="FURTSKILL" LUCK="+1"/> 
+	<!-- Luck +1 -->
+	<Item id="Clover" name="ART_CLOVER" desc="ART_CLOVER_DESC" level="1" assign="MISC" icon="clover" type="FURTSKILL" LUCK="+1"/>
+	<!-- Luck +1 -->
+	<Item id="SilverBirdOfLuck" name="ART_SILVERBIRDOFLUCK" desc="ART_SILVERBIRDOFLUCK_DESC" level="1" assign="MISC" icon="silver_bird_of_luck" type="FURTSKILL" LUCK="+1"/>
+	<!-- Archery 5% -->
+	<Item id="LongBow" name="ART_LONGBOW" desc="ART_LONGBOW_DESC" reqss="ARCHERY" level="1" assign="MISC" icon="long_bow" type="FURTSKILL" ARCHERY="+5"/> 
+	<!-- Necromancy 5% -->
+	<Item id="NecromancersRing" name="ART_NECROMANCERSRING" desc="ART_NECROMANCERSRING_DESC" reqss="NECROMANCY" level="1" assign="FINGERS" icon="necromancers_ring" type="FURTSKILL" NECROMANCY="+5"/>
+	<!-- Scouting +1 -->
+	<Item id="Telescope" name="ART_TELESCOPE" desc="ART_TELESCOPE_DESC" level="1" assign="MISC" icon="telescope" type="FURTSKILL" SCOUTING="+1"/> 
+	<!-- Air spells damage -50% -->
+	<Item id="ProtectiveCloakAir" name="ART_PROTECTIVECLOAKAIR" desc="ART_PROTECTIVECLOAKAIR_DESC" level="1" assign="SHOULDERS" icon="protective_cloak_air" type="FURTSKILL" RES_AIR="+30"/>
+	<!-- Earth spells damage -50% -->
+	<Item id="ProtectiveCloakEarth" name="ART_PROTECTIVECLOAKEARTH" desc="ART_PROTECTIVECLOAKEARTH_DESC" level="1" assign="SHOULDERS" icon="protective_cloak_earth" type="FURTSKILL" RES_EATH="+30"/>
+	<!-- Fire spells damage -50% -->
+	<Item id="ProtectiveCloakFire" name="ART_PROTECTIVECLOAKFIRE" desc="ART_PROTECTIVECLOAKFIRE_DESC" level="1" assign="SHOULDERS" icon="protective_cloak_fire" type="FURTSKILL" RES_FIRE="+30"/>
+	<!-- Water spells damage -50% -->
+	<Item id="ProtectiveCloakWater" name="ART_PROTECTIVECLOAKWATER" desc="ART_PROTECTIVECLOAKWATER_DESC" level="1" assign="SHOULDERS" icon="protective_cloak_water" type="FURTSKILL" RES_WATRE="+30"/>
+	<!-- Mana +2 -->
+	<Item id="JarOfMana" name="ART_JAROFMANA" desc="ART_JAROFMANA_DESC" level="1" assign="MISC" icon="jar_of_mana" type="FURTSKILL" MANAPTS="+2"/>
+<!-- 2: Minor -->
+	<!-- Attack +3 -->
+	<Item id="PowerAxe" name="ART_POWERAXE" desc="ART_POWERAXE_DESC" level="3" assign="HANDS" icon="power_axe" type="FURTSKILL" ATTACK="+3"/>
+	<!-- Defense +2 -->
+	<Item id="Helm" name="ART_HELM" desc="ART_HELM_DESC" level="2" assign="HEAD" icon="helm" type="FURTSKILL" DEFENCE="+2"/>
+	<!-- Power +2 -->
+	<Item id="CastersBracelet" name="ART_CASTERSBRACELET" desc="ART_CASTERSBRACELET_DESC" level="2" assign="FINGERS" icon="casters_bracelet" type="FURTSKILL" POWER="+2"/>
+	<!-- Knowledge +2 -->
+	<Item id="ScrollOfEnlightenment" name="ART_SCROLLOFENLIGHTENMENT" desc="ART_SCROLLOFENLIGHTENMENT_DESC" level="2" assign="MISC" icon="scroll_of_enlightenment" type="FURTSKILL" KNOWLEDGE="+2"/>
+	<!-- Attack and Defense +1 - replaced (now its called Soldier's Helm)-->
+	<Item id="SpikedHelm" name="ART_SPIKEDHELM" desc="ART_SPIKEDHELM_DESC" level="2" assign="HEAD" icon="spiked_helm" type="FURTSKILL" ATTACK="+1" DEFENCE="+1"/>
+	<!-- Power and Knowledge +1 -->
+	<Item id="Ring" name="ART_RING" desc="ART_RING_DESC" level="2" assign="FINGERS" icon="ring" type="FURTSKILL" POWER="+1" KNOWLEDGE="+1"/>
+	<!-- Power and Knowledge +1 -->
+	<Item id="WhitePearlNecklace" name="ART_WHITEPEARLNECKLACE" desc="ART_WHITEPEARLNECKLACE_DESC" level="2" assign="NECK" icon="white_pearl_necklace" type="FURTSKILL" POWER="+1" KNOWLEDGE="+1"/>
+	<!-- Luck +2 -->
+	<Item id="GoldenBirdOfLuck" name="ART_GOLDENBIRDOFLUCK" desc="ART_GOLDENBIRDOFLUCK_DESC" level="2" assign="MISC" icon="golden_bird_of_luck" type="FURTSKILL" LUCK="+2"/>
+	<!-- Ore +1 -->
+	<Item id="CartOfOre" name="ART_CARTOFORE" desc="ART_CARTOFORE_DESC" level="2" assign="MISC" icon="cart_of_ore" type="FURTSKILL" MIN_ORE="+1"/>
+	<!-- Wood +1 -->
+	<Item id="CordOfWood" name="ART_CORDOFWOOD" desc="ART_CORDOFWOOD_DESC" level="2" assign="MISC" icon="cord_of_wood" type="FURTSKILL" MIN_WOOD="+1"/>
+	<!-- Hits +1 -->
+	<Item id="RingOfLife" name="ART_RINGOFLIFE" desc="ART_RINGOFLIFE_DESC" level="2" assign="FINGERS" icon="ring_of_life" type="FURTSKILL" HITS="+1"/>
+	<!-- Hits +2 -->
+	<Item id="PedantOfLife" name="ART_PENDANTOFLIFE" desc="ART_PENDANTOFLIFE_DESC" level="2" assign="NECK" icon="pedant_of_life" type="FURTSKILL" HITS="+2"/>
+	<!-- Archery 10% -->
+	<Item id="ElfsLongBow" name="ART_ELFSLONGBOW" desc="ART_ELFSLONGBOW_DESC" reqss="ARCHERY" level="2" assign="MISC" icon="elfs_long_bow" type="FURTSKILL" ARCHERY="+10"/>
+	<!-- Necromancy 10% -->
+	<Item id="VampiresCowl" name="ART_VAMPIRESCOWL" desc="ART_VAMPIRESCOWL_DESC" reqss="NECROMANCY" level="2" assign="SHOULDERS" icon="vampires_cowl" type="FURTSKILL" NECROMANCY="+10"/>
+	<!-- Boots +30 -->
+	<Item id="TravelersBoots" name="ART_BOOTS" desc="ART_BOOTS_DESC" level="2" assign="FEET" icon="boots" type="FURTSKILL" ACTPTS="+20"/>
+	<!-- Diplomacy +20 -->
+	<Item id="DiplomatsQuill" name="ART_DIPLOMATSQUILL" desc="ART_DIPLOMATSQUILL_DESC" level="2" assign="MISC" icon="diplomats_quill" type="FURTSKILL" DIPLOMACY="+20"/>
+	<!-- Resistance 10% -->
+	<Item id="ProtectiveCloak" name="ART_PROTECTIVECLOAK" desc="ART_PROTECTIVECLOAK_DESC" reqss="RESISTANCE" level="2" assign="SHOULDERS" icon="protective_cloak" type="FURTSKILL" RESISTANCE="+10"/>
+	<!-- Speed +1 -->
+	<Item id="ClockOfSwiftness" name="ART_CLOCKOFSWIFTNESS" desc="ART_CLOCKOFSWIFTNESS_DESC" level="2" assign="MISC" icon="clock_of_swiftness" type="FURTSKILL" SPEED="+1"/>
+<!-- 3: Major -->
+	<!-- Attack +3 -->
+	<Item id="Sword" name="ART_SWORD" desc="ART_SWORD_DESC" level="3" assign="HANDS" icon="sword" type="FURTSKILL" ATTACK="+3"/>
+	<!-- Defense +3 -->
+	<Item id="ArmorOfMight" name="ART_ARMOROFMIGHT" desc="ART_ARMOROFMIGHT_DESC" level="3" assign="TORSO" icon="armor_of_might" type="FURTSKILL" DEFENCE="+3"/> 
+	<!-- Power +3 -->
+	<Item id="RingOfPower" name="ART_RINGOFPOWER" desc="ART_RINGOFPOWER_DESC" level="3" assign="FINGERS" icon="ring_of_power" type="FURTSKILL" POWER="+3"/>
+	<!-- Knowledge +3 -->
+	<Item id="TomeOfKnowledge" name="ART_TOMEOFKNOWLEDGE" desc="ART_TOMEOFKNOWLEDGE_DESC" level="3" assign="MISC" icon="tome_of_knowledge" type="FURTSKILL" KNOWLEDGE="+3"/>
+	<!-- Attack +4 -->
+	<Item id="AncientBroadsword" name="ART_ANCIENTBROADSWORD" desc="ART_ANCIENTBROADSWORD_DESC" level="3" assign="HANDS" icon="ancient_broadsword" type="FURTSKILL" ATTACK="+4"/>
+	<!-- Defense +4 -->
+	<Item id="Shield" name="ART_SHIELD" desc="ART_SHIELD_DESC" level="3" assign="HANDS" icon="shield" type="FURTSKILL" DEFENCE="+4"/>
+	<!-- Defense +4 -->
+	<Item id="PaladinsShield" name="ART_PALADINSSHIELD" desc="ART_PALADINSSHIELD_DESC" level="3" assign="HANDS" icon="paladins_shield" type="FURTSKILL" DEFENCE="+4"/>
+	<!-- Power +4 -->
+	<Item id="Staff" name="ART_STAFF" desc="ART_STAFF_DESC" level="3" assign="HANDS" icon="staff" type="FURTSKILL" POWER="+4"/>
+	<!-- Knowledge +4 -->
+	<Item id="SupScroll" name="ART_SUPSCROLL" desc="ART_SUPSCROLL_DESC" level="3" assign="MISC" icon="sup_scroll" type="FURTSKILL" KNOWLEDGE="+4"/>
+	<!-- Knowledge +4 -->
+	<Item id="BookOfWisdom" name="ART_BOOKOFWISDOM" desc="ART_BOOKOFWISDOM_DESC" level="3" assign="MISC" icon="book_of_wisdom" type="FURTSKILL" KNOWLEDGE="+4"/>
+	<!-- Attack and Defense +2 -->
+	<Item id="Eclipse" name="ART_ECLIPSE" desc="ART_ECLIPSE_DESC" level="3" assign="HANDS" icon="eclipse" type="FURTSKILL" ATTACK="+2" DEFENCE="+2"/>
+	<!-- Power and Knowledge +2 -->
+	<Item id="SnakeBracelet" name="ART_SNAKEBRACELET" desc="ART_SNAKEBRACELET_DESC" level="3" assign="FINGERS" icon="snake_bracelet" type="FURTSKILL" POWER="+2" KNOWLEDGE="+2"/>
+	<!-- Power and Knowledge +2 -->
+	<Item id="BlackPearlNecklace" name="ART_BLACKPEARLNECKLACE" desc="ART_BLACKPEARLNECKLACE_DESC" level="3" assign="NECK" icon="black_pearl_necklace" type="FURTSKILL" POWER="+2" KNOWLEDGE="+2"/>
+	<!-- Attack, Defense, Power, and Knowledge +1 -->
+	<Item id="PendantOfOmniscience" name="ART_PENDANTOFOMNISCIENCE" desc="ART_PENDANTOFOMNISCIENCE_DESC" level="3" assign="NECK" icon="pendant_of_omniscience" type="FURTSKILL" ATTACK="+1" DEFENCE="+1" POWER="+1" KNOWLEDGE="+1"/>
+	<!-- Hits +3 -->
+	<Item id="RingOfPerpetuity" name="ART_RINGOFPERPETUITY" desc="ART_RINGOFPERPETUITY_DESC" level="3" assign="FINGERS" icon="ring_of_perpetuity" type="FURTSKILL" HITS="+3"/>
+	<!-- Archery 15% -->
+	<Item id="Crossbow" name="ART_CROSSBOW" desc="ART_CROSSBOW_DESC" reqss="ARCHERY" level="3" assign="MISC" icon="crossbow" type="FURTSKILL" ARCHERY="+15"/>
+	<!-- Necromancy 15% -->
+	<Item id="NecromancersSword" name="ART_NECROMANCERSSWORD" desc="ART_NECROMANCERSSWORD_DESC" reqss="NECROMANCY" level="3" assign="HANDS" icon="necromancers_sword" type="FURTSKILL" NECROMANCY="+15"/>
+	<!-- Gold +1000 -->
+	<Item id="AmuletOfWealth" name="ART_AMULETOFWEALTH" desc="ART_AMULETOFWEALTH_DESC" level="3" assign="NECK" icon="amulet_of_wealth" type="FURTSKILL" MIN_GOLD="+1000"/>
+	<!-- Mercury +1 -->
+	<Item id="VialOfMercury" name="ART_VIALOFMERCURY" desc="ART_VIALOFMERCURY_DESC" level="3" assign="MISC" icon="vial_of_mercury" type="FURTSKILL" MIN_MERCURY="+1"/>
+	<!-- Gems +1 -->
+	<Item id="PouchOfGems" name="ART_POUCHOFGEMS" desc="ART_POUCHOFGEMS_DESC" level="3" assign="MISC" icon="pouch_of_gems" type="FURTSKILL" MIN_GEMS="+1"/>
+	<!-- Sulfur +1 -->
+	<Item id="SulfurRing" name="ART_SULFURRING" desc="ART_SULFURRING_DESC" level="3" assign="FINGERS" icon="sulfur_ring" type="FURTSKILL" MIN_SULFUR="+1"/>
+	<!-- Crystal +1 -->
+	<Item id="CrystalRose" name="ART_CRYSTALROSE" desc="ART_CRYSTALROSE_DESC" level="3" assign="MISC" icon="crystal_rose" type="FURTSKILL" MIN_CRYSTAL="+1"/>
+	<!-- Boots +30 -->
+	<Item id="NomadBoots" name="ART_NOMADBOOTS" desc="ART_NOMADBOOTS_DESC" level="3" assign="FEET" icon="nomad_boots" type="FURTSKILL" ACTPTS="+30"/>
+<!-- 4: Relict -->
+	<!-- Attack +6 -->
+	<Item id="LongSword" name="ART_LONGSWORD" desc="ART_LONGSWORD_DESC" reqlvl="5" level="4" assign="HANDS" icon="long_sword" type="FURTSKILL" ATTACK="+6"/>
+	<!-- Defense +6 -->
+	<Item id="HerosShield" name="ART_HEROSSHIELD" desc="ART_HEROSSHIELD_DESC" reqlvl="5" level="4" assign="HANDS" icon="heros_shield" type="FURTSKILL" DEFENCE="+6"/>
+	<!-- Power +6 -->
+	<Item id="PrecursorsHelmet" name="ART_PRECURSORSHELMET" reqss="WISDOM" reqlvl="5" desc="ART_PRECURSORSHELMET_DESC" level="4" assign="HEAD" icon="precursors_helmet" type="FURTSKILL" POWER="+6"/>
+	<!-- Knowledge +6 -->
+	<Item id="WizardsHat" name="ART_WIZARDSHAT" desc="ART_WIZARDSHAT_DESC" reqlvl="5" level="4" assign="HEAD" icon="wizards_hat" type="FURTSKILL" KNOWLEDGE="+6"/>
+	<!-- Attack and Defense +3 -->
+	<Item id="SwordBreaker" name="ART_SWORDBREAKER" desc="ART_SWORDBREAKER_DESC" reqlvl="5" level="4" assign="HANDS" icon="sword_breaker" type="FURTSKILL" ATTACK="+3" DEFENCE="+3"/>
+	<!-- Power and Knowledge +3 -->
+	<Item id="WarlocksNecklet" name="ART_WARLOCKSNECKLACE" desc="ART_WARLOCKSNECKLACE_DESC" reqlvl="5" level="4" assign="NECK" icon="warlocks_necklace" type="FURTSKILL" POWER="+3" KNOWLEDGE="+3"/>
+	<!-- Attack, Defense, Power, and Knowledge +2 -->
+	<Item id="SorcerersWand" name="ART_SORCERERSWAND" desc="ART_SORCERERSWAND_DESC" reqlvl="5" level="4" assign="HANDS" icon="sorcerers_wand" type="FURTSKILL" ATTACK="+2" DEFENCE="+2" POWER="+2" KNOWLEDGE="+2"/>
+	<!-- Shackles of War -->
+	<Item id="ShaklesOfWar" name="ART_SHAKLESOFWAR" desc="ART_SHAKLESOFWAR_DESC" reqlvl="5" level="4" assign="MISC" icon="shakles_of_war" type="SHOFWAR" />
+	<!-- Sphere of negation -->
+	<Item id="SphereOfNegation" name="ART_SPHEREOFNEGATION" desc="ART_SPHEREOFNEGATION_DESC" reqlvl="5" level="4" assign="MISC" icon="sphere_of_negation" type="NEGSPHERE"/>
+
+<!-- Version 1.02 -->
+	<Item id="ThrowingAxe" name="ART_THROWINGAXE" desc="ART_THROWINGAXE_DESC" level="2" assign="HANDS" icon="throwing_axe" type="FURTSKILL" ATTACK="+2"/>
+	<Item id="GoblinsShield" name="ART_GOBLINSSHIELD" desc="ART_GOBLINSSHIELD_DESC" level="3" assign="HANDS" icon="goblins_shield" type="FURTSKILL" DEFENCE="+4"/>
+	<Item id="CastersPendant" name="ART_CASTERSPENDANT" desc="ART_CASTERSPENDANT_DESC" level="2" assign="NECK" icon="casters_pendant" type="FURTSKILL" POWER="+2"/>
+	<Item id="SwordOfCursed" name="ART_SWORDOFCURSED" desc="ART_SWORDOFCURSED_DESC" reqlvl="5" level="4" assign="HANDS" icon="sword_of_cursed" type="CURSWORD"/>
+
+	<!--
+	<Item id="SphereOfAir" name="ART_SPHEREOFAIR" desc="ART_SPHEREOFAIR_DESC" level="4" assign="MISC" icon="sphere_of_air" type="FURTSKILL" MAG_AIR="+50"/>
+	<Item id="SphereOfEarth" name="ART_SPHEREOFEARTH" desc="ART_SPHEREOFEARTH_DESC" level="4" assign="MISC" icon="sphere_of_earth" type="FURTSKILL" MAG_EARTH="+50"/>
+	<Item id="SphereOfFire" name="ART_SPHEREOFFIRE" desc="ART_SPHEREOFFIRE_DESC" level="4" assign="MISC" icon="sphere_of_fire" type="FURTSKILL" MAG_FIRE="+50"/>
+	<Item id="SphereOfWater" name="ART_SPHEREOFWATER" desc="ART_SPHEREOFWATER_DESC" level="4" assign="MISC" icon="sphere_of_water" type="FURTSKILL" MAG_WATER="+50"/>
+	-->
+
+<!-- New -->
+	<Item id="IronMace" name="ART_IRONMACE" desc="ART_IRONMACE_DESC" level="1" assign="HANDS" icon="mace" type="FURTSKILL" ATTACK="+1"/>
+	<Item id="GoldenMace" name="ART_GOLDENMACE" desc="ART_GOLDENMACE_DESC" level="3" assign="HANDS" icon="golden_mace" type="FURTSKILL" ATTACK="+3" MIN_GOLD="+250"/>
+
+	<Item id="GoldenSword" name="ART_GOLDENSWORD" desc="ART_GOLDENSWORD_DESC" level="3" assign="HANDS" icon="golden_sword" type="FURTSKILL" ATTACK="+3" MIN_GOLD="+250"/>
+	<Item id="GoldenShield" name="ART_GOLDENSHIELD" desc="ART_GOLDENSHIELD_DESC" level="3" assign="HANDS" icon="golden_shield" type="FURTSKILL" DEFENCE="+3" MIN_GOLD="+250"/>
+	<Item id="GoldenArmor" name="ART_GOLDENARMOR" desc="ART_GOLDENARMOR_DESC" level="3" assign="TORSO" icon="golden_armor" type="FURTSKILL" DEFENCE="+2" LUCK="+1" MIN_GOLD="+250"/>
+
+	<!-- Gold +500 replaced -->
+	<Item id="PurseOfGold" name="ART_PURSEOFGOLD" desc="ART_PURSEOFGOLD_DESC" level="3" assign="FINGERS" icon="golden_ring" type="FURTSKILL" MIN_GOLD="+500"/>
+	<!-- Gold +750 replaced -->
+	<Item id="BagOfGold" name="ART_BAGOFGOLD" desc="ART_BAGOFGOLD_DESC" level="3" assign="MISC" icon="golden_chalice" type="FURTSKILL" MIN_GOLD="+750"/>
+	<!-- Power +1 replaced -->
+	<Item id="WitchsBrooch" name="ART_GOLDENSKULL" desc="ART_GOLDENSKULL_DESC" level="1" assign="MISC" icon="golden_skull" type="FURTSKILL" POWER="+1"/> 
+
+	<!-- Defence +1 -->
+	<Item id="IronGreaves" name="ART_IRONGREAVES" desc="ART_IRONGREAVES_DESC" level="2" assign="LEGS" icon="iron_greaves" type="FURTSKILL" DEFENCE="+2"/> 
+	<Item id="BoneGreaves" name="ART_BONEGREAVES" desc="ART_BONEGREAVES_DESC" level="1" assign="LEGS" icon="bone_greaves" type="FURTSKILL" DEFENCE="+1"/> 
+
+	<!-- 2008.01.14 -->
+	<Item id="SunRod" name="ART_SUNROD" desc="ART_SUNROD_DESC" level="2" assign="HANDS" icon="sun_rod" type="FURTSKILL" MANAPTS="+5"/>
+	<Item id="BastardSword" name="ART_BASTARDSWORD" desc="ART_BASTARDSWORD_DESC" level="2" assign="HANDS" icon="bastard_sword" type="FURTSKILL" ATTACK="+2" />
+	<Item id="AirCirclet" name="ART_AIRCIRCLET" desc="ART_AIRCIRCLET_DESC" level="1" assign="HEAD" icon="circlet_of_air" type="FURTSKILL" POWER="+1" />
+	<Item id="RangerCap" name="ART_RANGERCAP" desc="ART_RANGERCAP_DESC" level="3" assign="HEAD" icon="ranger_cap" type="FURTSKILL" ARCHERY="+15"/>
+
+	<Item id="DwarvenHammer" name="ART_DWARVENHAMMER" desc="ART_DWARVENHAMMER_DESC" level="3" assign="HANDS" icon="dwarven_hammer" type="FURTSKILL" ATTACK="+3" creatures="DWARF" CREAT_ATTACK="+3"/>	
+	<Item id="WingedHelmet" name="ART_WINGEDHELMET" desc="ART_WINGEDHELMET_DESC" level="3" assign="HEAD" icon="winged_helmet" type="FURTSKILL" DEFENCE="+2" ACTPTS="+15"/>	
+	<Item id="BoneMask" name="ART_BONEMASK" desc="ART_BONEMASK_DESC" level="3" assign="HEAD" icon="bone_mask" type="FURTSKILL" DEFENCE="+2" FEAR="+2"/>	
+	<Item id="BoneArmor" name="ART_BONEARMOR" desc="ART_BONEARMOR_DESC" level="3" assign="TORSO" icon="bone_armor" type="FURTSKILL" DEFENCE="+3" FEAR="+1"/>	
+	<Item id="KingsShield" name="ART_KINGSSHIELD" desc="ART_KINGSSHIELD_DESC" level="3" assign="HANDS" icon="kings_shield" type="FURTSKILL" DEFENCE="+3" MORALE="+1"/>	
+	<Item id="BloodStoneNecklace" name="ART_BLOODSTONENECKLACE" desc="ART_BLOODSTONENECKLACE_DESC" level="3" assign="NECK" icon="bloodstone_necklace" type="FURTSKILL" POWER="+1" SPELLDMG="+15"/>	
+	<Item id="SwampBoots" name="ART_SWAMPBOOTS" desc="ART_SWAMPBOOTS_DESC" level="3" assign="FEET" icon="swamp_boots" type="FURTSKILL" ACTPTS="+25"/>	
+	<Item id="LeatherArmor" name="ART_LEATHERARMOR" desc="ART_LEATHERARMOR_DESC" level="1" assign="TORSO" icon="leather_armor" type="FURTSKILL" DEFENCE="+1"/>	
+	<Item id="GoblinCap" name="ART_GOBLINCAP" desc="ART_GOBLINCAP_DESC" level="1" assign="HEAD" icon="goblin_cap" type="FURTSKILL" DEFENCE="+1" creatures="GOBLIN" CREAT_DEFENCE="+2"/>	
+	<Item id="BoneNecklace" name="ART_BONENECKLACE" desc="ART_BONENECKLACE_DESC" level="1" assign="NECK" icon="bone_necklace" type="FURTSKILL" MORALE="+1" LUCK="+1"/>	
+	<Item id="RidersHelm" name="ART_RIDERSHELM" desc="ART_RIDERSHELM_DESC" level="2" assign="HEAD" icon="riders_helm" type="FURTSKILL" DEFENCE="+2"/>	
+	<Item id="OgreShield" name="ART_OGRESHIELD" desc="ART_OGRESHIELD_DESC" level="2" assign="HANDS" icon="ogre_shield" type="FURTSKILL" DEFENCE="+2" creatures="OGRE" CREAT_DEFENCE="+4"/>	
+
+<!-- fastcrossbow, ice amulet, ??? -->
+
+</Artifacts>
+</HMMConfig>

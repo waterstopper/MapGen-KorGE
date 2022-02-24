@@ -15,6 +15,7 @@ class Pipeline(
     val imageLength: Double
 ) {
     var voronoi: Voronoi? = null //Voronoi(zones, matrixLength)
+    lateinit var obstacleMapManager:ObstacleMapManager
 
 
     init {
@@ -32,7 +33,7 @@ class Pipeline(
         circ.placeZoneCircles(zones, connections, circles, lines)
 
         voronoi = Voronoi(zones, matrixLength)
-        val obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
+        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
 
         if (!voronoi!!.createPassages())
             createMap()
@@ -46,7 +47,7 @@ class Pipeline(
     }
 
     suspend fun exportMap() {
-        val w = Writer(voronoi!!)
+        val w = Writer(voronoi!!, obstacleMapManager)
         w.writeHeader()
     }
 

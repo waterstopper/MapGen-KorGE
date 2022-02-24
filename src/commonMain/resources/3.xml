@@ -1,0 +1,33 @@
+<Group id="3">
+    <Item id="rocks_19" name="OBJ_ROCK">
+        <Sprite id="decals.rocks_19" level="0"/>
+        <PassModifier offset="-10" value="-1"/>
+        <PassModifier offset="0-1" value="-1"/>
+        <PassModifier offset="00" value="-1"/>
+        <Surf id="SNOW"/>
+    </Item>
+    <!--    <Item id="mountains_1_1" name="OBJ_MOUNTAIN">-->
+    <!--        <Sprite id="mountains.mountains_1_1"/>-->
+    <!--        <PassModifier offset="00" value="-1"/>-->
+    <!--        <PassModifier offset="-10" value="-1"/>-->
+    <!--        <PassModifier offset="-1-1" value="-1"/>-->
+    <!--    </Item>-->
+    <!--    <Item id="mountains_4_1" name="OBJ_MOUNTAIN">-->
+    <!--        <Sprite id="mountains.mountains_4_1"/>-->
+    <!--        <PassModifier offset="00" value="-1"/>-->
+    <!--        <PassModifier offset="-10" value="-1"/>-->
+    <!--        <PassModifier offset="-1-1" value="-1"/>-->
+    <!--    </Item>-->
+    <!--    <Item id="mountains_swamp1_1" name="OBJ_MOUNTAIN">-->
+    <!--        <Sprite id="mountains.mountains_swamp1_1"/>-->
+    <!--        <PassModifier offset="00" value="-1"/>-->
+    <!--        <PassModifier offset="-10" value="-1"/>-->
+    <!--        <PassModifier offset="-1-1" value="-1"/>-->
+    <!--    </Item>-->
+    <!--    <Item id="mountains_15_1" name="OBJ_MOUNTAIN">-->
+    <!--        <Sprite id="mountains.mountains_15_1"/>-->
+    <!--        <PassModifier offset="00" value="-1"/>-->
+    <!--        <PassModifier offset="-10" value="-1"/>-->
+    <!--        <PassModifier offset="-1-1" value="-1"/>-->
+    <!--    </Item>-->
+</Group>

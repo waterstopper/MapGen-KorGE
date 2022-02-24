@@ -1,10 +1,8 @@
 import com.soywiz.korge.Korge
 import com.soywiz.korge.input.onClick
-import com.soywiz.korge.view.*
 import com.soywiz.korim.color.Colors
 import components.Connection
 import components.Zone
-import export.Writer
 import steps.ObstacleMapManager
 import steps.Pipeline
 import steps.TemplateParser
