@@ -128,15 +128,20 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
             writeNBytes(arr[i].code, 2)
     }
 
-    class DecorationsBuilder(obstacleMapManager: ObstacleMapManager) {
+    class DecorationsBuilder(private val obstacleMapManager: ObstacleMapManager) {
         private val obstacleFolders = listOf("mountains", "trees", "decals")
-        private lateinit var groups: Map<Int, List<Xml>>
-        private val obstacle3Squares = create3Squares(obstacleMapManager)
-        private var amount = (obstacle3Squares.lastIndex / 3..obstacle3Squares.lastIndex).random()
+        private lateinit var groups: MutableMap<Int, Map<Biome, List<Xml>>>
+        private val obstacle3Squares = createNSquares(obstacleMapManager, 3)
+        private val obstacle2Squares = createNSquares(obstacleMapManager, 2)
 
-        private lateinit var map: Map<String, List<Xml>>
+        private var amount3 = ((obstacle3Squares.lastIndex / 4)..(obstacle3Squares.lastIndex * 4 / 5)).random()
+        private var amount2 = ((obstacle2Squares.lastIndex / 4)..(obstacle2Squares.lastIndex * 4 / 5)).random()
+        private val amount1 = getAmountOfObstacles(obstacleMapManager)
 
-        private fun create3Squares(oMM: ObstacleMapManager) = oMM.findAllNSquares(3)
+        private lateinit var map: Map<Biome, List<Xml>>
+
+        private fun createNSquares(oMM: ObstacleMapManager, n: Int) = oMM.findAllNSquares(n)
+        private fun getAmountOfObstacles(oMM: ObstacleMapManager) = oMM.calculateAllObstacleCells()
 
         private suspend fun parseGroups(): Map<Int, List<Xml>> {
             val children = resourcesVfs["hmm.xml"].readXml()["Avatars"].children("Item")
@@ -150,22 +155,62 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         }
 
         suspend fun placeObstacles(writer: Writer) {
-            groups = parseGroups()
+            groups = mutableMapOf()
 
             //writeUnknown(groups)
+            for (i in parseGroups()) {
+                if (i.value[0].children("PassModifier").count() != 0)
+                    groups[i.key] = groupBySurface(i.value)
+            }
 
-            writer.writeNBytes(amount, 4)
+            writer.writeNBytes(amount3 + amount2 + amount1, 4)
 
-            for (i in obstacle3Squares.shuffled().take(amount))
-                writer.writeDecoration(
-                    i.position.first,
-                    i.position.second,
-                    groups[9]!!.random().attribute("id")!!
-                )
+            for (i in obstacle3Squares.shuffled().take(amount3)) {
+                val decoration = groups[9]!![i.first]?.random()
+                if (decoration != null)
+                    writer.writeDecoration(
+                        i.second.position.first,
+                        i.second.position.second,
+                        decoration.attribute("id")!!
+                    )
+                else {
+                    writer.writeDecoration(0, 0, "flowers_8")
+                }
+            }
+
+            for (i in obstacle2Squares.shuffled().take(amount2)) {
+                val decoration = groups[4]!![i.first]?.random()
+                if (decoration != null)
+                    writer.writeDecoration(
+                        i.second.position.first,
+                        i.second.position.second,
+                        decoration.attribute("id")!!
+                    )
+                else {
+                    writer.writeDecoration(0, 0, "flowers_8")
+                }
+            }
+
+            var amountLeft = amount1
+            for (list in obstacleMapManager.matrixMap.matrix) {
+                for (cell in list) {
+                    if (Constants.OBSTACLES.contains(cell.cellType)) {
+                        writer.writeDecoration(
+                            cell.position.first,
+                            cell.position.second,
+                            groups[1]!![cell.zone.type]!!.random().attribute("id")!!
+                        )
+                        amountLeft--
+                    }
+                }
+            }
+            for (i in 0 until amountLeft) {
+                writer.writeDecoration(0, 0, "flowers_8")
+            }
         }
 
         suspend fun placeAll(writer: Writer) {
-            groups = parseGroups()
+            val groups = parseGroups()
             val allObjects = groups.values.flatten()
 
             writer.writeNBytes(allObjects.size, 4)
@@ -186,7 +231,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                 map = groupBySurface(g.value)
 
                 resourcesVfs[g.key.toString() + ".xml"].writeString(
-                    "<Group id=\"${g.key}\">" + map["UNKNOWN"]!!.toString().filter { it != ',' } + "</Group>")
+                    "<Group id=\"${g.key}\">" + map[Biome.RANDOM]!!.toString().filter { it != ',' } + "</Group>")
             }
         }
 
@@ -194,11 +239,14 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
          * Method to group list of decorations of same size to surfaces
          * @return Map<surfaceName:list of decorations>
          */
-        private suspend fun groupBySurface(decorations: List<Xml>): Map<String, List<Xml>> {
+        private suspend fun groupBySurface(decorations: List<Xml>): Map<Biome, List<Xml>> {
             // name of surface - list of decos
             val res = mutableMapOf<String, MutableList<Xml>>()
             // get combat decos and if decoName == combatDecos[i].name add
             val combatObstacles = resourcesVfs["hmm.xml"].readXml()["CombatObstacles"].children("Item")
+            val customItems =
+                resourcesVfs["${decorations[0].children("PassModifier").count()}.xml"]
+                    .readXml().children("Item")
 
             for (item in decorations) {
                 val same = combatObstacles.find {
@@ -211,14 +259,19 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                             res[surf.attribute(("id"))!!] = mutableListOf(item)
                         }
                 else {
-                    res["UNKNOWN"]?.add(item) ?: run {
-                        res["UNKNOWN"] = mutableListOf(item)
-                    }
+                    val custom = customItems.find { item.attribute("id") == it.attribute("id") }
+                    if (custom != null)
+                        res[custom.child("Surf")!!.attribute("id")]?.add(item) ?: run {
+                            res[custom.child("Surf")!!.attribute("id")!!] = mutableListOf(item)
+                        }
+                    //else res["UNKNOWN"]?.add(item) ?: run {
+                    //    res["UNKNOWN"] = mutableListOf(item)
+                    //}
                 }
 
             }
 
-            return res
+            return res.mapKeys { Biome.valueOf(it.key.split("_").last()) }
         }
     }
 }

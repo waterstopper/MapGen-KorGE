@@ -1,14 +1,11 @@
 package steps
 
 import com.soywiz.kds.PriorityQueue
-import components.Cell
-import components.CellType
-import components.MatrixMap
-import components.Zone
+import components.*
 import kotlin.math.max
 import kotlin.random.Random
 
-class ObstacleMapManager(private val matrixMap: MatrixMap) {
+class ObstacleMapManager(val matrixMap: MatrixMap) {
     var mininum = Int.MAX_VALUE - 2 * max(Constants.SIDE_COST, Constants.DIAG_COST)
     val minCells = mutableListOf<Cell>()
 
@@ -152,20 +149,35 @@ class ObstacleMapManager(private val matrixMap: MatrixMap) {
     /**
      * used for finding squares 2x2 and 3x3
      */
-    fun findAllNSquares(n: Int): List<Cell> {
-        val res = mutableListOf<Cell>()
+    fun findAllNSquares(n: Int): List<Pair<Biome, Cell>> {
+        val res = mutableListOf<Pair<Biome, Cell>>()
 
         for (x in 2..matrixMap.matrix.lastIndex)
             for (y in 2..matrixMap.matrix.lastIndex) {
                 var isSquare = true
+                val biomeType = mutableMapOf<Biome, Int>()
+                for (b in Biome.values())
+                    biomeType[b] = 0
                 for (x1 in -(n - 1)..0)
-                    for (y1 in -(n - 1)..0)
+                    for (y1 in -(n - 1)..0) {
                         if (!Constants.OBSTACLES.contains(matrixMap.matrix[x + x1][y + y1].cellType))
                             isSquare = false
+                        biomeType[matrixMap.matrix[x + x1][y + y1].zone.type] =
+                            biomeType[matrixMap.matrix[x + x1][y + y1].zone.type]!! + 1
+                    }
                 if (isSquare)
-                    res.add(matrixMap.matrix[x][y])
+                    res.add(
+                        Pair(
+                            biomeType.filter { entry -> biomeType[entry.key] == biomeType.maxOf { m -> m.value } }.keys.random(),
+                            matrixMap.matrix[x][y]
+                        )
+                    )
             }
 
         return res
     }
+
+    fun calculateAllObstacleCells(): Int =
+        matrixMap.matrix.sumOf { it.count { cell -> Constants.OBSTACLES.contains(cell.cellType) } }
+
 }
