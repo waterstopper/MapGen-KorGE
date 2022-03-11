@@ -1,9 +1,13 @@
 package export
 
+import com.soywiz.kmem.ByteArrayBuilder
 import com.soywiz.korio.file.std.resourcesVfs
+import com.soywiz.korio.lang.Charsets
+import com.soywiz.korio.lang.toByteArray
 import com.soywiz.korio.serialization.xml.Xml
 import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
+import com.soywiz.korio.stream.*
 import components.Biome
 import steps.ObstacleMapManager
 import steps.Voronoi
@@ -12,6 +16,7 @@ import kotlin.math.pow
 class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleMapManager) {
     private val file = resourcesVfs["exported.hmm"]
     private var ptr = 0
+    private val byteArrayBuilder = ByteArrayBuilder()
 
     companion object {
         const val KEY = 1982026360
@@ -83,6 +88,8 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
         // paths count
         writeNBytes(0, 4)
+
+        file.write(byteArrayBuilder.data)
     }
 
     private suspend fun writeDecoration(x: Int, y: Int, decoName: String) {
@@ -99,7 +106,8 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         val buffer = ByteArray(n)
         for (i in 0 until n) buffer[i] = (data shr (i * 8)).toByte()
 
-        file.writeChunk(buffer, ptr.toLong())
+        byteArrayBuilder.append(buffer)
+        //file.writeChunk(buffer, ptr.toLong())
         ptr += n
     }
 
@@ -156,6 +164,9 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
         suspend fun placeObstacles(writer: Writer) {
             groups = mutableMapOf()
+            val placedMatrix =
+                Array(obstacleMapManager.matrixMap.matrix.size)
+                { BooleanArray(obstacleMapManager.matrixMap.matrix.size) { false } }
 
             //writeUnknown(groups)
             for (i in parseGroups()) {
@@ -167,34 +178,40 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
             for (i in obstacle3Squares.shuffled().take(amount3)) {
                 val decoration = groups[9]!![i.first]?.random()
-                if (decoration != null)
+                if (decoration != null) {
                     writer.writeDecoration(
                         i.second.position.first,
                         i.second.position.second,
                         decoration.attribute("id")!!
                     )
-                else {
+                    for (x in -2..0)
+                        for (y in -2..0)
+                            placedMatrix[x + i.second.position.first][y + i.second.position.second] = true
+                } else
                     writer.writeDecoration(0, 0, "flowers_8")
-                }
             }
 
             for (i in obstacle2Squares.shuffled().take(amount2)) {
                 val decoration = groups[4]!![i.first]?.random()
-                if (decoration != null)
+                if (decoration != null) {
                     writer.writeDecoration(
                         i.second.position.first,
                         i.second.position.second,
                         decoration.attribute("id")!!
                     )
-                else {
+                    for (x in -1..0)
+                        for (y in -1..0)
+                            placedMatrix[x + i.second.position.first][y + i.second.position.second] = true
+                } else {
                     writer.writeDecoration(0, 0, "flowers_8")
                 }
             }
 
             var amountLeft = amount1
-            for (list in obstacleMapManager.matrixMap.matrix) {
-                for (cell in list) {
-                    if (Constants.OBSTACLES.contains(cell.cellType)) {
+            for (x in placedMatrix.indices) {
+                for (y in placedMatrix.indices) {
+                    val cell = obstacleMapManager.matrixMap.matrix[x][y]
+                    if (Constants.OBSTACLES.contains(cell.cellType) && !placedMatrix[x][y]) {
                         writer.writeDecoration(
                             cell.position.first,
                             cell.position.second,
