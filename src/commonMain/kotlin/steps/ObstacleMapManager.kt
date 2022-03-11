@@ -21,36 +21,35 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
      * place random obstacles throughout the map
      */
     private fun randomizeObstacles() {
-        for (list in matrixMap.matrix)
-            for (cell in list)
-                if (!Constants.SUPER_EMPTY.contains(cell.cellType)
-                    && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
-                    && Random.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
-                )
-                    cell.cellType = CellType.OBSTACLE
+        matrixMap.matrix.forEach { cell ->
+            if (!Constants.SUPER_EMPTY.contains(cell.cellType)
+                && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
+                && Random.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
+            )
+                cell.cellType = CellType.OBSTACLE
+        }
     }
 
     /**
      * assign obstacle to cell if its neighbors are obstacles
      */
     private fun cellularAutomataStep() {
-        for (list in matrixMap.matrix)
-            for (cell in list) {
-                if (!Constants.SUPER_EMPTY.contains(cell.cellType)
-                    && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
-                ) {
-                    val ratio = cell.getObstacleNeighborsRatio()
-                    // make obstacle
-                    if (ratio >= Constants.OBSTACLE_RATIO)
-                        cell.cellType = CellType.OBSTACLE
-                    // make empty
-                    else if (ratio <= Constants.EMPTY_RATIO)
-                        cell.cellType = CellType.EMPTY
-                    // decide by chance
-                    else if (Random.nextFloat() > Constants.RATIO_OBSTACLE_CHANCE)
-                        cell.cellType = CellType.OBSTACLE
-                }
+        matrixMap.matrix.forEach { cell ->
+            if (!Constants.SUPER_EMPTY.contains(cell.cellType)
+                && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
+            ) {
+                val ratio = cell.getObstacleNeighborsRatio()
+                // make obstacle
+                if (ratio >= Constants.OBSTACLE_RATIO)
+                    cell.cellType = CellType.OBSTACLE
+                // make empty
+                else if (ratio <= Constants.EMPTY_RATIO)
+                    cell.cellType = CellType.EMPTY
+                // decide by chance
+                else if (Random.nextFloat() > Constants.RATIO_OBSTACLE_CHANCE)
+                    cell.cellType = CellType.OBSTACLE
             }
+        }
     }
 
     /*
@@ -80,15 +79,14 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
      * Root should be in zone and all its neighbors should be in zone too
      */
     private fun findRoot(zone: Zone): Cell {
-        matrixMap.matrix.forEach {
-            it.forEach { cell ->
-                if (Constants.EMPTY.contains(cell.cellType)
-                    && cell.zone == zone
-                    && cell.getNeighbors().all { neighbor -> neighbor.zone == zone }
-                ) return cell
-            }
+        matrixMap.matrix.data.forEach { cell ->
+            if (Constants.EMPTY.contains(cell.cellType)
+                && cell.zone == zone
+                && cell.getNeighbors().all { neighbor -> neighbor.zone == zone }
+            ) return cell
         }
-        return matrixMap.matrix[0][0]
+
+        return matrixMap.matrix[0, 0]
     }
 
     /**
@@ -102,7 +100,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
         val previous = HashMap<Cell, Cell>()
         val cost = HashMap<Cell, Int>()
         var emptyMinValue = Int.MAX_VALUE - Constants.SIDE_COST * 2
-        var emptyMinCell: Cell = matrixMap.matrix[0][0]
+        var emptyMinCell: Cell = matrixMap.matrix[0, 0]
 
         queue.add(Pair(0, root))
         cost[root] = 0
@@ -129,7 +127,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
                 }
             }
         }
-        if (emptyMinCell == matrixMap.matrix[0][0])
+        if (emptyMinCell == matrixMap.matrix[0, 0])
             return false
 
         var routeCell = previous[emptyMinCell]
@@ -152,24 +150,24 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
     fun findAllNSquares(n: Int): List<Pair<Biome, Cell>> {
         val res = mutableListOf<Pair<Biome, Cell>>()
 
-        for (x in 2..matrixMap.matrix.lastIndex)
-            for (y in 2..matrixMap.matrix.lastIndex) {
+        for (x in 2 until matrixMap.matrix.width)
+            for (y in 2 until matrixMap.matrix.height) {
                 var isSquare = true
                 val biomeType = mutableMapOf<Biome, Int>()
                 for (b in Biome.values())
                     biomeType[b] = 0
                 for (x1 in -(n - 1)..0)
                     for (y1 in -(n - 1)..0) {
-                        if (!Constants.OBSTACLES.contains(matrixMap.matrix[x + x1][y + y1].cellType))
+                        if (!Constants.OBSTACLES.contains(matrixMap.matrix[x + x1, y + y1].cellType))
                             isSquare = false
-                        biomeType[matrixMap.matrix[x + x1][y + y1].zone.type] =
-                            biomeType[matrixMap.matrix[x + x1][y + y1].zone.type]!! + 1
+                        biomeType[matrixMap.matrix[x + x1, y + y1].zone.type] =
+                            biomeType[matrixMap.matrix[x + x1, y + y1].zone.type]!! + 1
                     }
                 if (isSquare)
                     res.add(
                         Pair(
                             biomeType.filter { entry -> biomeType[entry.key] == biomeType.maxOf { m -> m.value } }.keys.random(),
-                            matrixMap.matrix[x][y]
+                            matrixMap.matrix[x, y]
                         )
                     )
             }
@@ -178,6 +176,5 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
     }
 
     fun calculateAllObstacleCells(): Int =
-        matrixMap.matrix.sumOf { it.count { cell -> Constants.OBSTACLES.contains(cell.cellType) } }
-
+        matrixMap.matrix.data.count { cell -> Constants.OBSTACLES.contains(cell.cellType) }
 }

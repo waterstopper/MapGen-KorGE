@@ -1,3 +1,5 @@
+package steps
+
 import components.CellType
 
 object Constants {

@@ -2,13 +2,11 @@ package export
 
 import com.soywiz.kmem.ByteArrayBuilder
 import com.soywiz.korio.file.std.resourcesVfs
-import com.soywiz.korio.lang.Charsets
-import com.soywiz.korio.lang.toByteArray
 import com.soywiz.korio.serialization.xml.Xml
 import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
-import com.soywiz.korio.stream.*
 import components.Biome
+import steps.Constants
 import steps.ObstacleMapManager
 import steps.Voronoi
 import kotlin.math.pow
@@ -112,17 +110,17 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
     }
 
     private suspend fun writeSurface() {
-        val size = map.matrixMap.matrix.size
+        val size = map.matrixMap.matrix.width
         val len = ((size + 1).toDouble().pow(2) * I_NODE_SIZE).toInt()
 
         // transpose matrix - this way it resembles the view in "visualizeMatrix()" in KorGE
         for (y in 0 until size) {
             for (x in 0 until size) {
-                writeNBytes(map.matrixMap.matrix[x][y].zone.type.ordinal, 2)
+                writeNBytes(map.matrixMap.matrix[x,y].zone.type.ordinal, 2)
             }
             writeNBytes(Biome.WATER.ordinal, 2)
         }
-        for (i in 0..map.matrixMap.matrix.size)
+        for (i in 0..map.matrixMap.matrix.width)
             writeNBytes(Biome.WATER.ordinal, 2)
 
         //writeNBytes(0, len)
@@ -165,8 +163,8 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         suspend fun placeObstacles(writer: Writer) {
             groups = mutableMapOf()
             val placedMatrix =
-                Array(obstacleMapManager.matrixMap.matrix.size)
-                { BooleanArray(obstacleMapManager.matrixMap.matrix.size) { false } }
+                Array(obstacleMapManager.matrixMap.matrix.width)
+                { BooleanArray(obstacleMapManager.matrixMap.matrix.width) { false } }
 
             //writeUnknown(groups)
             for (i in parseGroups()) {
@@ -210,7 +208,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
             var amountLeft = amount1
             for (x in placedMatrix.indices) {
                 for (y in placedMatrix.indices) {
-                    val cell = obstacleMapManager.matrixMap.matrix[x][y]
+                    val cell = obstacleMapManager.matrixMap.matrix[x,y]
                     if (Constants.OBSTACLES.contains(cell.cellType) && !placedMatrix[x][y]) {
                         writer.writeDecoration(
                             cell.position.first,

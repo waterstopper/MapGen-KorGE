@@ -18,6 +18,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     lateinit var circle: Circle
     lateinit var center: Pair<Int, Int>
     lateinit var edge: List<Cell>
+    // used to see
+    var cellSize: Int = 0
 
     /**
      * will always return existing connection in scope of algorithm
