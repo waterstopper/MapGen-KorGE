@@ -11,21 +11,20 @@ import components.MatrixMap
 import components.Zone
 import kotlin.math.*
 
-class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
+class Voronoi(private val zones: MutableList<Zone>, private val matrixLength: Int) {
     val matrixMap = initMatrixMap()
 
     init {
         assignEdges()
-        //balanceZones()
-
+        balanceZones()
     }
 
     /**
      * add passages at the edge of connected zones
+     * @return TODO
      */
     fun createPassages(): Boolean {
         val resolvedConnections = mutableListOf<Pair<Zone, Zone>>()
-
         val (goodCandidates, badCandidates) = createCandidates()
 
         for (conn in goodCandidates.keys)
@@ -47,7 +46,7 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         val goodCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
         // lists with many adjacent zones
         val badCandidates = hashMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
-        matrixMap.matrix.forEach { cell->
+        matrixMap.matrix.forEach { cell ->
             if (cell.adjacentEdges.isNotEmpty()) {
                 // a good candidate
                 if (cell.adjacentEdges.all {
@@ -60,9 +59,7 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
                     for (c in cell.adjacentEdges)
                         addCandidate(cell, c, badCandidates)
             }
-
         }
-
         return Pair(goodCandidates, badCandidates)
     }
 
@@ -132,99 +129,38 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
     /**
      * used for making zone sizes to be as expected
      */
-    fun balanceZones() {
+    private fun balanceZones() {
+        // cellSize / matrix^2 -> zone.size / zones.sum(it.size)
 
-    }
-
-    /**
-     * There might be a problem when a "bridging" cell is replaced.
-     *
-     * Bridging cell is the one, which when replaced makes zone split in two unconnected parts.
-     */
-    fun isBridgingCell(cell: Cell, otherZone: Zone): Boolean {
-        // ooo
-        // xoo - that case is impossible (x is otherZone)
-        // oxo case, where moving to last is not enough
-
-        // temporarilly change cell zone
-        cell.zone = otherZone
-
-        // for all 8 neighboring cells check that all cells of this zone can be connected
-
-        // find first cell
-        var first: Cell = cell
-        for (j in max(0, cell.position.second - 1)..min(matrixMap.matrix.height - 1, cell.position.second + 1))
-            for (i in max(0, cell.position.first - 1)..min(matrixMap.matrix.width - 1, cell.position.first + 1)) {
-                if (matrixMap.matrix[i, j].zone == cell.zone) {
-                    first = matrixMap.matrix[i, j]
-                    break
-                }
+        // sort by zone.size/sum * matrix^2 / cellSize. Ideally equals 1
+        var i = 0
+        var sum = 0
+        while (i < 1000) {
+            zones.sortBy { it.cellSize / it.size }
+            //zones[0].edge.sortBy { it.adjacentEdges.size }
+            val changedCell =
+                zones[0].edge.filter { it.adjacentEdges.size <= zones[0].edge.minOf { cell -> cell.adjacentEdges.size } + 1 }
+                    .random()
+            val differentZoneNeighbors = changedCell.checkSideNeighbors { c: Cell -> c.zone != changedCell.zone }
+            if (differentZoneNeighbors.isNotEmpty() && !changedCell.isBridgingCell(differentZoneNeighbors[0].zone)) {
+                i++
+                sum++
             }
-        // find last cell
-        var last: Cell = cell
-        for (j in min(matrixMap.matrix.height - 1, cell.position.second + 1)..max(0, cell.position.second - 1))
-            for (i in min(matrixMap.matrix.width - 1, cell.position.first + 1)..max(0, cell.position.first - 1)) {
-                if (matrixMap.matrix[i, j].zone == cell.zone) {
-                    last = matrixMap.matrix[i, j]
-                    break
-                }
+            else{
+                print("")
+                changedCell.isBridgingCell(differentZoneNeighbors[0].zone)
             }
-        // nothing to connect
-        if (first == last)
-            return false
-
-        val stack = Stack<Cell>()
-        val visited = mutableSetOf<Cell>()
-        stack.push(first)
-        // now try to connect first and last by stepping horizontally and vertically
-        // bfs
-        while (stack.isNotEmpty()) {
-            val current = stack.pop()
-            visited.add(current)
-            if (current == last)
-                return false
-            // move right
-            moveOneCell(current, Pair(1, 0), cell, stack, visited)
-            // move down
-            moveOneCell(current, Pair(0, 1), cell, stack, visited)
-            // move left
-            moveOneCell(current, Pair(-1, 0), cell, stack, visited)
+            i++
         }
-
-        return true
-    }
-
-    private fun moveOneCell(
-        origin: Cell,
-        moveVector: Pair<Int, Int>,
-        center: Cell,
-        stack: Stack<Cell>,
-        visited: MutableSet<Cell>
-    ) {
-        val xMove = origin.position.first + moveVector.first - center.position.first
-        val yMove = origin.position.second + moveVector.second - center.position.second
-        val movedCell =
-            matrixMap.matrix[origin.position.first + moveVector.first, origin.position.second + moveVector.second]
-        if (abs(xMove) <= 1 && abs(yMove) <= 1 &&
-            movedCell.zone == origin.zone &&
-            !visited.contains(movedCell)
-        ) {
-            stack.push(movedCell)
-            visited.add(movedCell)
-        }
+        println(sum)
     }
 
     /**
      * assign edge fields of cells in the matrix
      */
     private fun assignEdges() {
-        matrixMap.matrix.forEach { cell ->
-            cell.isAtEdge()
-        }
-
-        matrixMap.matrix.forEach { cell ->
-            cell.adjacentEdges = cell.getEdge()
-        }
+        matrixMap.matrix.forEach { if (it.isAtEdge()) it.zone.edge.add(it) }
+        // matrixMap.matrix.forEach { it.adjacentEdges = it.getEdge() }
     }
 
     /**
@@ -237,20 +173,18 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         val res = Bitmap32(matrixLength, matrixLength)
 
         for (x in 0 until matrixLength)
-            for (y in 0 until matrixLength) {
-
+            for (y in 0 until matrixLength)
                 if (matrixMap.matrix[x, y].cellType == CellType.ROAD)
                     res[x, y] = Colors.BLUE
                 else if (Constants.OBSTACLES.contains(matrixMap.matrix[x, y].cellType)) {
                     res[x, y] = matrixMap.matrix[x, y].zone.type.color.minus(RGBA(0x2A2A2A))
-                    if (matrixMap.matrix[x, y].cellType == CellType.EDGE) {
+                    if (matrixMap.matrix[x, y].cellType == CellType.EDGE)
                         res[x, y] = Colors.PINK
-                    }
                 } else res[x, y] = matrixMap.matrix[x, y].zone.type.color
-            }
-        for (c in matrixMap.zones) {
+
+        for (c in matrixMap.zones)
             res[c.center.first, c.center.second] = Colors.YELLOW
-        }
+
         return res
     }
 
@@ -263,9 +197,7 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         val res = buildMatrix(zones, matrixLength)
 
         // init matrix field in cells
-        res.matrix.forEach { cell ->
-            cell.matrix = res
-        }
+        res.matrix.forEach { it.matrix = res }
 
         return res
     }
@@ -342,15 +274,13 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
         zones: List<Zone>,
         matrixLength: Int
     ): MatrixMap {
-
         val matrix = Array2(matrixLength, matrixLength, Cell(Pair(0, 0), zones[0]))
-        for (i in 0 until matrix.width) {
+        for (i in 0 until matrix.width)
             for (j in 0 until matrix.height) {
                 val zone = findNearestZoneCenter(Pair(i, j), zones)
                 matrix[i, j] = Cell(Pair(i, j), zone)
                 zone.cellSize += 1
             }
-        }
 
         return MatrixMap(matrix, zones)
     }
@@ -358,16 +288,15 @@ class Voronoi(private val zones: List<Zone>, private val matrixLength: Int) {
     private fun findNearestZoneCenter(cell: Pair<Int, Int>, zones: List<Zone>): Zone {
         var nearest = zones[0]
         var smallest = Double.MAX_VALUE
-        for (i in 0..zones.lastIndex) {
+        for (i in 0..zones.lastIndex)
             if (cell.distance(zones[i].center) < smallest) {
                 smallest = cell.distance(zones[i].center)
                 nearest = zones[i]
             }
-        }
+
         return nearest
     }
 
-    private fun Pair<Int, Int>.distance(other: Pair<Int, Int>): Double {
-        return hypot((first - other.first).toDouble(), (second - other.second).toDouble())
-    }
+    private fun Pair<Int, Int>.distance(other: Pair<Int, Int>): Double =
+        hypot((first - other.first).toDouble(), (second - other.second).toDouble())
 }

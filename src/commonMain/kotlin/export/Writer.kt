@@ -115,9 +115,9 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
         // transpose matrix - this way it resembles the view in "visualizeMatrix()" in KorGE
         for (y in 0 until size) {
-            for (x in 0 until size) {
-                writeNBytes(map.matrixMap.matrix[x,y].zone.type.ordinal, 2)
-            }
+            for (x in 0 until size)
+                writeNBytes(map.matrixMap.matrix[x, y].zone.type.ordinal, 2)
+
             writeNBytes(Biome.WATER.ordinal, 2)
         }
         for (i in 0..map.matrixMap.matrix.width)
@@ -200,15 +200,14 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                     for (x in -1..0)
                         for (y in -1..0)
                             placedMatrix[x + i.second.position.first][y + i.second.position.second] = true
-                } else {
+                } else
                     writer.writeDecoration(0, 0, "flowers_8")
-                }
             }
 
             var amountLeft = amount1
-            for (x in placedMatrix.indices) {
+            for (x in placedMatrix.indices)
                 for (y in placedMatrix.indices) {
-                    val cell = obstacleMapManager.matrixMap.matrix[x,y]
+                    val cell = obstacleMapManager.matrixMap.matrix[x, y]
                     if (Constants.OBSTACLES.contains(cell.cellType) && !placedMatrix[x][y]) {
                         writer.writeDecoration(
                             cell.position.first,
@@ -218,10 +217,10 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                         amountLeft--
                     }
                 }
-            }
-            for (i in 0 until amountLeft) {
+
+            for (i in 0 until amountLeft)
                 writer.writeDecoration(0, 0, "flowers_8")
-            }
+
         }
 
         suspend fun placeAll(writer: Writer) {

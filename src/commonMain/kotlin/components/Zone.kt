@@ -17,28 +17,25 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     GraphPart {
     lateinit var circle: Circle
     lateinit var center: Pair<Int, Int>
-    lateinit var edge: List<Cell>
+    val edge = mutableListOf<Cell>()
+
     // used to see
     var cellSize: Int = 0
 
     /**
      * will always return existing connection in scope of algorithm
      */
-    fun getConnection(zone: Zone): Connection {
-        return connections.find { it.z1 === zone || it.z2 === zone }!!
-    }
+    fun getConnection(zone: Zone): Connection = connections.find { it.z1 === zone || it.z2 === zone }!!
 
-    fun getNullableConnection(zone: Zone): Connection? {
-        return connections.find { it.z1 === zone || it.z2 === zone }
-    }
+    fun getNullableConnection(zone: Zone): Connection? = connections.find { it.z1 === zone || it.z2 === zone }
+
 
     /**
      *
      */
     init {
-        if (type == Biome.RANDOM) {
+        if (type == Biome.RANDOM)
             type = Biome.fromInt((1..5).random())
-        }
     }
 
     /**
@@ -60,13 +57,11 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     /**
      * get all zones that were placed on the map
      */
-    fun getPlaced(): List<Zone> {
-        return connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
-    }
+    fun getPlaced(): List<Zone> =
+        connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
 
-    fun getNotPlaced(): List<Zone> {
-        return connections.filter { !getPlaced().contains(it.getZone(this)) }.map { it.getZone(this) }
-    }
+    fun getNotPlaced(): List<Zone> =
+        connections.filter { !getPlaced().contains(it.getZone(this)) }.map { it.getZone(this) }
 
     fun sortByPlaced() {
         connections.sortBy { it.getZone(this)::circle.isInitialized }
@@ -97,9 +92,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
         val res = mutableListOf<Int>()
         if (amount > 0) {
             res.add((gapStart + step) % 360)
-            for (i in 1 until amount) {
+            for (i in 1 until amount)
                 res.add((res[i - 1] + step) % 360)
-            }
         }
         return res
     }
@@ -227,21 +221,13 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
     }
 
     private fun redrawConnections() {
-        for (i in connections) {
-            if (i.isInitialized()) {
+        for (i in connections)
+            if (i.isInitialized())
                 if (i.z1 == this)
                     i.line.setPoints(getCenter(), i.line.points()[1])
                 else
                     i.line.setPoints(i.line.points()[0], getCenter())
-            }
-        }
     }
 
-    /**
-     * to see in debug
-     */
-    override fun toString(): String {
-        return "$index, $type, $size"
-    }
+    override fun toString(): String = "$index, $type, $size"
 }
-

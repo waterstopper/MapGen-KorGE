@@ -26,9 +26,9 @@ class TemplateParser {
             .toList()
 
         val zones = mutableListOf<Zone>()
-        for (i in zonesString.indices) {
+        for (i in zonesString.indices)
             zones.add(parseZone(zonesString[i], i))
-        }
+
         val connections = parseConnections(connectionsString[0], zones)
 
         return listOf(zones, connections)
@@ -46,12 +46,11 @@ class TemplateParser {
             val z2 = zones[i[2].code - '0'.code]
 
             var connectionType = ConnectionType.REGULAR
-            for (v in SYMBOLS.values()) {
+            for (v in SYMBOLS.values())
                 if (v.char == i[1]) {
                     connectionType = v.convertToConnectionType()
                     break
                 }
-            }
 
             connections.add(
                 Connection(

@@ -29,7 +29,7 @@ suspend fun main() = Korge(
 
     var pipeline = Pipeline(zones, connections, matrixLength, stage, width)
 
-    pipeline.exportMap()
+    //pipeline.exportMap()
 
     this.onClick {
         pipeline = Pipeline(zones, connections, matrixLength, stage, width)

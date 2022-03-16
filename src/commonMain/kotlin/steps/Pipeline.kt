@@ -33,12 +33,12 @@ class Pipeline(
         circ.placeZoneCircles(zones, connections, circles, lines)
 
         voronoi = Voronoi(zones, matrixLength)
-        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
+        //obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
 
         if (!voronoi!!.createPassages())
             createMap()
 
-        obstacleMapManager.connectRegions()
+        //obstacleMapManager.connectRegions()
 
         val mapImage = voronoi!!.visualizeMatrix()
 

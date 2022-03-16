@@ -13,9 +13,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
         randomizeObstacles()
         for (i in 0 until Constants.CELLULAR_AUTOMATA_STEPS)
             cellularAutomataStep()
-
     }
-
 
     /**
      * place random obstacles throughout the map
@@ -137,11 +135,6 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
             routeCell = previous[routeCell]
         }
         return true
-    }
-
-    private fun calculateCostOfCell(queue: PriorityQueue<Pair<Int, Cell>>) {
-        val current = queue.removeHead()
-
     }
 
     /**

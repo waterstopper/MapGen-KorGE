@@ -4,9 +4,9 @@
 50, dirt;  # 3 #
 
 20, swamp; # 4, connected to 1 #
-20, swamp; # 5, connected to 2 #
-30, lava;  # to 3 #
-30, lava;  # to 3 #
+20, ndesert; # 5, connected to 2 #
+30, wasteland;  # to 3 #
+30, desert;  # to 3 #
 30, lava;  # to 3 #
 
 

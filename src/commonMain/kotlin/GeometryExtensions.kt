@@ -20,19 +20,16 @@ object GeometryExtensions {
     /**
      * returns angle from (1, 0) counterclockwise
      */
-    fun Line.getDegrees(center: Point): Int {
-        return if (center == pos)
-            (360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt())) % 360
-        else (360 - ((atan2(y1 - y2, x1 - x2) * 180 / PI).roundToInt())) % 360
-    }
+    fun Line.getDegrees(center: Point): Int = if (center == pos)
+        (360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt())) % 360
+    else (360 - ((atan2(y1 - y2, x1 - x2) * 180 / PI).roundToInt())) % 360
+
 
     private fun Line.hasSamePoint(other: Line): Boolean {
-        for (i in points()) {
-            for (j in other.points()) {
+        for (i in points())
+            for (j in other.points())
                 if (i == j)
                     return true
-            }
-        }
         return false
     }
 
@@ -47,9 +44,7 @@ object GeometryExtensions {
                 && area(c, d, a).sign * area(c, d, b).sign <= 0
     }
 
-    private fun area(a: Point, b: Point, c: Point): Double {
-        return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
-    }
+    private fun area(a: Point, b: Point, c: Point): Double = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)
 
     private fun intersect1(a: Double, b: Double, c: Double, d: Double): Boolean {
         var (k, l, m, n) = listOf(a, b, c, d)
@@ -58,9 +53,7 @@ object GeometryExtensions {
         return max(k, m) <= min(l, n)
     }
 
-    fun Circle.intersects(other: Circle): Boolean {
-        return this.pos.distanceTo(other.pos) < this.radius + other.radius
-    }
+    fun Circle.intersects(other: Circle): Boolean = this.pos.distanceTo(other.pos) < this.radius + other.radius
 
     /**
      * smaller metric means better position (fewer circles around)
@@ -74,7 +67,6 @@ object GeometryExtensions {
     /*
     return points of this line
      */
-    fun Line.points(): List<Point> {
-        return listOf(Point(this.x1, this.y1), Point(this.x2, this.y2))
-    }
+    fun Line.points(): List<Point> = listOf(Point(this.x1, this.y1), Point(this.x2, this.y2))
+
 }
