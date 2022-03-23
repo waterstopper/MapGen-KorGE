@@ -5,13 +5,18 @@ import com.soywiz.korio.file.std.resourcesVfs
 import com.soywiz.korio.serialization.xml.Xml
 import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
-import components.Biome
+import components.Surface
+import steps.BuildingsManager
 import steps.Constants
 import steps.ObstacleMapManager
 import steps.Voronoi
 import kotlin.math.pow
 
-class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleMapManager) {
+class Writer(
+    private val map: Voronoi,
+    private val obstacleMapManager: ObstacleMapManager,
+    val buildingsManager: BuildingsManager
+) {
     private val file = resourcesVfs["exported.hmm"]
     private var ptr = 0
     private val byteArrayBuilder = ByteArrayBuilder()
@@ -52,8 +57,8 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         writePoint(0, 0)
         writeNBytes(0, 4) // something else with artifact (m_radUltimateArt)
 
-        // players count
-        writeNBytes(0, 2)
+        // players
+        writePlayers()
 
         // heroes count
         writeNBytes(0, 2)
@@ -71,10 +76,10 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         writeNBytes(0, 2)
 
         // ownerables count
-        writeNBytes(0, 2)
+        writeMines()
 
-        // castles count
-        writeNBytes(0, 2)
+        // castles
+        writeCastles()
 
         // map dump
         writeSurface()
@@ -90,17 +95,77 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         file.write(byteArrayBuilder.data)
     }
 
-    private suspend fun writeDecoration(x: Int, y: Int, decoName: String) {
+    private fun writePlayers() {
+        writeNBytes(buildingsManager.players.size, 2)
+        for (player in buildingsManager.players) {
+            // id
+            writeNBytes(player.color, 1)
+            // player type mask
+            writeNBytes(player.fraction.ordinal, 1)
+            // has main castle
+            writeNBytes(1, 1)
+            if (true) {
+                writePoint(player.castle.position)
+                // create hero in castle
+                writeNBytes(0, 1)
+            }
+        }
+    }
+
+    private fun writeCastles() {
+        println("castles: ${buildingsManager.castles.size}")
+        writeNBytes(buildingsManager.castles.size, 2)
+        for (castle in buildingsManager.castles) {
+            // id
+            writeString(castle.orientation)
+            //type
+            writeNBytes(castle.fraction.ordinal, 1)
+            // owner
+            writeNBytes(castle.player!!.color, 1)
+            // position
+            writePoint(castle.position)
+            // creatures
+            writeArmy()
+            // write text
+            writeString("")
+            //constructions count
+            writeNBytes(0, 2)
+        }
+    }
+
+    private fun writeMines() {
+        writeNBytes(buildingsManager.mines.size, 2)
+        for (mine in buildingsManager.mines) {
+            writeString(mine.toString())
+            writeNBytes(if (mine.player == null) -1 else mine.player.color, 1)
+            writePoint(mine.position)
+            writeArmy()
+        }
+    }
+
+    private fun writeArmy() {
+        for (i in 0..6) {
+            writeNBytes(-1, 2)
+            writeNBytes(0, 4)
+        }
+    }
+
+    private fun writeDecoration(position: Pair<Int, Int>, decoName: String) =
+        writeDecoration(position.first, position.second, decoName)
+
+    private fun writeDecoration(x: Int, y: Int, decoName: String) {
         writePoint(x, y)
         writeString(decoName)
     }
 
-    private suspend fun writePoint(x: Int, y: Int) {
+    private fun writePoint(point: Pair<Int, Int>) = writePoint(point.first, point.second)
+
+    private fun writePoint(x: Int, y: Int) {
         writeNBytes(x, 2)
         writeNBytes(y, 2)
     }
 
-    private suspend fun writeNBytes(data: Int, n: Int) {
+    private fun writeNBytes(data: Int, n: Int) {
         val buffer = ByteArray(n)
         for (i in 0 until n) buffer[i] = (data shr (i * 8)).toByte()
 
@@ -109,7 +174,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
         ptr += n
     }
 
-    private suspend fun writeSurface() {
+    private fun writeSurface() {
         val size = map.matrixMap.matrix.width
         val len = ((size + 1).toDouble().pow(2) * I_NODE_SIZE).toInt()
 
@@ -118,15 +183,15 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
             for (x in 0 until size)
                 writeNBytes(map.matrixMap.matrix[x, y].zone.type.ordinal, 2)
 
-            writeNBytes(Biome.WATER.ordinal, 2)
+            writeNBytes(Surface.WATER.ordinal, 2)
         }
         for (i in 0..map.matrixMap.matrix.width)
-            writeNBytes(Biome.WATER.ordinal, 2)
+            writeNBytes(Surface.WATER.ordinal, 2)
 
         //writeNBytes(0, len)
     }
 
-    private suspend fun writeString(str: String) {
+    private fun writeString(str: String) {
         val arr = str.toCharArray()
 
         writeNBytes(arr.size, 4)
@@ -136,15 +201,17 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
     class DecorationsBuilder(private val obstacleMapManager: ObstacleMapManager) {
         private val obstacleFolders = listOf("mountains", "trees", "decals")
-        private lateinit var groups: MutableMap<Int, Map<Biome, List<Xml>>>
+        private lateinit var groups: MutableMap<Int, Map<Surface, List<Xml>>>
         private val obstacle3Squares = createNSquares(obstacleMapManager, 3)
         private val obstacle2Squares = createNSquares(obstacleMapManager, 2)
 
-        private var amount3 = ((obstacle3Squares.lastIndex / 4)..(obstacle3Squares.lastIndex * 4 / 5)).random()
-        private var amount2 = ((obstacle2Squares.lastIndex / 4)..(obstacle2Squares.lastIndex * 4 / 5)).random()
+        private var amount3 =
+            ((obstacle3Squares.lastIndex / 4)..(obstacle3Squares.lastIndex * 4 / 5)).random(Constants.rnd)
+        private var amount2 =
+            ((obstacle2Squares.lastIndex / 4)..(obstacle2Squares.lastIndex * 4 / 5)).random(Constants.rnd)
         private val amount1 = getAmountOfObstacles(obstacleMapManager)
 
-        private lateinit var map: Map<Biome, List<Xml>>
+        private lateinit var map: Map<Surface, List<Xml>>
 
         private fun createNSquares(oMM: ObstacleMapManager, n: Int) = oMM.findAllNSquares(n)
         private fun getAmountOfObstacles(oMM: ObstacleMapManager) = oMM.calculateAllObstacleCells()
@@ -175,11 +242,10 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
             writer.writeNBytes(amount3 + amount2 + amount1, 4)
 
             for (i in obstacle3Squares.shuffled().take(amount3)) {
-                val decoration = groups[9]!![i.first]?.random()
+                val decoration = groups[9]!![i.first]?.random(Constants.rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
-                        i.second.position.first,
-                        i.second.position.second,
+                        i.second.position,
                         decoration.attribute("id")!!
                     )
                     for (x in -2..0)
@@ -190,11 +256,10 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
             }
 
             for (i in obstacle2Squares.shuffled().take(amount2)) {
-                val decoration = groups[4]!![i.first]?.random()
+                val decoration = groups[4]!![i.first]?.random(Constants.rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
-                        i.second.position.first,
-                        i.second.position.second,
+                        i.second.position,
                         decoration.attribute("id")!!
                     )
                     for (x in -1..0)
@@ -210,9 +275,8 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                     val cell = obstacleMapManager.matrixMap.matrix[x, y]
                     if (Constants.OBSTACLES.contains(cell.cellType) && !placedMatrix[x][y]) {
                         writer.writeDecoration(
-                            cell.position.first,
-                            cell.position.second,
-                            groups[1]!![cell.zone.type]!!.random().attribute("id")!!
+                            cell.position,
+                            groups[1]!![cell.zone.type]!!.random(Constants.rnd).attribute("id")!!
                         )
                         amountLeft--
                     }
@@ -245,7 +309,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
                 map = groupBySurface(g.value)
 
                 resourcesVfs[g.key.toString() + ".xml"].writeString(
-                    "<Group id=\"${g.key}\">" + map[Biome.RANDOM]!!.toString().filter { it != ',' } + "</Group>")
+                    "<Group id=\"${g.key}\">" + map[Surface.RANDOM]!!.toString().filter { it != ',' } + "</Group>")
             }
         }
 
@@ -253,7 +317,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
          * Method to group list of decorations of same size to surfaces
          * @return Map<surfaceName:list of decorations>
          */
-        private suspend fun groupBySurface(decorations: List<Xml>): Map<Biome, List<Xml>> {
+        private suspend fun groupBySurface(decorations: List<Xml>): Map<Surface, List<Xml>> {
             // name of surface - list of decos
             val res = mutableMapOf<String, MutableList<Xml>>()
             // get combat decos and if decoName == combatDecos[i].name add
@@ -285,7 +349,7 @@ class Writer(private val map: Voronoi, private val obstacleMapManager: ObstacleM
 
             }
 
-            return res.mapKeys { Biome.valueOf(it.key.split("_").last()) }
+            return res.mapKeys { Surface.valueOf(it.key.split("_").last()) }
         }
     }
 }

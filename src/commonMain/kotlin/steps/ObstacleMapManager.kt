@@ -3,7 +3,6 @@ package steps
 import com.soywiz.kds.PriorityQueue
 import components.*
 import kotlin.math.max
-import kotlin.random.Random
 
 class ObstacleMapManager(val matrixMap: MatrixMap) {
     var mininum = Int.MAX_VALUE - 2 * max(Constants.SIDE_COST, Constants.DIAG_COST)
@@ -22,7 +21,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
         matrixMap.matrix.forEach { cell ->
             if (!Constants.SUPER_EMPTY.contains(cell.cellType)
                 && !Constants.SUPER_OBSTACLES.contains(cell.cellType)
-                && Random.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
+                && Constants.rnd.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
             )
                 cell.cellType = CellType.OBSTACLE
         }
@@ -44,7 +43,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
                 else if (ratio <= Constants.EMPTY_RATIO)
                     cell.cellType = CellType.EMPTY
                 // decide by chance
-                else if (Random.nextFloat() > Constants.RATIO_OBSTACLE_CHANCE)
+                else if (Constants.rnd.nextFloat() > Constants.RATIO_OBSTACLE_CHANCE)
                     cell.cellType = CellType.OBSTACLE
             }
         }
@@ -73,7 +72,6 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
     }
 
     /**
-     * TODO: how to make it so that second return is not required?
      * Root should be in zone and all its neighbors should be in zone too
      */
     private fun findRoot(zone: Zone): Cell {
@@ -140,14 +138,14 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
     /**
      * used for finding squares 2x2 and 3x3
      */
-    fun findAllNSquares(n: Int): List<Pair<Biome, Cell>> {
-        val res = mutableListOf<Pair<Biome, Cell>>()
+    fun findAllNSquares(n: Int): List<Pair<Surface, Cell>> {
+        val res = mutableListOf<Pair<Surface, Cell>>()
 
         for (x in 2 until matrixMap.matrix.width)
             for (y in 2 until matrixMap.matrix.height) {
                 var isSquare = true
-                val biomeType = mutableMapOf<Biome, Int>()
-                for (b in Biome.values())
+                val biomeType = mutableMapOf<Surface, Int>()
+                for (b in Surface.values())
                     biomeType[b] = 0
                 for (x1 in -(n - 1)..0)
                     for (y1 in -(n - 1)..0) {
@@ -159,7 +157,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
                 if (isSquare)
                     res.add(
                         Pair(
-                            biomeType.filter { entry -> biomeType[entry.key] == biomeType.maxOf { m -> m.value } }.keys.random(),
+                            biomeType.filter { entry -> biomeType[entry.key] == biomeType.maxOf { m -> m.value } }.keys.random(Constants.rnd),
                             matrixMap.matrix[x, y]
                         )
                     )

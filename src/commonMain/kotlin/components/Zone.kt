@@ -7,13 +7,14 @@ import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.xy
 import com.soywiz.korma.geom.Point
+import steps.Constants
 import kotlin.math.abs
 
 /**
  * Sizes are computed proportionally to each other.
  * components.Zone placement starts with 0 index-zone.
  */
-class Zone constructor(var type: Biome, val size: Int, val connections: MutableList<Connection>, val index: Int) :
+class Zone constructor(var type: Surface, val size: Int, val connections: MutableList<Connection>, val index: Int) :
     GraphPart {
     lateinit var circle: Circle
     lateinit var center: Pair<Int, Int>
@@ -34,8 +35,8 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
      *
      */
     init {
-        if (type == Biome.RANDOM)
-            type = Biome.fromInt((1..5).random())
+        if (type == Surface.RANDOM)
+            type = Surface.fromInt((1..5).random(Constants.rnd))
     }
 
     /**
@@ -114,8 +115,7 @@ class Zone constructor(var type: Biome, val size: Int, val connections: MutableL
                 ind = i - 1
             }
 
-        val res = closeGap(connections.size - angles.size, angles[ind], angles[ind] + maxAngle)
-        return res
+        return closeGap(connections.size - angles.size, angles[ind], angles[ind] + maxAngle)
 
 //        if (connections.size - angles.size == 1)
 //            return closeGap(connections.size - 1, angles.first(), angles.first() + 180)

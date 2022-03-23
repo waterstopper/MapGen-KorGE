@@ -1,5 +1,9 @@
 import com.soywiz.korge.gradle.*
 
+repositories {
+	mavenCentral()
+}
+
 buildscript {
 	val korgePluginVersion: String by project
 

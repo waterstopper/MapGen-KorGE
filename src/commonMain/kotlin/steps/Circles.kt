@@ -7,7 +7,6 @@ import components.Zone
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.line
-import com.soywiz.korim.color.Colors
 import com.soywiz.korma.geom.Point
 import height
 import width
@@ -29,7 +28,7 @@ class Circles {
                 i.getZone(z).type.color
             )
 
-            angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random()
+            angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random(Constants.rnd)
             angle %= 360
 
             // start from (1, 0) point and rotate by angle counterclockwise
@@ -39,7 +38,7 @@ class Circles {
                     Point(
                         width / 2 + z.size + i.getZone(z).size - (
                                 -min(z.size / 3, i.getZone(z).size) / 3..
-                                        min(z.size / 3, i.getZone(z).size) / 3).random(),
+                                        min(z.size / 3, i.getZone(z).size) / 3).random(Constants.rnd),
                         height / 2
                     )
                 )
@@ -178,7 +177,7 @@ class Circles {
                     Point(
                         zone.getCenter().x + i.size + zone.size - (
                                 -min(i.size / 3, zone.size) / 3..
-                                        min(i.size / 3, zone.size) / 3).random(),
+                                        min(i.size / 3, zone.size) / 3).random(Constants.rnd),
                         zone.getCenter().y
                     )
                 )

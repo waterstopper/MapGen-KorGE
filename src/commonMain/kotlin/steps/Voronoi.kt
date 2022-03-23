@@ -1,7 +1,6 @@
 package steps
 
 import com.soywiz.kds.Array2
-import com.soywiz.kds.Stack
 import com.soywiz.korim.bitmap.Bitmap32
 import com.soywiz.korim.color.Colors
 import com.soywiz.korim.color.RGBA
@@ -93,18 +92,18 @@ class Voronoi(private val zones: MutableList<Zone>, private val matrixLength: In
 //            candidates[pass]!!.removeAt(0)
 //            candidates[pass]!!.removeAt(candidates[pass]!!.lastIndex)
 //        }
-        var chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+        var chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random(Constants.rnd)]
         var iter = 0
         // make sure that passages are not near
         while (chosenCell.getAllNeighbors().any { it.cellType == CellType.ROAD } && iter < 50) {
-            chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random()]
+            chosenCell = candidates[pass]!![(0..candidates[pass]!!.lastIndex).random(Constants.rnd)]
             iter++
         }
         // created two roads near, unsuccessful generation
         if (chosenCell.getAllNeighbors().any { it.cellType == CellType.ROAD })
             return false
 
-        val neighborOfChosen = chosenCell.adjacentEdges[(0..chosenCell.adjacentEdges.lastIndex).random()]
+        val neighborOfChosen = chosenCell.adjacentEdges[(0..chosenCell.adjacentEdges.lastIndex).random(Constants.rnd)]
 
         chosenCell.cellType = CellType.ROAD
         neighborOfChosen.cellType = CellType.ROAD
@@ -135,20 +134,26 @@ class Voronoi(private val zones: MutableList<Zone>, private val matrixLength: In
         // sort by zone.size/sum * matrix^2 / cellSize. Ideally equals 1
         var i = 0
         var sum = 0
+        var smallest = zones[0]
+        println()
         while (i < 1000) {
             zones.sortBy { it.cellSize / it.size }
+            if (zones[0] != smallest) {
+                println(zones[0])
+                smallest = zones[0]
+            }
             //zones[0].edge.sortBy { it.adjacentEdges.size }
             val changedCell =
                 zones[0].edge.filter { it.adjacentEdges.size <= zones[0].edge.minOf { cell -> cell.adjacentEdges.size } + 1 }
-                    .random()
+                    .random(Constants.rnd)
             val differentZoneNeighbors = changedCell.checkSideNeighbors { c: Cell -> c.zone != changedCell.zone }
+            // if not bridging
             if (differentZoneNeighbors.isNotEmpty() && !changedCell.isBridgingCell(differentZoneNeighbors[0].zone)) {
                 i++
                 sum++
-            }
-            else{
-                print("")
-                changedCell.isBridgingCell(differentZoneNeighbors[0].zone)
+            } else {
+
+                //changedCell.isBridgingCell(differentZoneNeighbors[0].zone)
             }
             i++
         }

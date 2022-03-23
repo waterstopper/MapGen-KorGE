@@ -4,18 +4,21 @@ import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Stage
 import com.soywiz.korge.view.image
 import components.Connection
+import components.Player
 import components.Zone
 import export.Writer
 
 class Pipeline(
     val zones: MutableList<Zone>,
     val connections: List<Connection>,
+    val players: List<Player>,
     val matrixLength: Int,
     val stage: Stage,
     val imageLength: Double
 ) {
     var voronoi: Voronoi? = null //Voronoi(zones, matrixLength)
-    lateinit var obstacleMapManager:ObstacleMapManager
+    lateinit var obstacleMapManager: ObstacleMapManager
+    lateinit var buildingsManager: BuildingsManager
 
 
     init {
@@ -33,12 +36,14 @@ class Pipeline(
         circ.placeZoneCircles(zones, connections, circles, lines)
 
         voronoi = Voronoi(zones, matrixLength)
-        //obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
+        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
 
         if (!voronoi!!.createPassages())
             createMap()
 
-        //obstacleMapManager.connectRegions()
+        obstacleMapManager.connectRegions()
+
+        buildingsManager = BuildingsManager(voronoi!!.matrixMap, zones, players)
 
         val mapImage = voronoi!!.visualizeMatrix()
 
@@ -47,7 +52,7 @@ class Pipeline(
     }
 
     suspend fun exportMap() {
-        val w = Writer(voronoi!!, obstacleMapManager)
+        val w = Writer(voronoi!!, obstacleMapManager, buildingsManager)
         w.writeHeader()
     }
 

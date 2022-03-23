@@ -1,14 +1,21 @@
 package steps
 
 import components.CellType
+import kotlin.random.Random
 
 object Constants {
+    private const val SEED = 42
+    val rnd = Random(SEED)
+
     // chance of placing obstacle when randomly placing
     const val RANDOM_OBSTACLE_CHANCE = 0.5
+
     // chance of placing obstacle on a cellular automata step
     const val RATIO_OBSTACLE_CHANCE = 0.4
+
     // if neighbor ratio exceeds this value, then a cell is 100% obstacle
     const val OBSTACLE_RATIO = 0.75 // 6/8
+
     // if neighbor ratio is smaller than this value, a cell is 100% empty
     const val EMPTY_RATIO = 0.5
 

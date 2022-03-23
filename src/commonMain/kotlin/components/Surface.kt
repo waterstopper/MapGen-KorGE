@@ -3,7 +3,7 @@ package components
 import com.soywiz.korim.color.Colors
 import com.soywiz.korim.color.RGBA
 
-enum class Biome(val color: RGBA) {
+enum class Surface(val color: RGBA) {
     WATER(RGBA(8, 28, 128)),
     SAND(RGBA(214, 182, 148)),
     DIRT(RGBA(99, 48, 8)),
@@ -19,8 +19,14 @@ enum class Biome(val color: RGBA) {
     COUNT(Colors.PINK),
     RANDOM(RGBA(250, 250, 250));
 
+    fun isMineSurface(): Boolean {
+        return this == LAVA || this == SWAMP || this == SNOW
+    }
+
+    fun isSawmillSurface(): Boolean = this == LAVA || this == DESERT || this == NDESERT || this == SNOW
+
     companion object {
-        fun fromInt(value: Int): Biome {
+        fun fromInt(value: Int): Surface {
             return when (value) {
                 0 -> WATER//RANDOM TODO figure out where it is used
                 1 -> DIRT
@@ -31,5 +37,7 @@ enum class Biome(val color: RGBA) {
                 else -> throw IllegalArgumentException("No zoneType for that")
             }
         }
+
     }
 }
+

@@ -17,6 +17,8 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
      */
     fun isAtEdge(): Boolean {
         assignAdjacentEdges()
+        if(adjacentEdges.isNotEmpty())
+            cellType = CellType.EDGE
         return adjacentEdges.isNotEmpty()
     }
 
@@ -136,7 +138,7 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
         var first: Cell = this
         outer@ for (j in max(0, position.second - 1)..min(matrix.matrix.height - 1, position.second + 1))
             for (i in max(0, position.first - 1)..min(matrix.matrix.width - 1, position.first + 1)) {
-                if (matrix.matrix[i, j].zone == zone) {
+                if (matrix.matrix[i, j].zone == prevZone) {
                     first = matrix.matrix[i, j]
                     break@outer
                 }
@@ -145,7 +147,7 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
         var last: Cell = this
         outer@ for (j in min(matrix.matrix.height - 1, position.second + 1)..max(0, position.second - 1))
             for (i in min(matrix.matrix.width - 1, position.first + 1)..max(0, position.first - 1)) {
-                if (matrix.matrix[i, j].zone == zone) {
+                if (matrix.matrix[i, j].zone == prevZone) {
                     last = matrix.matrix[i, j]
                     break@outer
                 }

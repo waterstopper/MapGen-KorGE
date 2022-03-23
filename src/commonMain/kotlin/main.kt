@@ -2,6 +2,7 @@ import com.soywiz.korge.Korge
 import com.soywiz.korge.input.onClick
 import com.soywiz.korim.color.Colors
 import components.Connection
+import components.Player
 import components.Zone
 import steps.ObstacleMapManager
 import steps.Pipeline
@@ -16,9 +17,10 @@ suspend fun main() = Korge(
 ) {
 
     val t = TemplateParser()
-    var (zones, connections) = t.parse("mapTwoLayers.txt")
+    var (zones, connections, players) = t.parse("mapTwoLayers.txt")
     zones = zones as MutableList<Zone>
     connections = connections as MutableList<Connection>
+    players = players as MutableList<Player>
 
     // var iter = 0
 
@@ -27,12 +29,12 @@ suspend fun main() = Korge(
     var obstacleMapManager: ObstacleMapManager? = null
     var voronoi: Voronoi? = null
 
-    var pipeline = Pipeline(zones, connections, matrixLength, stage, width)
+    var pipeline = Pipeline(zones, connections, players, matrixLength, stage, width)
 
-    //pipeline.exportMap()
+    pipeline.exportMap()
 
     this.onClick {
-        pipeline = Pipeline(zones, connections, matrixLength, stage, width)
+        pipeline = Pipeline(zones, connections, players, matrixLength, stage, width)
     }
 
 
