@@ -10,7 +10,6 @@ enum class CellType {
     EMPTY,
     ROAD,
     MINE,
-    CASTLE,
     MOB,
     RESOURCE,
     BUILDING

@@ -20,6 +20,8 @@ buildscript {
 
 apply<KorgeGradlePlugin>()
 
+
+
 korge {
 	id = "com.sample.demo"
 
@@ -38,4 +40,6 @@ korge {
 	//targetIos()
 	//targetAndroidIndirect() // targetAndroidDirect()
 	//targetAndroidDirect()
+
+	serializationJson()
 }

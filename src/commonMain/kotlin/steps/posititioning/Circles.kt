@@ -1,14 +1,13 @@
-package steps
+package steps.posititioning
 
-import components.Connection
-import GeometryExtensions.points
-import GeometryExtensions.rotateDegrees
-import components.Zone
+import steps.posititioning.GeometryExtensions.points
+import steps.posititioning.GeometryExtensions.rotateDegrees
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.line
 import com.soywiz.korma.geom.Point
 import height
+import Constants
 import width
 import kotlin.math.min
 
@@ -16,16 +15,16 @@ class Circles {
     /**
      * place 0-index zone in the center
      */
-    private fun placeFirst(zones: MutableList<Zone>, circles: Container, lines: Container) {
+    private fun placeFirst(zones: MutableList<CircleZone>, circles: Container, lines: Container) {
         var angle = 0
         val z = zones.first()
-        z.circle = circles.circle(z.size.toDouble(), z.type.color)
+        z.circle = circles.circle(z.size.toDouble(), z.color)
         z.centerToPoint(Point(width / 2, height / 2))
 
         for (i in z.connections) {
             i.getZone(z).circle = circles.circle(
                 i.getZone(z).size.toDouble(),
-                i.getZone(z).type.color
+                i.getZone(z).color
             )
 
             angle += 360 / z.connections.size + (-120 / z.connections.size..120 / z.connections.size).random(Constants.rnd)
@@ -55,12 +54,12 @@ class Circles {
     }
 
     fun placeZoneCircles(
-        zones: MutableList<Zone>,
-        connections: List<Connection>,
+        zones: MutableList<CircleZone>,
+        connections: List<LineConnection>,
         circles: Container,
         lines: Container,
     ) {
-        val resolved = mutableListOf<Zone>()
+        val resolved = mutableListOf<CircleZone>()
         zones.sortBy { it.index }
         for (i in zones) {
             i.connections.sortBy { it.type }
@@ -76,14 +75,14 @@ class Circles {
 
 
     fun placeZoneCircles(
-        zones: MutableList<Zone>,
-        connections: List<Connection>,
+        zones: MutableList<CircleZone>,
+        connections: List<LineConnection>,
         circles: Container,
         lines: Container,
         iter: Int
     ) {
 
-        val resolved = mutableListOf<Zone>()
+        val resolved = mutableListOf<CircleZone>()
         zones.sortBy { it.index }
         for (i in zones) {
             i.connections.sortBy { it.type }
@@ -119,7 +118,7 @@ class Circles {
 //        }
 //    }
 
-    private fun resolveZone(zone: Zone, circles: Container, lines: Container, connections: List<Connection>) {
+    private fun resolveZone(zone: CircleZone, circles: Container, lines: Container, connections: List<LineConnection>) {
         // resolve connections with placed
         for (i in zone.getPlaced()) {
             // not moving resolved zones
@@ -184,7 +183,7 @@ class Circles {
             ).rotateDegrees(angles[j])
             i.circle = circles.circle(
                 i.size.toDouble(),
-                i.type.color
+                i.color
             )
             i.setCenter(i.getConnection(zone).line.points()[1])
             j++

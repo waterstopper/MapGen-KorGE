@@ -1,3 +1,5 @@
+package steps.posititioning
+
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Line
@@ -69,4 +71,6 @@ object GeometryExtensions {
      */
     fun Line.points(): List<Point> = listOf(Point(this.x1, this.y1), Point(this.x2, this.y2))
 
+    fun Pair<Int, Int>.x() = this.first
+    fun Pair<Int, Int>.y() = this.second
 }

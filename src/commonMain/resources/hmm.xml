@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<HMMConfig Version="1.0" name="Default HMM Config">
+<HMMConfig Version="1.0" name="Default HMM external.Config">
 
 <LanguageFile lang="Russian" primary="1" file="hmm\lng\russian.txt" />
 <!-- 

@@ -1,7 +1,8 @@
-package steps
+package deprecated
 
 import components.ConnectionType
 
+@Deprecated("")
 enum class Symbols(var char: Char) {
     REGULAR('-'),
     ROAD('~'),

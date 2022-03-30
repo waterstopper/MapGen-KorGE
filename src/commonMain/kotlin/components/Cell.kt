@@ -1,7 +1,7 @@
 package components
 
 import com.soywiz.kds.Stack
-import steps.Constants
+import Constants
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min

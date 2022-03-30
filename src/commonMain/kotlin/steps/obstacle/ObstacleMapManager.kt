@@ -1,10 +1,13 @@
-package steps
+package steps.obstacle
 
+import Constants
+import MatrixExtensions.calculateCosts
 import com.soywiz.kds.PriorityQueue
+import steps.building.Building
 import components.*
 import kotlin.math.max
 
-class ObstacleMapManager(val matrixMap: MatrixMap) {
+class ObstacleMapManager(val matrixMap: MatrixMap, val buildings: List<Building>) {
     var mininum = Int.MAX_VALUE - 2 * max(Constants.SIDE_COST, Constants.DIAG_COST)
     val minCells = mutableListOf<Cell>()
 
@@ -12,6 +15,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
         randomizeObstacles()
         for (i in 0 until Constants.CELLULAR_AUTOMATA_STEPS)
             cellularAutomataStep()
+        cleanBuildings()
     }
 
     /**
@@ -24,6 +28,14 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
                 && Constants.rnd.nextFloat() <= Constants.RANDOM_OBSTACLE_CHANCE
             )
                 cell.cellType = CellType.OBSTACLE
+        }
+    }
+
+    private fun cleanBuildings() {
+        for (building in buildings) {
+            for (cell in building.getCells())
+                cell.cellType = CellType.BUILDING
+            building.getEntrance().cellType = CellType.EMPTY
         }
     }
 
@@ -86,56 +98,6 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
     }
 
     /**
-     * TODO: I don't calculate diagonal costs for now
-     * https://www.redblobgames.com/pathfinding/a-star/introduction.html
-     * this is where i took an algorithm from
-     */
-    private fun calculateCosts(root: Cell): Boolean {
-        val queue = PriorityQueue<Pair<Int, Cell>>(
-            comparator = Comparator { a, b -> a.first.compareTo(b.first) })
-        val previous = HashMap<Cell, Cell>()
-        val cost = HashMap<Cell, Int>()
-        var emptyMinValue = Int.MAX_VALUE - Constants.SIDE_COST * 2
-        var emptyMinCell: Cell = matrixMap.matrix[0, 0]
-
-        queue.add(Pair(0, root))
-        cost[root] = 0
-
-        while (queue.isNotEmpty()) {
-            val current = queue.removeHead()
-            for (next in current.second.getNeighbors()) {
-                if (Constants.SUPER_OBSTACLES.contains(next.cellType) || next.cellType == CellType.ROAD)
-                    continue
-                val costNext = cost[current.second]!! +
-                        (if (Constants.OBSTACLES.contains(next.cellType))
-                            Constants.SIDE_COST else Constants.EMPTY_COST)
-                if (cost[next] == null || costNext < cost[next]!!) {
-                    cost[next] = costNext
-                    previous[next] = current.second
-
-                    queue.add(Pair(costNext, next))
-
-                    // cell in the next region that will be connected
-                    if (Constants.EMPTY.contains(next.cellType) && costNext < emptyMinValue && costNext > 0) {
-                        emptyMinValue = costNext
-                        emptyMinCell = next
-                    }
-                }
-            }
-        }
-        if (emptyMinCell == matrixMap.matrix[0, 0])
-            return false
-
-        var routeCell = previous[emptyMinCell]
-        while (routeCell != root) {
-            if (Constants.OBSTACLES.contains(routeCell!!.cellType))
-                routeCell.cellType = CellType.EMPTY
-            routeCell = previous[routeCell]
-        }
-        return true
-    }
-
-    /**
      * used for finding squares 2x2 and 3x3
      */
     fun findAllNSquares(n: Int): List<Pair<Surface, Cell>> {
@@ -144,20 +106,22 @@ class ObstacleMapManager(val matrixMap: MatrixMap) {
         for (x in 2 until matrixMap.matrix.width)
             for (y in 2 until matrixMap.matrix.height) {
                 var isSquare = true
-                val biomeType = mutableMapOf<Surface, Int>()
+                val surfType = mutableMapOf<Surface, Int>()
                 for (b in Surface.values())
-                    biomeType[b] = 0
+                    surfType[b] = 0
                 for (x1 in -(n - 1)..0)
                     for (y1 in -(n - 1)..0) {
                         if (!Constants.OBSTACLES.contains(matrixMap.matrix[x + x1, y + y1].cellType))
                             isSquare = false
-                        biomeType[matrixMap.matrix[x + x1, y + y1].zone.type] =
-                            biomeType[matrixMap.matrix[x + x1, y + y1].zone.type]!! + 1
+                        surfType[matrixMap.matrix[x + x1, y + y1].zone.type] =
+                            surfType[matrixMap.matrix[x + x1, y + y1].zone.type]!! + 1
                     }
                 if (isSquare)
                     res.add(
                         Pair(
-                            biomeType.filter { entry -> biomeType[entry.key] == biomeType.maxOf { m -> m.value } }.keys.random(Constants.rnd),
+                            surfType.filter { entry -> surfType[entry.key] == surfType.maxOf { m -> m.value } }.keys.random(
+                                Constants.rnd
+                            ),
                             matrixMap.matrix[x, y]
                         )
                     )

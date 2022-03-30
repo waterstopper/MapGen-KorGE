@@ -1,4 +1,4 @@
-package export
+package external
 
 import com.soywiz.kmem.ByteArrayBuilder
 import com.soywiz.korio.file.std.resourcesVfs
@@ -6,10 +6,10 @@ import com.soywiz.korio.serialization.xml.Xml
 import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
 import components.Surface
-import steps.BuildingsManager
-import steps.Constants
-import steps.ObstacleMapManager
-import steps.Voronoi
+import steps.building.BuildingsManager
+import Constants
+import steps.obstacle.ObstacleMapManager
+import steps.voronoi.Voronoi
 import kotlin.math.pow
 
 class Writer(
@@ -96,24 +96,23 @@ class Writer(
     }
 
     private fun writePlayers() {
-        writeNBytes(buildingsManager.players.size, 2)
-        for (player in buildingsManager.players) {
-            // id
-            writeNBytes(player.color, 1)
-            // player type mask
-            writeNBytes(player.fraction.ordinal, 1)
-            // has main castle
-            writeNBytes(1, 1)
-            if (true) {
-                writePoint(player.castle.position)
-                // create hero in castle
-                writeNBytes(0, 1)
-            }
-        }
+//        writeNBytes(buildingsManager.players.size, 2)
+//        for (player in buildingsManager.players) {
+//            // id
+//            writeNBytes(player.color, 1)
+//            // player type mask
+//            writeNBytes(player.fraction.ordinal, 1)
+//            // has main castle
+//            writeNBytes(1, 1)
+//            if (true) {
+//                writePoint(player.castle.position)
+//                // create hero in castle
+//                writeNBytes(0, 1)
+//            }
+//        }
     }
 
     private fun writeCastles() {
-        println("castles: ${buildingsManager.castles.size}")
         writeNBytes(buildingsManager.castles.size, 2)
         for (castle in buildingsManager.castles) {
             // id
@@ -121,7 +120,7 @@ class Writer(
             //type
             writeNBytes(castle.fraction.ordinal, 1)
             // owner
-            writeNBytes(castle.player!!.color, 1)
+            writeNBytes(castle.playerColor, 1)
             // position
             writePoint(castle.position)
             // creatures
@@ -137,7 +136,7 @@ class Writer(
         writeNBytes(buildingsManager.mines.size, 2)
         for (mine in buildingsManager.mines) {
             writeString(mine.toString())
-            writeNBytes(if (mine.player == null) -1 else mine.player.color, 1)
+            writeNBytes(mine.playerColor, 1)
             writePoint(mine.position)
             writeArmy()
         }
@@ -241,7 +240,7 @@ class Writer(
 
             writer.writeNBytes(amount3 + amount2 + amount1, 4)
 
-            for (i in obstacle3Squares.shuffled().take(amount3)) {
+            for (i in obstacle3Squares.shuffled(Constants.rnd).take(amount3)) {
                 val decoration = groups[9]!![i.first]?.random(Constants.rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
@@ -255,7 +254,7 @@ class Writer(
                     writer.writeDecoration(0, 0, "flowers_8")
             }
 
-            for (i in obstacle2Squares.shuffled().take(amount2)) {
+            for (i in obstacle2Squares.shuffled(Constants.rnd).take(amount2)) {
                 val decoration = groups[4]!![i.first]?.random(Constants.rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
@@ -283,7 +282,7 @@ class Writer(
                 }
 
             for (i in 0 until amountLeft)
-                writer.writeDecoration(0, 0, "flowers_8")
+                writer.writeDecoration(1, 0, "flowers_8")
 
         }
 

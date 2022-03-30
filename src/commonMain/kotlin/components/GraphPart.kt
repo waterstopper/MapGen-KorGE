@@ -1,3 +1,0 @@
-package components
-
-interface GraphPart

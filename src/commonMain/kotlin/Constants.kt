@@ -1,11 +1,19 @@
-package steps
-
+import com.soywiz.korim.color.Colors
 import components.CellType
+import external.Config
+import external.Template
 import kotlin.random.Random
 
 object Constants {
     private const val SEED = 42
     val rnd = Random(SEED)
+    var config: Config = Config()
+    var template: Template = Template("template", listOf(), listOf())
+
+    val playerColors = listOf(
+        Colors.SLATEGRAY, Colors.RED, Colors.GREEN,
+        Colors.BLUE, Colors.CYAN, Colors.PURPLE, Colors.YELLOW
+    )
 
     // chance of placing obstacle when randomly placing
     const val RANDOM_OBSTACLE_CHANCE = 0.5
@@ -25,7 +33,7 @@ object Constants {
     const val DIAG_COST = 3
     const val EMPTY_COST = 0
 
-    val SUPER_OBSTACLES = listOf(CellType.EDGE)
+    val SUPER_OBSTACLES = listOf(CellType.EDGE, CellType.BUILDING)
     val SUPER_EMPTY = listOf(CellType.ROAD)
     val OBSTACLES = listOf(CellType.EDGE, CellType.OBSTACLE)
     val EMPTY = listOf(CellType.EMPTY, CellType.ROAD)
