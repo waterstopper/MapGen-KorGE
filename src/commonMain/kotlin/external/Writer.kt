@@ -6,20 +6,38 @@ import com.soywiz.korio.serialization.xml.Xml
 import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
 import components.Surface
-import steps.building.BuildingsManager
+import steps.map.`object`.BuildingsManager
 import Constants
+import Constants.config
+import Constants.mapEditorVersion
+import Constants.matrixMap
+import Constants.rnd
+import Constants.zones
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.TimeFormat
+import com.soywiz.korio.file.std.rootLocalVfs
+import components.CellType
+import components.Fraction
+import components.Resource
+import steps.Guards
+import steps.map.`object`.Castle
 import steps.obstacle.ObstacleMapManager
-import steps.voronoi.Voronoi
 import kotlin.math.pow
 
 class Writer(
-    private val map: Voronoi,
     private val obstacleMapManager: ObstacleMapManager,
-    val buildingsManager: BuildingsManager
+    private val buildingsManager: BuildingsManager,
+    private val guards: Guards
 ) {
-    private val file = resourcesVfs["exported.hmm"]
-    private var ptr = 0
+    private var file = rootLocalVfs[config.exportPath]
+
+    init {
+        file = rootLocalVfs[config.exportPath]
+    }
+
     private val byteArrayBuilder = ByteArrayBuilder()
+
+    fun getPath() = file.path
 
     companion object {
         const val KEY = 1982026360
@@ -31,85 +49,179 @@ class Writer(
     suspend fun writeHeader() {
         writeNBytes(KEY, 4) // header
         writeNBytes(VER, 4) // version
-        writeNBytes(1, 1) // size
+        writeSize()
         writeNBytes(LNG_MASK, 4) // map language mask
         writeNBytes(2, 4) // cnt
 
         writeString("Map Description")
         writeNBytes(2, 2) // tet
-
-        writeString("Default desctiption")
+        writeString("Default description")
         // do not need tet here
-
         writeString("Map name")
         writeNBytes(1, 2) // tet
-
         writeString("My map")
-
         // empty strings
         writeNBytes(0, 4) // empty map version in ver>=0x15 (19)
         writeNBytes(0, 4) // empty author name
-
         // no time events
         writeNBytes(0, 2)
-
         // ultimate artifact position (x,y), each 2 bytes
         writePoint(0, 0)
         writeNBytes(0, 4) // something else with artifact (m_radUltimateArt)
-
         // players
         writePlayers()
-
         // heroes count
         writeNBytes(0, 2)
-
         // map objects count
-        writeNBytes(0, 2)
-
+        writeResources()
+        //writeNBytes(0, 2)
         // guards count
-        writeNBytes(0, 2)
-
+        writeGuards()
         // events count
         writeNBytes(0, 2)
-
         // visitables count
-        writeNBytes(0, 2)
-
+        writeVisitables()
         // ownerables count
         writeMines()
-
         // castles
         writeCastles()
-
         // map dump
         writeSurface()
-
-        // decorations count
-        //writeNBytes(2, 4)
-
+        // write decorations
         DecorationsBuilder(obstacleMapManager).placeObstacles(this)
 
         // paths count
-        writeNBytes(0, 4)
-
+        writeRoads()
+        changeFile()
         file.write(byteArrayBuilder.data)
     }
 
+    private suspend fun changeFile() {
+        file = rootLocalVfs[config.exportPath.substring(0, config.exportPath.length - 4)
+                + DateTime.now().time.format(TimeFormat.FORMAT_TIME).replace(':', '_')
+                + ".hmm"]
+        if (file.exists()) {
+            println("exists")
+            file = rootLocalVfs[file.path.substring(0, file.path.length - 4) + "(1).hmm"]
+        }
+
+    }
+
+    private fun writeGuards() {
+        val guards = guards.guards.filter { it.level >= 0 }
+        writeNBytes(guards.size, 2)
+        for (guard in guards) {
+            writeNBytes(3840 + guard.level, 2)
+            writeNBytes(config.guardCount[guard.level].value, 4)
+            // disp
+            writeNBytes(1, 1)
+            // notGrow
+            writeNBytes(0, 1)
+            writePoint(guard.position)
+            if (mapEditorVersion > 0x18)
+                writeString("")
+        }
+    }
+
+    private fun writeSize() {
+        writeNBytes(
+            when (config.mapSize) {
+                32 -> 0
+                64 -> 1
+                128 -> 2
+                256 -> 3
+                else -> throw Exception("unsupported export map size")
+            }, 1
+        ) // size
+    }
+
+    private fun writeRoads() {
+        writeNBytes(matrixMap.matrix.count { it.cellType == CellType.ROAD }, 4)
+        for (x in 0 until matrixMap.matrix.width)
+            for (y in 0 until matrixMap.matrix.height) {
+                if (matrixMap.matrix[x, y].cellType == CellType.ROAD) {
+                    writePoint(x, y)
+                    writeString(
+                        when (matrixMap.matrix[x, y].zone.type) {
+                            Surface.LAVA -> "stone_road"
+                            Surface.SNOW -> "snow_road"
+                            else -> "dirt_road"
+                        }
+                    )
+                }
+            }
+    }
+
+    private fun writeVisitables() {
+        writeNBytes(zones.sumOf { it.teleports.size }, 2)
+        for (z in zones) {
+            for (teleport in z.teleports) {
+                writeString(teleport.toString())
+                writePoint(teleport.position)
+                writeArmy()
+                writeString("")
+            }
+        }
+    }
+
     private fun writePlayers() {
-//        writeNBytes(buildingsManager.players.size, 2)
-//        for (player in buildingsManager.players) {
-//            // id
-//            writeNBytes(player.color, 1)
-//            // player type mask
-//            writeNBytes(player.fraction.ordinal, 1)
-//            // has main castle
-//            writeNBytes(1, 1)
-//            if (true) {
-//                writePoint(player.castle.position)
-//                // create hero in castle
-//                writeNBytes(0, 1)
-//            }
-//        }
+        val numPlayers = zones.maxOf { z -> z.buildings.maxOf { it.playerColor } } + 1
+        writeNBytes(numPlayers, 2)
+        for (playerIndex in 1..numPlayers) {
+            // id
+            writeNBytes(playerIndex, 1)
+            // player type mask
+            var pCastle: Castle? = null
+            zones.forEach { zone ->
+                val castle = zone.castles.find { it.playerColor == playerIndex - 1 }
+                if (castle != null) pCastle = castle
+            }
+            if (pCastle != null) {
+                writeNBytes(pCastle!!.fraction.ordinal, 1)
+                // has main castle
+                writeNBytes(1, 1)
+
+                writePoint(pCastle!!.position)
+                // create hero in castle
+                if (config.spawnHeroAtCastle.value)
+                    writeNBytes(1, 1)
+                else
+                    writeNBytes(0, 1)
+            } else {
+                writeNBytes(Fraction.getRandom().ordinal, 1)
+                writeNBytes(0, 1)
+            }
+        }
+    }
+
+    private suspend fun writeResources() {
+        val artifacts = resourcesVfs["artifacts.xml"].readXml().children("Item").toMutableList()
+        writeNBytes(guards.treasures.size, 2)
+        for (treasure in guards.treasures) {
+            /**
+             * type 0 - res
+             * 1 - mana crystal
+             * 2 - campfire
+             * 3 - chest
+             * 4 - artifact
+             */
+            writeNBytes(treasure.type.ordinal, 1)
+            writePoint(treasure.position)
+            writeArmy()
+            writeString("")
+            when (treasure.type.ordinal) {
+                0 -> {
+                    writeNBytes(Resource.getRandomExcept(listOf()).ordinal, 1) // resource type
+                    writeNBytes(0, 4) // amount, 0 for random
+                }
+                1 -> writeNBytes(0, 4) // amount
+                4 -> {
+                    writeString(artifacts.random(rnd).attributes["id"]!!) // artifact name
+                }
+                else -> {
+                }
+            }
+        }
     }
 
     private fun writeCastles() {
@@ -169,23 +281,20 @@ class Writer(
         for (i in 0 until n) buffer[i] = (data shr (i * 8)).toByte()
 
         byteArrayBuilder.append(buffer)
-        //file.writeChunk(buffer, ptr.toLong())
-        ptr += n
     }
 
     private fun writeSurface() {
-        val size = map.matrixMap.matrix.width
+        val size = matrixMap.matrix.width
         val len = ((size + 1).toDouble().pow(2) * I_NODE_SIZE).toInt()
-
         // transpose matrix - this way it resembles the view in "visualizeMatrix()" in KorGE
         for (y in 0 until size) {
             for (x in 0 until size)
-                writeNBytes(map.matrixMap.matrix[x, y].zone.type.ordinal, 2)
+                writeNBytes(matrixMap.matrix[x, y].zone.type.ordinal, 2)
 
-            writeNBytes(Surface.WATER.ordinal, 2)
+            writeNBytes(matrixMap.matrix[matrixMap.matrix.width - 1, y].zone.type.ordinal, 2)
         }
-        for (i in 0..map.matrixMap.matrix.width)
-            writeNBytes(Surface.WATER.ordinal, 2)
+        for (i in 0..matrixMap.matrix.width)
+            writeNBytes(matrixMap.matrix[matrixMap.matrix.width - 1, matrixMap.matrix.width - 1].zone.type.ordinal, 2)
 
         //writeNBytes(0, len)
     }
@@ -198,16 +307,16 @@ class Writer(
             writeNBytes(arr[i].code, 2)
     }
 
-    class DecorationsBuilder(private val obstacleMapManager: ObstacleMapManager) {
+    class DecorationsBuilder(obstacleMapManager: ObstacleMapManager) {
         private val obstacleFolders = listOf("mountains", "trees", "decals")
         private lateinit var groups: MutableMap<Int, Map<Surface, List<Xml>>>
         private val obstacle3Squares = createNSquares(obstacleMapManager, 3)
         private val obstacle2Squares = createNSquares(obstacleMapManager, 2)
 
         private var amount3 =
-            ((obstacle3Squares.lastIndex / 4)..(obstacle3Squares.lastIndex * 4 / 5)).random(Constants.rnd)
+            ((obstacle3Squares.lastIndex / 4)..(obstacle3Squares.lastIndex * 4 / 5)).random(rnd)
         private var amount2 =
-            ((obstacle2Squares.lastIndex / 4)..(obstacle2Squares.lastIndex * 4 / 5)).random(Constants.rnd)
+            ((obstacle2Squares.lastIndex / 4)..(obstacle2Squares.lastIndex * 4 / 5)).random(rnd)
         private val amount1 = getAmountOfObstacles(obstacleMapManager)
 
         private lateinit var map: Map<Surface, List<Xml>>
@@ -229,8 +338,8 @@ class Writer(
         suspend fun placeObstacles(writer: Writer) {
             groups = mutableMapOf()
             val placedMatrix =
-                Array(obstacleMapManager.matrixMap.matrix.width)
-                { BooleanArray(obstacleMapManager.matrixMap.matrix.width) { false } }
+                Array(matrixMap.matrix.width)
+                { BooleanArray(matrixMap.matrix.width) { false } }
 
             //writeUnknown(groups)
             for (i in parseGroups()) {
@@ -240,8 +349,8 @@ class Writer(
 
             writer.writeNBytes(amount3 + amount2 + amount1, 4)
 
-            for (i in obstacle3Squares.shuffled(Constants.rnd).take(amount3)) {
-                val decoration = groups[9]!![i.first]?.random(Constants.rnd)
+            for (i in obstacle3Squares.shuffled(rnd).take(amount3)) {
+                val decoration = groups[9]!![i.first]?.random(rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
                         i.second.position,
@@ -254,8 +363,8 @@ class Writer(
                     writer.writeDecoration(0, 0, "flowers_8")
             }
 
-            for (i in obstacle2Squares.shuffled(Constants.rnd).take(amount2)) {
-                val decoration = groups[4]!![i.first]?.random(Constants.rnd)
+            for (i in obstacle2Squares.shuffled(rnd).take(amount2)) {
+                val decoration = groups[4]!![i.first]?.random(rnd)
                 if (decoration != null) {
                     writer.writeDecoration(
                         i.second.position,
@@ -271,11 +380,11 @@ class Writer(
             var amountLeft = amount1
             for (x in placedMatrix.indices)
                 for (y in placedMatrix.indices) {
-                    val cell = obstacleMapManager.matrixMap.matrix[x, y]
+                    val cell = matrixMap.matrix[x, y]
                     if (Constants.OBSTACLES.contains(cell.cellType) && !placedMatrix[x][y]) {
                         writer.writeDecoration(
                             cell.position,
-                            groups[1]!![cell.zone.type]!!.random(Constants.rnd).attribute("id")!!
+                            groups[1]!![cell.zone.type]!!.random(rnd).attribute("id")!!
                         )
                         amountLeft--
                     }

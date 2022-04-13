@@ -1,12 +1,13 @@
 package steps.passage
 
 import Constants
+import Constants.matrixMap
 import components.Cell
 import components.CellType
 import components.Zone
-import steps.voronoi.Voronoi
+import steps.map.`object`.Entrance
 
-object GridPassage{
+class GridPassage {
     /**
      * add passages at the edge of connected zones
      * @return true if passages created successfully
@@ -32,17 +33,18 @@ object GridPassage{
         val goodCandidates = mutableMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
         // lists with many adjacent zones
         val badCandidates = mutableMapOf<Pair<Zone, Zone>, MutableList<Cell>>()
-        Voronoi.matrixMap.matrix.forEach { cell ->
-            if (cell.adjacentEdges.isNotEmpty()) {
+        matrixMap.matrix.forEach { cell ->
+            if (cell.adjacentEdges.isNotEmpty() && cell.getAdjacentEdgesByPassage().isNotEmpty()
+            ) {
                 // a good candidate
-                if (cell.adjacentEdges.all {
-                        it.zone == cell.adjacentEdges[0].zone
-                                && it.adjacentEdges.all { i -> i.zone == cell.zone }
+                if (cell.getAdjacentEdgesByPassage().all {
+                        it.zone == cell.getAdjacentEdgesByPassage()[0].zone
+                                && it.getAdjacentEdgesByPassage().all { i -> i.zone == cell.zone }
                     })
-                    addCandidate(cell, cell.adjacentEdges[0], goodCandidates)
+                    addCandidate(cell, cell.getAdjacentEdgesByPassage()[0], goodCandidates)
                 // bad candidate
                 else
-                    for (c in cell.adjacentEdges)
+                    for (c in cell.getAdjacentEdgesByPassage())
                         addCandidate(cell, c, badCandidates)
             }
         }
@@ -95,6 +97,13 @@ object GridPassage{
 
         chosenCell.cellType = CellType.ROAD
         neighborOfChosen.cellType = CellType.ROAD
+
+        pass.first.getNullableConnection(pass.second)!!.entrances.addAll(
+            listOf(
+                Entrance(chosenCell.position),
+                Entrance(neighborOfChosen.position)
+            )
+        )
 
 
 //        for (cell in chosenCell.getAllNeighbors()) {

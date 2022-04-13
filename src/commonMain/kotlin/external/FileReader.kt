@@ -1,21 +1,22 @@
 package external
 
-import com.soywiz.korio.file.std.resourcesVfs
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import Constants
+import com.soywiz.korio.file.std.rootLocalVfs
+
 import steps.posititioning.CircleZone
 import steps.posititioning.GraphPart
 import steps.posititioning.LineConnection
 
 object FileReader {
     suspend fun readConfig(path: String = "config.json"): Config {
-        val file = resourcesVfs[path].readString()
+        val file = rootLocalVfs[path].readString()
         return Json.decodeFromString(file)
     }
 
     private suspend fun readTemplate(path: String = "template.json"): Template {
-        val file = resourcesVfs[path].readString()
+        val file = rootLocalVfs[path].readString()
         return Json.decodeFromString(file)
     }
 

@@ -1,7 +1,11 @@
 import com.soywiz.korim.color.Colors
 import components.CellType
+import components.MatrixMap
+import components.Zone
 import external.Config
+import external.FileReader
 import external.Template
+import steps.voronoi.Voronoi
 import kotlin.random.Random
 
 object Constants {
@@ -9,6 +13,8 @@ object Constants {
     val rnd = Random(SEED)
     var config: Config = Config()
     var template: Template = Template("template", listOf(), listOf())
+    lateinit var matrixMap: MatrixMap
+    var zones: MutableList<Zone> = mutableListOf()
 
     val playerColors = listOf(
         Colors.SLATEGRAY, Colors.RED, Colors.GREEN,
@@ -30,11 +36,12 @@ object Constants {
     const val CELLULAR_AUTOMATA_STEPS = 1
 
     const val SIDE_COST = 2
-    const val DIAG_COST = 3
     const val EMPTY_COST = 0
 
     val SUPER_OBSTACLES = listOf(CellType.EDGE, CellType.BUILDING)
     val SUPER_EMPTY = listOf(CellType.ROAD)
     val OBSTACLES = listOf(CellType.EDGE, CellType.OBSTACLE)
     val EMPTY = listOf(CellType.EMPTY, CellType.ROAD)
+
+    const val mapEditorVersion = 0x20
 }

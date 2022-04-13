@@ -8,7 +8,7 @@ enum class Resource {
     WOOD,
     MERCURY,
     GEMS,
-    CRYSTALS,
+    CRYSTAL,
     SULFUR,
     RANDOM;
 

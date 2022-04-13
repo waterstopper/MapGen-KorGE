@@ -1,6 +1,8 @@
 package steps.voronoi
 
 import Constants
+import Constants.matrixMap
+import Constants.zones
 import com.soywiz.kds.Array2
 import components.Cell
 import components.Connection
@@ -10,14 +12,12 @@ import steps.posititioning.CircleZone
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
-object Voronoi {
+class Voronoi {
     private var circleZones: List<CircleZone> = listOf()
-    val matrixMap by lazy { initMatrixMap() }
-    val zones: MutableList<Zone> = mutableListOf()
 
     fun createMatrixMap(circleZones: List<CircleZone>) {
-        Voronoi.circleZones = circleZones
-        //val matrixMap = initMatrixMap()
+        this.circleZones = circleZones
+        matrixMap = initMatrixMap()
         assignEdges()
         //balanceZones()
     }
@@ -83,7 +83,7 @@ object Voronoi {
         // matrixMap.matrix.forEach { it.adjacentEdges = it.getEdge() }
     }
 
-    private fun initMatrixMap(): MatrixMap {
+    fun initMatrixMap(): MatrixMap {
         createMatrixZones(findProperBounds())
 
         val res = buildMatrix(zones)
@@ -103,8 +103,11 @@ object Voronoi {
      * 3) left and top bounds have 0 coordinate
      */
     private fun findProperBounds(): List<Double> {
-        // x min, x max, y min, y max
-        val bounds = mutableListOf(50.0, 50.0, 50.0, 50.0)
+        val z0 = circleZones[0]
+        val bounds = mutableListOf(
+            z0.circle.pos.x, z0.circle.pos.x,
+            z0.circle.pos.y, z0.circle.pos.y
+        )
         for (z in circleZones) {
             if (z.circle.pos.x < bounds[0])
                 bounds[0] = z.circle.pos.x

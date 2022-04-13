@@ -1,10 +1,13 @@
 package components
 
-import com.soywiz.korge.render.testRenderContext
 import external.Template
+import steps.map.`object`.Entrance
 
 class Connection(private val tConnection: Template.TemplateConnection, val z1: Zone, val z2: Zone) {
+    val entrances = mutableListOf<Entrance>()
     var resolved: Boolean = false
     val guardLevel: Int
-        get() = tConnection.guardLevel
+        get() = tConnection.guardLevel.value
+    val type: ConnectionType
+        get() = tConnection.type
 }

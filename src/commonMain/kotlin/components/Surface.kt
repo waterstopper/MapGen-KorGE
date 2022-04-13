@@ -28,7 +28,7 @@ enum class Surface(val color: RGBA) {
     companion object {
         fun fromInt(value: Int): Surface {
             return when (value) {
-                0 -> WATER//RANDOM TODO figure out where it is used
+                0 -> WATER
                 1 -> DIRT
                 2 -> GRASS
                 3 -> LAVA

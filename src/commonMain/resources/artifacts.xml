@@ -1,0 +1,304 @@
+<Artifacts>
+    <!-- 1: Treasure -->
+    <!-- Attack +1 -->
+    <Item id="SilverSword" name="ART_SILVERSWORD" desc="ART_SILVERSWORD_DESC" level="1" assign="HANDS"
+          icon="silver_sword" type="FURTSKILL" ATTACK="+1"/>
+    <!-- Attack +1 -->
+    <Item id="PeasantsSickle" name="ART_PEASANTSSICKLE" desc="ART_PEASANTSSICKLE_DESC" level="1" assign="HANDS"
+          icon="peasants_sickle" type="FURTSKILL" ATTACK="+1"/>
+    <!-- Defense +1 -->
+    <Item id="Plate" name="ART_PLATE" desc="ART_PLATE_DESC" level="1" assign="TORSO" icon="plate" type="FURTSKILL"
+          DEFENCE="+1"/>
+    <!-- Defense +1 -->
+    <Item id="DragonShield" name="ART_DRAGONSHIELD" desc="ART_DRAGONSHIELD_DESC" level="1" assign="HANDS"
+          icon="dragon_shield" type="FURTSKILL" DEFENCE="+1"/>
+    <!-- Power +1 -->
+    <Item id="MonksRing" name="ART_MONKSRING" desc="ART_MONKSRING_DESC" level="1" assign="FINGERS" icon="monks_ring"
+          type="FURTSKILL" POWER="+1"/>
+    <!-- Knowledge +1 -->
+    <Item id="MinorScrollOfKnowledge" name="ART_MINORSCROLLOFKNOWLEDGE" desc="ART_MINORSCROLLOFKNOWLEDGE_DESC" level="1"
+          assign="MISC" icon="minor_scroll_of_knowledge" type="FURTSKILL" KNOWLEDGE="+1"/>
+    <!-- Knowledge +1 -->
+    <Item id="ParchmentScroll" name="ART_PARCHMENTSCROLL" desc="ART_PARCHMENTSCROLL_DESC" level="1" assign="MISC"
+          icon="parchment_scroll" type="FURTSKILL" KNOWLEDGE="+1"/>
+    <!-- Knowledge +1 -->
+    <Item id="PendantOfWisdom" name="ART_PENDANTOFWISDOM" desc="ART_PENDANTOFWISDOM_DESC" level="1" assign="NECK"
+          icon="pendant_of_wisdom" type="FURTSKILL" KNOWLEDGE="+1"/>
+    <!-- Morale +1 -->
+    <Item id="MedalOfHonor" name="ART_MEDAL" desc="ART_MEDAL_DESC" level="1" assign="MISC" icon="pedant"
+          type="FURTSKILL" MORALE="+1"/>
+    <!-- Morale +1 -->
+    <Item id="MedalOfDistinction" name="ART_MEDALOFDISTINCTION" desc="ART_MEDALOFDISTINCTION_DESC" level="1"
+          assign="MISC" icon="medal_of_distinction" type="FURTSKILL" MORALE="+1"/>
+    <!-- Luck +1 -->
+    <Item id="LuckyDice" name="ART_LUCKYDICE" desc="ART_LUCKYDICE_DESC" level="1" assign="MISC" icon="lucky_dice"
+          type="FURTSKILL" LUCK="+1"/>
+    <!-- Luck +1 -->
+    <Item id="Clover" name="ART_CLOVER" desc="ART_CLOVER_DESC" level="1" assign="MISC" icon="clover" type="FURTSKILL"
+          LUCK="+1"/>
+    <!-- Luck +1 -->
+    <Item id="SilverBirdOfLuck" name="ART_SILVERBIRDOFLUCK" desc="ART_SILVERBIRDOFLUCK_DESC" level="1" assign="MISC"
+          icon="silver_bird_of_luck" type="FURTSKILL" LUCK="+1"/>
+    <!-- Archery 5% -->
+    <Item id="LongBow" name="ART_LONGBOW" desc="ART_LONGBOW_DESC" reqss="ARCHERY" level="1" assign="MISC"
+          icon="long_bow" type="FURTSKILL" ARCHERY="+5"/>
+    <!-- Necromancy 5% -->
+    <Item id="NecromancersRing" name="ART_NECROMANCERSRING" desc="ART_NECROMANCERSRING_DESC" reqss="NECROMANCY"
+          level="1" assign="FINGERS" icon="necromancers_ring" type="FURTSKILL" NECROMANCY="+5"/>
+    <!-- Scouting +1 -->
+    <Item id="Telescope" name="ART_TELESCOPE" desc="ART_TELESCOPE_DESC" level="1" assign="MISC" icon="telescope"
+          type="FURTSKILL" SCOUTING="+1"/>
+    <!-- Air spells damage -50% -->
+    <Item id="ProtectiveCloakAir" name="ART_PROTECTIVECLOAKAIR" desc="ART_PROTECTIVECLOAKAIR_DESC" level="1"
+          assign="SHOULDERS" icon="protective_cloak_air" type="FURTSKILL" RES_AIR="+30"/>
+    <!-- Earth spells damage -50% -->
+    <Item id="ProtectiveCloakEarth" name="ART_PROTECTIVECLOAKEARTH" desc="ART_PROTECTIVECLOAKEARTH_DESC" level="1"
+          assign="SHOULDERS" icon="protective_cloak_earth" type="FURTSKILL" RES_EATH="+30"/>
+    <!-- Fire spells damage -50% -->
+    <Item id="ProtectiveCloakFire" name="ART_PROTECTIVECLOAKFIRE" desc="ART_PROTECTIVECLOAKFIRE_DESC" level="1"
+          assign="SHOULDERS" icon="protective_cloak_fire" type="FURTSKILL" RES_FIRE="+30"/>
+    <!-- Water spells damage -50% -->
+    <Item id="ProtectiveCloakWater" name="ART_PROTECTIVECLOAKWATER" desc="ART_PROTECTIVECLOAKWATER_DESC" level="1"
+          assign="SHOULDERS" icon="protective_cloak_water" type="FURTSKILL" RES_WATRE="+30"/>
+    <!-- Mana +2 -->
+    <Item id="JarOfMana" name="ART_JAROFMANA" desc="ART_JAROFMANA_DESC" level="1" assign="MISC" icon="jar_of_mana"
+          type="FURTSKILL" MANAPTS="+2"/>
+    <!-- 2: Minor -->
+    <!-- Attack +3 -->
+    <Item id="PowerAxe" name="ART_POWERAXE" desc="ART_POWERAXE_DESC" level="3" assign="HANDS" icon="power_axe"
+          type="FURTSKILL" ATTACK="+3"/>
+    <!-- Defense +2 -->
+    <Item id="Helm" name="ART_HELM" desc="ART_HELM_DESC" level="2" assign="HEAD" icon="helm" type="FURTSKILL"
+          DEFENCE="+2"/>
+    <!-- Power +2 -->
+    <Item id="CastersBracelet" name="ART_CASTERSBRACELET" desc="ART_CASTERSBRACELET_DESC" level="2" assign="FINGERS"
+          icon="casters_bracelet" type="FURTSKILL" POWER="+2"/>
+    <!-- Knowledge +2 -->
+    <Item id="ScrollOfEnlightenment" name="ART_SCROLLOFENLIGHTENMENT" desc="ART_SCROLLOFENLIGHTENMENT_DESC" level="2"
+          assign="MISC" icon="scroll_of_enlightenment" type="FURTSKILL" KNOWLEDGE="+2"/>
+    <!-- Attack and Defense +1 - replaced (now its called Soldier's Helm)-->
+    <Item id="SpikedHelm" name="ART_SPIKEDHELM" desc="ART_SPIKEDHELM_DESC" level="2" assign="HEAD" icon="spiked_helm"
+          type="FURTSKILL" ATTACK="+1" DEFENCE="+1"/>
+    <!-- Power and Knowledge +1 -->
+    <Item id="Ring" name="ART_RING" desc="ART_RING_DESC" level="2" assign="FINGERS" icon="ring" type="FURTSKILL"
+          POWER="+1" KNOWLEDGE="+1"/>
+    <!-- Power and Knowledge +1 -->
+    <Item id="WhitePearlNecklace" name="ART_WHITEPEARLNECKLACE" desc="ART_WHITEPEARLNECKLACE_DESC" level="2"
+          assign="NECK" icon="white_pearl_necklace" type="FURTSKILL" POWER="+1" KNOWLEDGE="+1"/>
+    <!-- Luck +2 -->
+    <Item id="GoldenBirdOfLuck" name="ART_GOLDENBIRDOFLUCK" desc="ART_GOLDENBIRDOFLUCK_DESC" level="2" assign="MISC"
+          icon="golden_bird_of_luck" type="FURTSKILL" LUCK="+2"/>
+    <!-- Ore +1 -->
+    <Item id="CartOfOre" name="ART_CARTOFORE" desc="ART_CARTOFORE_DESC" level="2" assign="MISC" icon="cart_of_ore"
+          type="FURTSKILL" MIN_ORE="+1"/>
+    <!-- Wood +1 -->
+    <Item id="CordOfWood" name="ART_CORDOFWOOD" desc="ART_CORDOFWOOD_DESC" level="2" assign="MISC" icon="cord_of_wood"
+          type="FURTSKILL" MIN_WOOD="+1"/>
+    <!-- Hits +1 -->
+    <Item id="RingOfLife" name="ART_RINGOFLIFE" desc="ART_RINGOFLIFE_DESC" level="2" assign="FINGERS"
+          icon="ring_of_life" type="FURTSKILL" HITS="+1"/>
+    <!-- Hits +2 -->
+    <Item id="PedantOfLife" name="ART_PENDANTOFLIFE" desc="ART_PENDANTOFLIFE_DESC" level="2" assign="NECK"
+          icon="pedant_of_life" type="FURTSKILL" HITS="+2"/>
+    <!-- Archery 10% -->
+    <Item id="ElfsLongBow" name="ART_ELFSLONGBOW" desc="ART_ELFSLONGBOW_DESC" reqss="ARCHERY" level="2" assign="MISC"
+          icon="elfs_long_bow" type="FURTSKILL" ARCHERY="+10"/>
+    <!-- Necromancy 10% -->
+    <Item id="VampiresCowl" name="ART_VAMPIRESCOWL" desc="ART_VAMPIRESCOWL_DESC" reqss="NECROMANCY" level="2"
+          assign="SHOULDERS" icon="vampires_cowl" type="FURTSKILL" NECROMANCY="+10"/>
+    <!-- Boots +30 -->
+    <Item id="TravelersBoots" name="ART_BOOTS" desc="ART_BOOTS_DESC" level="2" assign="FEET" icon="boots"
+          type="FURTSKILL" ACTPTS="+20"/>
+    <!-- Diplomacy +20 -->
+    <Item id="DiplomatsQuill" name="ART_DIPLOMATSQUILL" desc="ART_DIPLOMATSQUILL_DESC" level="2" assign="MISC"
+          icon="diplomats_quill" type="FURTSKILL" DIPLOMACY="+20"/>
+    <!-- Resistance 10% -->
+    <Item id="ProtectiveCloak" name="ART_PROTECTIVECLOAK" desc="ART_PROTECTIVECLOAK_DESC" reqss="RESISTANCE" level="2"
+          assign="SHOULDERS" icon="protective_cloak" type="FURTSKILL" RESISTANCE="+10"/>
+    <!-- Speed +1 -->
+    <Item id="ClockOfSwiftness" name="ART_CLOCKOFSWIFTNESS" desc="ART_CLOCKOFSWIFTNESS_DESC" level="2" assign="MISC"
+          icon="clock_of_swiftness" type="FURTSKILL" SPEED="+1"/>
+    <!-- 3: Major -->
+    <!-- Attack +3 -->
+    <Item id="Sword" name="ART_SWORD" desc="ART_SWORD_DESC" level="3" assign="HANDS" icon="sword" type="FURTSKILL"
+          ATTACK="+3"/>
+    <!-- Defense +3 -->
+    <Item id="ArmorOfMight" name="ART_ARMOROFMIGHT" desc="ART_ARMOROFMIGHT_DESC" level="3" assign="TORSO"
+          icon="armor_of_might" type="FURTSKILL" DEFENCE="+3"/>
+    <!-- Power +3 -->
+    <Item id="RingOfPower" name="ART_RINGOFPOWER" desc="ART_RINGOFPOWER_DESC" level="3" assign="FINGERS"
+          icon="ring_of_power" type="FURTSKILL" POWER="+3"/>
+    <!-- Knowledge +3 -->
+    <Item id="TomeOfKnowledge" name="ART_TOMEOFKNOWLEDGE" desc="ART_TOMEOFKNOWLEDGE_DESC" level="3" assign="MISC"
+          icon="tome_of_knowledge" type="FURTSKILL" KNOWLEDGE="+3"/>
+    <!-- Attack +4 -->
+    <Item id="AncientBroadsword" name="ART_ANCIENTBROADSWORD" desc="ART_ANCIENTBROADSWORD_DESC" level="3" assign="HANDS"
+          icon="ancient_broadsword" type="FURTSKILL" ATTACK="+4"/>
+    <!-- Defense +4 -->
+    <Item id="Shield" name="ART_SHIELD" desc="ART_SHIELD_DESC" level="3" assign="HANDS" icon="shield" type="FURTSKILL"
+          DEFENCE="+4"/>
+    <!-- Defense +4 -->
+    <Item id="PaladinsShield" name="ART_PALADINSSHIELD" desc="ART_PALADINSSHIELD_DESC" level="3" assign="HANDS"
+          icon="paladins_shield" type="FURTSKILL" DEFENCE="+4"/>
+    <!-- Power +4 -->
+    <Item id="Staff" name="ART_STAFF" desc="ART_STAFF_DESC" level="3" assign="HANDS" icon="staff" type="FURTSKILL"
+          POWER="+4"/>
+    <!-- Knowledge +4 -->
+    <Item id="SupScroll" name="ART_SUPSCROLL" desc="ART_SUPSCROLL_DESC" level="3" assign="MISC" icon="sup_scroll"
+          type="FURTSKILL" KNOWLEDGE="+4"/>
+    <!-- Knowledge +4 -->
+    <Item id="BookOfWisdom" name="ART_BOOKOFWISDOM" desc="ART_BOOKOFWISDOM_DESC" level="3" assign="MISC"
+          icon="book_of_wisdom" type="FURTSKILL" KNOWLEDGE="+4"/>
+    <!-- Attack and Defense +2 -->
+    <Item id="Eclipse" name="ART_ECLIPSE" desc="ART_ECLIPSE_DESC" level="3" assign="HANDS" icon="eclipse"
+          type="FURTSKILL" ATTACK="+2" DEFENCE="+2"/>
+    <!-- Power and Knowledge +2 -->
+    <Item id="SnakeBracelet" name="ART_SNAKEBRACELET" desc="ART_SNAKEBRACELET_DESC" level="3" assign="FINGERS"
+          icon="snake_bracelet" type="FURTSKILL" POWER="+2" KNOWLEDGE="+2"/>
+    <!-- Power and Knowledge +2 -->
+    <Item id="BlackPearlNecklace" name="ART_BLACKPEARLNECKLACE" desc="ART_BLACKPEARLNECKLACE_DESC" level="3"
+          assign="NECK" icon="black_pearl_necklace" type="FURTSKILL" POWER="+2" KNOWLEDGE="+2"/>
+    <!-- Attack, Defense, Power, and Knowledge +1 -->
+    <Item id="PendantOfOmniscience" name="ART_PENDANTOFOMNISCIENCE" desc="ART_PENDANTOFOMNISCIENCE_DESC" level="3"
+          assign="NECK" icon="pendant_of_omniscience" type="FURTSKILL" ATTACK="+1" DEFENCE="+1" POWER="+1"
+          KNOWLEDGE="+1"/>
+    <!-- Hits +3 -->
+    <Item id="RingOfPerpetuity" name="ART_RINGOFPERPETUITY" desc="ART_RINGOFPERPETUITY_DESC" level="3" assign="FINGERS"
+          icon="ring_of_perpetuity" type="FURTSKILL" HITS="+3"/>
+    <!-- Archery 15% -->
+    <Item id="Crossbow" name="ART_CROSSBOW" desc="ART_CROSSBOW_DESC" reqss="ARCHERY" level="3" assign="MISC"
+          icon="crossbow" type="FURTSKILL" ARCHERY="+15"/>
+    <!-- Necromancy 15% -->
+    <Item id="NecromancersSword" name="ART_NECROMANCERSSWORD" desc="ART_NECROMANCERSSWORD_DESC" reqss="NECROMANCY"
+          level="3" assign="HANDS" icon="necromancers_sword" type="FURTSKILL" NECROMANCY="+15"/>
+    <!-- Gold +1000 -->
+    <Item id="AmuletOfWealth" name="ART_AMULETOFWEALTH" desc="ART_AMULETOFWEALTH_DESC" level="3" assign="NECK"
+          icon="amulet_of_wealth" type="FURTSKILL" MIN_GOLD="+1000"/>
+    <!-- Mercury +1 -->
+    <Item id="VialOfMercury" name="ART_VIALOFMERCURY" desc="ART_VIALOFMERCURY_DESC" level="3" assign="MISC"
+          icon="vial_of_mercury" type="FURTSKILL" MIN_MERCURY="+1"/>
+    <!-- Gems +1 -->
+    <Item id="PouchOfGems" name="ART_POUCHOFGEMS" desc="ART_POUCHOFGEMS_DESC" level="3" assign="MISC"
+          icon="pouch_of_gems" type="FURTSKILL" MIN_GEMS="+1"/>
+    <!-- Sulfur +1 -->
+    <Item id="SulfurRing" name="ART_SULFURRING" desc="ART_SULFURRING_DESC" level="3" assign="FINGERS" icon="sulfur_ring"
+          type="FURTSKILL" MIN_SULFUR="+1"/>
+    <!-- Crystal +1 -->
+    <Item id="CrystalRose" name="ART_CRYSTALROSE" desc="ART_CRYSTALROSE_DESC" level="3" assign="MISC"
+          icon="crystal_rose" type="FURTSKILL" MIN_CRYSTAL="+1"/>
+    <!-- Boots +30 -->
+    <Item id="NomadBoots" name="ART_NOMADBOOTS" desc="ART_NOMADBOOTS_DESC" level="3" assign="FEET" icon="nomad_boots"
+          type="FURTSKILL" ACTPTS="+30"/>
+    <!-- 4: Relict -->
+    <!-- Attack +6 -->
+    <Item id="LongSword" name="ART_LONGSWORD" desc="ART_LONGSWORD_DESC" reqlvl="5" level="4" assign="HANDS"
+          icon="long_sword" type="FURTSKILL" ATTACK="+6"/>
+    <!-- Defense +6 -->
+    <Item id="HerosShield" name="ART_HEROSSHIELD" desc="ART_HEROSSHIELD_DESC" reqlvl="5" level="4" assign="HANDS"
+          icon="heros_shield" type="FURTSKILL" DEFENCE="+6"/>
+    <!-- Power +6 -->
+    <Item id="PrecursorsHelmet" name="ART_PRECURSORSHELMET" reqss="WISDOM" reqlvl="5" desc="ART_PRECURSORSHELMET_DESC"
+          level="4" assign="HEAD" icon="precursors_helmet" type="FURTSKILL" POWER="+6"/>
+    <!-- Knowledge +6 -->
+    <Item id="WizardsHat" name="ART_WIZARDSHAT" desc="ART_WIZARDSHAT_DESC" reqlvl="5" level="4" assign="HEAD"
+          icon="wizards_hat" type="FURTSKILL" KNOWLEDGE="+6"/>
+    <!-- Attack and Defense +3 -->
+    <Item id="SwordBreaker" name="ART_SWORDBREAKER" desc="ART_SWORDBREAKER_DESC" reqlvl="5" level="4" assign="HANDS"
+          icon="sword_breaker" type="FURTSKILL" ATTACK="+3" DEFENCE="+3"/>
+    <!-- Power and Knowledge +3 -->
+    <Item id="WarlocksNecklet" name="ART_WARLOCKSNECKLACE" desc="ART_WARLOCKSNECKLACE_DESC" reqlvl="5" level="4"
+          assign="NECK" icon="warlocks_necklace" type="FURTSKILL" POWER="+3" KNOWLEDGE="+3"/>
+    <!-- Attack, Defense, Power, and Knowledge +2 -->
+    <Item id="SorcerersWand" name="ART_SORCERERSWAND" desc="ART_SORCERERSWAND_DESC" reqlvl="5" level="4" assign="HANDS"
+          icon="sorcerers_wand" type="FURTSKILL" ATTACK="+2" DEFENCE="+2" POWER="+2" KNOWLEDGE="+2"/>
+    <!-- Shackles of War -->
+    <Item id="ShaklesOfWar" name="ART_SHAKLESOFWAR" desc="ART_SHAKLESOFWAR_DESC" reqlvl="5" level="4" assign="MISC"
+          icon="shakles_of_war" type="SHOFWAR"/>
+    <!-- Sphere of negation -->
+    <Item id="SphereOfNegation" name="ART_SPHEREOFNEGATION" desc="ART_SPHEREOFNEGATION_DESC" reqlvl="5" level="4"
+          assign="MISC" icon="sphere_of_negation" type="NEGSPHERE"/>
+
+    <!-- Version 1.02 -->
+    <Item id="ThrowingAxe" name="ART_THROWINGAXE" desc="ART_THROWINGAXE_DESC" level="2" assign="HANDS"
+          icon="throwing_axe" type="FURTSKILL" ATTACK="+2"/>
+    <Item id="GoblinsShield" name="ART_GOBLINSSHIELD" desc="ART_GOBLINSSHIELD_DESC" level="3" assign="HANDS"
+          icon="goblins_shield" type="FURTSKILL" DEFENCE="+4"/>
+    <Item id="CastersPendant" name="ART_CASTERSPENDANT" desc="ART_CASTERSPENDANT_DESC" level="2" assign="NECK"
+          icon="casters_pendant" type="FURTSKILL" POWER="+2"/>
+    <Item id="SwordOfCursed" name="ART_SWORDOFCURSED" desc="ART_SWORDOFCURSED_DESC" reqlvl="5" level="4" assign="HANDS"
+          icon="sword_of_cursed" type="CURSWORD"/>
+
+    <!--
+    <Item id="SphereOfAir" name="ART_SPHEREOFAIR" desc="ART_SPHEREOFAIR_DESC" level="4" assign="MISC" icon="sphere_of_air" type="FURTSKILL" MAG_AIR="+50"/>
+    <Item id="SphereOfEarth" name="ART_SPHEREOFEARTH" desc="ART_SPHEREOFEARTH_DESC" level="4" assign="MISC" icon="sphere_of_earth" type="FURTSKILL" MAG_EARTH="+50"/>
+    <Item id="SphereOfFire" name="ART_SPHEREOFFIRE" desc="ART_SPHEREOFFIRE_DESC" level="4" assign="MISC" icon="sphere_of_fire" type="FURTSKILL" MAG_FIRE="+50"/>
+    <Item id="SphereOfWater" name="ART_SPHEREOFWATER" desc="ART_SPHEREOFWATER_DESC" level="4" assign="MISC" icon="sphere_of_water" type="FURTSKILL" MAG_WATER="+50"/>
+    -->
+
+    <!-- New -->
+    <Item id="IronMace" name="ART_IRONMACE" desc="ART_IRONMACE_DESC" level="1" assign="HANDS" icon="mace"
+          type="FURTSKILL" ATTACK="+1"/>
+    <Item id="GoldenMace" name="ART_GOLDENMACE" desc="ART_GOLDENMACE_DESC" level="3" assign="HANDS" icon="golden_mace"
+          type="FURTSKILL" ATTACK="+3" MIN_GOLD="+250"/>
+
+    <Item id="GoldenSword" name="ART_GOLDENSWORD" desc="ART_GOLDENSWORD_DESC" level="3" assign="HANDS"
+          icon="golden_sword" type="FURTSKILL" ATTACK="+3" MIN_GOLD="+250"/>
+    <Item id="GoldenShield" name="ART_GOLDENSHIELD" desc="ART_GOLDENSHIELD_DESC" level="3" assign="HANDS"
+          icon="golden_shield" type="FURTSKILL" DEFENCE="+3" MIN_GOLD="+250"/>
+    <Item id="GoldenArmor" name="ART_GOLDENARMOR" desc="ART_GOLDENARMOR_DESC" level="3" assign="TORSO"
+          icon="golden_armor" type="FURTSKILL" DEFENCE="+2" LUCK="+1" MIN_GOLD="+250"/>
+
+    <!-- Gold +500 replaced -->
+    <Item id="PurseOfGold" name="ART_PURSEOFGOLD" desc="ART_PURSEOFGOLD_DESC" level="3" assign="FINGERS"
+          icon="golden_ring" type="FURTSKILL" MIN_GOLD="+500"/>
+    <!-- Gold +750 replaced -->
+    <Item id="BagOfGold" name="ART_BAGOFGOLD" desc="ART_BAGOFGOLD_DESC" level="3" assign="MISC" icon="golden_chalice"
+          type="FURTSKILL" MIN_GOLD="+750"/>
+    <!-- Power +1 replaced -->
+    <Item id="WitchsBrooch" name="ART_GOLDENSKULL" desc="ART_GOLDENSKULL_DESC" level="1" assign="MISC"
+          icon="golden_skull" type="FURTSKILL" POWER="+1"/>
+
+    <!-- Defence +1 -->
+    <Item id="IronGreaves" name="ART_IRONGREAVES" desc="ART_IRONGREAVES_DESC" level="2" assign="LEGS"
+          icon="iron_greaves" type="FURTSKILL" DEFENCE="+2"/>
+    <Item id="BoneGreaves" name="ART_BONEGREAVES" desc="ART_BONEGREAVES_DESC" level="1" assign="LEGS"
+          icon="bone_greaves" type="FURTSKILL" DEFENCE="+1"/>
+
+    <!-- 2008.01.14 -->
+    <Item id="SunRod" name="ART_SUNROD" desc="ART_SUNROD_DESC" level="2" assign="HANDS" icon="sun_rod" type="FURTSKILL"
+          MANAPTS="+5"/>
+    <Item id="BastardSword" name="ART_BASTARDSWORD" desc="ART_BASTARDSWORD_DESC" level="2" assign="HANDS"
+          icon="bastard_sword" type="FURTSKILL" ATTACK="+2"/>
+    <Item id="AirCirclet" name="ART_AIRCIRCLET" desc="ART_AIRCIRCLET_DESC" level="1" assign="HEAD" icon="circlet_of_air"
+          type="FURTSKILL" POWER="+1"/>
+    <Item id="RangerCap" name="ART_RANGERCAP" desc="ART_RANGERCAP_DESC" level="3" assign="HEAD" icon="ranger_cap"
+          type="FURTSKILL" ARCHERY="+15"/>
+
+    <Item id="DwarvenHammer" name="ART_DWARVENHAMMER" desc="ART_DWARVENHAMMER_DESC" level="3" assign="HANDS"
+          icon="dwarven_hammer" type="FURTSKILL" ATTACK="+3" creatures="DWARF" CREAT_ATTACK="+3"/>
+    <Item id="WingedHelmet" name="ART_WINGEDHELMET" desc="ART_WINGEDHELMET_DESC" level="3" assign="HEAD"
+          icon="winged_helmet" type="FURTSKILL" DEFENCE="+2" ACTPTS="+15"/>
+    <Item id="BoneMask" name="ART_BONEMASK" desc="ART_BONEMASK_DESC" level="3" assign="HEAD" icon="bone_mask"
+          type="FURTSKILL" DEFENCE="+2" FEAR="+2"/>
+    <Item id="BoneArmor" name="ART_BONEARMOR" desc="ART_BONEARMOR_DESC" level="3" assign="TORSO" icon="bone_armor"
+          type="FURTSKILL" DEFENCE="+3" FEAR="+1"/>
+    <Item id="KingsShield" name="ART_KINGSSHIELD" desc="ART_KINGSSHIELD_DESC" level="3" assign="HANDS"
+          icon="kings_shield" type="FURTSKILL" DEFENCE="+3" MORALE="+1"/>
+    <Item id="BloodStoneNecklace" name="ART_BLOODSTONENECKLACE" desc="ART_BLOODSTONENECKLACE_DESC" level="3"
+          assign="NECK" icon="bloodstone_necklace" type="FURTSKILL" POWER="+1" SPELLDMG="+15"/>
+    <Item id="SwampBoots" name="ART_SWAMPBOOTS" desc="ART_SWAMPBOOTS_DESC" level="3" assign="FEET" icon="swamp_boots"
+          type="FURTSKILL" ACTPTS="+25"/>
+    <Item id="LeatherArmor" name="ART_LEATHERARMOR" desc="ART_LEATHERARMOR_DESC" level="1" assign="TORSO"
+          icon="leather_armor" type="FURTSKILL" DEFENCE="+1"/>
+    <Item id="GoblinCap" name="ART_GOBLINCAP" desc="ART_GOBLINCAP_DESC" level="1" assign="HEAD" icon="goblin_cap"
+          type="FURTSKILL" DEFENCE="+1" creatures="GOBLIN" CREAT_DEFENCE="+2"/>
+    <Item id="BoneNecklace" name="ART_BONENECKLACE" desc="ART_BONENECKLACE_DESC" level="1" assign="NECK"
+          icon="bone_necklace" type="FURTSKILL" MORALE="+1" LUCK="+1"/>
+    <Item id="RidersHelm" name="ART_RIDERSHELM" desc="ART_RIDERSHELM_DESC" level="2" assign="HEAD" icon="riders_helm"
+          type="FURTSKILL" DEFENCE="+2"/>
+    <Item id="OgreShield" name="ART_OGRESHIELD" desc="ART_OGRESHIELD_DESC" level="2" assign="HANDS" icon="ogre_shield"
+          type="FURTSKILL" DEFENCE="+2" creatures="OGRE" CREAT_DEFENCE="+4"/>
+
+    <!-- fastcrossbow, ice amulet, ??? -->
+
+</Artifacts>

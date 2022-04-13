@@ -1,5 +1,8 @@
 import com.soywiz.kds.Queue
 import com.soywiz.kds.TGenPriorityQueue
+import com.soywiz.kds.map2
+import com.soywiz.korma.algo.AStar
+import com.soywiz.korma.geom.toPoints
 import components.Cell
 import components.CellType
 
@@ -86,6 +89,36 @@ object MatrixExtensions {
     }
 
     /**
+    @param cell from which all distances are computed
+    @param requested what cells are needed for distance computing
+    @return: required distances
+     */
+    fun getAllDistances(
+        root: Cell,
+        requested: List<Cell>,
+        filtered: List<CellType> = mutableListOf(CellType.EDGE, CellType.BUILDING, CellType.OBSTACLE)
+    ): MutableList<Pair<Cell, Int>> {
+        val res = mutableListOf<Pair<Cell, Int>>()
+        val queue = Queue<Pair<Cell, Int>>()
+        val resolved = mutableSetOf<Cell>()
+        queue.enqueue(Pair(root, 0))
+
+        while (queue.isNotEmpty() && requested.size > res.size) {
+            val (current, rad) = queue.dequeue()
+            if (requested.contains(current))
+                res.add(Pair(current, rad))
+            else resolved.add(current)
+            for (neighbor in current.getNeighbors())
+                if (!queue.any { it.first == neighbor }
+                    && !res.any { it.first == neighbor } && !resolved.contains(neighbor)
+                    && !filtered.contains(neighbor.cellType))
+                    queue.enqueue(Pair(neighbor, rad + 1))
+        }
+        res.sortBy { it.second }
+        return res
+    }
+
+    /**
      * diagonal costs not calculated
      * Source: https://www.redblobgames.com/pathfinding/a-star/introduction.html
      */
@@ -134,11 +167,15 @@ object MatrixExtensions {
         return true
     }
 
-    fun makeRoads() {
 
-    }
-
-    fun makeEmptyConnections() {
-
+    fun makeEmptyConnections(first: Cell, second: Cell) {
+        AStar.find(
+            first.matrix.matrix.map2 { _, _, cell -> cell.cellType == CellType.EDGE || cell.cellType == CellType.BUILDING },
+            first.position.first,
+            first.position.second,
+            second.position.first,
+            second.position.second,
+            //findClosest = true
+        ).toPoints().forEach { first.matrix.matrix[it.x, it.y].cellType = CellType.ROAD }
     }
 }

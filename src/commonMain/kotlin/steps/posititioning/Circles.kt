@@ -73,7 +73,6 @@ class Circles {
         }
     }
 
-
     fun placeZoneCircles(
         zones: MutableList<CircleZone>,
         connections: List<LineConnection>,
@@ -81,7 +80,6 @@ class Circles {
         lines: Container,
         iter: Int
     ) {
-
         val resolved = mutableListOf<CircleZone>()
         zones.sortBy { it.index }
         for (i in zones) {
@@ -150,7 +148,8 @@ class Circles {
                     i.circle.pos = pos
                 }
             }
-            // TODO: here we move zones if they are far away. Not doing it now, but might do later
+            // here we move zones if they are far away. Not doing it now, but might do later
+
             // OR check after this if
             // if (zone.circle.pos.distanceTo(i.circle.pos) >= 3.5 * max(zone.size, i.size)) {
 //            i.toNearestValidPosition(circles)
@@ -163,12 +162,11 @@ class Circles {
             // }
         }
 
-        var j = 0
         var angles = mutableListOf<Int>()
-        if (!zone.getNotPlaced().isEmpty())
+        if (zone.getNotPlaced().isNotEmpty())
             angles = zone.getRemainingAngles().toMutableList()
         // place new zones
-        for (i in zone.getNotPlaced()) {
+        for ((j, i) in zone.getNotPlaced().withIndex()) {
             // lines are first drawn parallel to (1, 0) vector
             i.getConnection(zone).initializeLine(
                 lines.line(
@@ -186,7 +184,6 @@ class Circles {
                 i.color
             )
             i.setCenter(i.getConnection(zone).line.points()[1])
-            j++
         }
     }
 }

@@ -1,11 +1,17 @@
 package components
 
-enum class Fraction(){
+import Constants.rnd
+
+enum class Fraction() {
     CITADEL,
     STRONGHOLD,
     TOWER,
     DUNGEON,
     FORTRESS,
     NECROPOLIS,
-    RANDOM
+    RANDOM;
+
+    companion object {
+        fun getRandom() = values().filter { it != RANDOM }.random(rnd)
+    }
 }

@@ -1,19 +1,137 @@
+import Constants.matrixMap
+import Constants.zones
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.TimeFormat
+import com.soywiz.korev.Key
 import com.soywiz.korge.Korge
+import com.soywiz.korge.input.keys
 import com.soywiz.korge.input.onClick
+import com.soywiz.korge.view.Stage
 import com.soywiz.korim.color.Colors
+import com.soywiz.korio.lang.Environment
 import components.ConnectionType
 import components.Surface
+import external.Config
+import external.FileReader.readConfig
 import external.Template
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import steps.Guards
 import steps.Pipeline
+import steps.map.`object`.BuildingsManager
+import steps.obstacle.ObstacleMapManager
+import steps.passage.GridPassage
+import steps.passage.RoadBuilder
+import steps.voronoi.Voronoi
 
-const val height = 320
-const val width = 320
+const val height = 640
+const val width = 640
 
 suspend fun main() = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
+    println(DateTime.now().time.format(TimeFormat.FORMAT_TIME))
+    println(DateTime.now().time.format(TimeFormat.DEFAULT_FORMAT))
+    createTemplate()
+    println(Json.encodeToString(Config()))
+    Constants.config = readConfig(Environment["config"] ?: "src/commonMain/resources/config.json")
+
+    println(Environment.getAll())
+
+    var generationStep = 0
+    var pipeline = Pipeline.create(stage, width)
+
+    if (Constants.config.generateAll)
+        this.onClick {
+            //generateAll(stage, pipeline)
+            pipeline.createMap()
+        }
+    else
+        this.onClick {
+            val (newPipeline, newGenerationStep) = generateSequentially(stage, generationStep, pipeline)
+            pipeline = newPipeline
+            generationStep = newGenerationStep
+        }
+    this.keys {
+        down(Key.E) {
+            pipeline.exportMap()
+        }
+    }
+}
+
+suspend fun generateAll(stage: Stage, pipeline: Pipeline) {
+    var pipeline = pipeline
+    stage.children.clear()
+    zones.clear()
+    pipeline = Pipeline.create(stage, stage.width)
+    pipeline.createPositioning()
+
+    pipeline.voronoi = Voronoi()
+    pipeline.voronoi.createMatrixMap(pipeline.circleZones)
+
+    pipeline.buildingsManager = BuildingsManager(zones)
+
+    pipeline.obstacleMapManager = ObstacleMapManager(pipeline.buildingsManager.buildings)
+
+    GridPassage().createPassages()
+    pipeline.buildingsManager.placeTeleports()
+
+    pipeline.obstacleMapManager.connectRegions()
+
+    pipeline.roadBuilder = RoadBuilder()
+    pipeline.roadBuilder.connectCastles(pipeline.buildingsManager.castles)
+    pipeline.roadBuilder.connectGraphs(zones)
+    pipeline.roadBuilder.normalizeRoads(matrixMap)
+
+    pipeline.guards = Guards()
+    pipeline.guards.placeGuards()
+    pipeline.guards.placeTreasures()
+
+    pipeline.visualize()
+    pipeline.exportMap()
+}
+
+suspend fun generateSequentially(stage: Stage, generationStep: Int, pipeline: Pipeline): Pair<Pipeline, Int> {
+    var pipeline = pipeline
+    println(generationStep)
+    when (generationStep) {
+        0 -> {
+            stage.children.clear()
+            zones.clear()
+            pipeline = Pipeline.create(stage, stage.width)
+            pipeline.createPositioning()
+        }
+        1 -> {
+            pipeline.voronoi = Voronoi()
+            pipeline.voronoi.createMatrixMap(pipeline.circleZones)
+        }
+        2 -> pipeline.buildingsManager = BuildingsManager(zones)
+        3 -> pipeline.obstacleMapManager = ObstacleMapManager(pipeline.buildingsManager.buildings)
+        4 -> {
+            GridPassage().createPassages()
+            pipeline.buildingsManager.placeTeleports()
+        }
+        5 -> pipeline.obstacleMapManager.connectRegions()
+        6 -> {
+            pipeline.roadBuilder = RoadBuilder()
+            pipeline.roadBuilder.connectCastles(pipeline.buildingsManager.castles)
+            pipeline.roadBuilder.connectGraphs(zones)
+            pipeline.roadBuilder.normalizeRoads(matrixMap)
+        }
+        7 -> {
+            pipeline.guards = Guards()
+            pipeline.guards.placeGuards()
+            pipeline.guards.placeTreasures()
+        }
+        8 -> pipeline.exportMap()
+    }
+    if (generationStep > 0)
+        pipeline.visualize(generationStep > 1)
+    return Pair(pipeline, (generationStep + 1) % 9)
+}
+
+fun createTemplate() {
     val castle0 = Template.TemplateCastle()
     val castle1 = Template.TemplateCastle()
     val castle2 = Template.TemplateCastle()
@@ -45,78 +163,11 @@ suspend fun main() = Korge(
     val c9 = Template.TemplateConnection(3, 7, ConnectionType.REGULAR)
     val c10 = Template.TemplateConnection(3, 8, ConnectionType.REGULAR)
     val template =
-        Template("twoLayers",listOf(z0, z1, z2, z3, z4, z5, z6, z7, z8), listOf(c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10))
+        Template(
+            "twoLayers",
+            listOf(z0, z1, z2, z3, z4, z5, z6, z7, z8),
+            listOf(c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10)
+        )
     println(Json.encodeToString(template))
-
-   val pipeline = Pipeline(stage, width)
-
-//    // val t = Tem plateParser()
-//    var (zones, connections) = FileReader.createZonesAndConnections()
-//    zones = zones as MutableList<CircleZone>
-//    connections = connections as MutableList<LineConnection>
-//
-//    // var iter = 0
-//
-//
-//    val matrixLength = 64
-//    var obstacleMapManager: ObstacleMapManager? = null
-//    var voronoi: Voronoi? = null
-//
-//    var pipeline = Pipeline(zones, connections, stage, width)
-//
-//    pipeline.exportMap()
-
-    this.onClick {
-        val pipeline = Pipeline(stage, width)
-    }
-
-
-//    this.onClick {
-//        val circles = Container()
-//        val lines = Container()
-//        stage.addChildren(listOf(circles, lines))
-//
-//        val circ = Circles()
-//
-//        circ.placeZoneCircles(zones, connections, circles, lines)
-//        println(circles.children.size)
-//
-//        voronoi = Voronoi(zones, matrixLength)
-//        obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
-//        voronoi!!.createPassages()
-//
-//        obstacleMapManager!!.connectRegions()
-//
-//        val mapImage = voronoi!!.visualizeMatrix()
-//
-//        //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
-//        lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
-//    }
-//
-//    this.onClick {
-//
-//        if (!it.isCtrlDown) {
-//            circ.placeZoneCircles(zones, connections, circles, lines)
-//
-//            voronoi = Voronoi(zones, matrixLength)
-//            obstacleMapManager = ObstacleMapManager(voronoi!!.matrixMap)
-//            voronoi!!.createPassages()
-//
-//
-//            val mapImage = voronoi!!.visualizeMatrix()
-//
-//            //mapImage.updateColors { it.minus(RGBA(0,0,0,100)) }
-//            lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
-//        } else {
-//
-//            obstacleMapManager?.connectRegions()
-//            //obstacleMapManager.connectRegions()
-//
-//            val mapImage = voronoi?.visualizeMatrix()
-//            if (mapImage != null) {
-//                lines.image(mapImage.scaleLinear(width / matrixLength, height / matrixLength))
-//            }
-//        }
-//    }
 }
 

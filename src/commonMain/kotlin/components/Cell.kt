@@ -12,12 +12,19 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
     var adjacentEdges: List<Cell> = listOf()
     var cellType = CellType.EMPTY
 
+    fun getAdjacentEdgesByPassage(): List<Cell> =
+        adjacentEdges.filter {
+            it.zone.getNullableConnection(zone) != null
+                    && it.zone.getNullableConnection(zone)!!.type != ConnectionType.PORTAL
+        }
+
+
     /**
      * checks whether cell is at the edge of a map or there is a different zone in 8 neighboring cells
      */
     fun isAtEdge(): Boolean {
         assignAdjacentEdges()
-        if(adjacentEdges.isNotEmpty())
+        if (adjacentEdges.isNotEmpty())
             cellType = CellType.EDGE
         return adjacentEdges.isNotEmpty()
     }
@@ -93,15 +100,16 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
 
     fun getAllNeighbors(): List<Cell> {
         val res = mutableListOf<Cell>()
+        // TODO changed || to && and added usage to Guards
         walk { i, j ->
-            if ((i != position.first || j != position.second))
+            if ((i != position.first && j != position.second))
                 res.add(matrix.matrix[i, j])
         }
         return res
     }
 
     /**
-     * TODO: might get out of matrix bounds if we return matrix[-1][i] for example
+     * might get out of matrix bounds if we return matrix[-1][i] for example
      */
     fun getOpposite(cell: Cell): Cell {
         val xAdd = position.first - cell.position.first
@@ -201,6 +209,10 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
                 visited.add(movedCell)
             }
         }
+    }
+
+    override fun toString(): String {
+        return "($position, ${cellType}, ${zone.type})"
     }
 }
 

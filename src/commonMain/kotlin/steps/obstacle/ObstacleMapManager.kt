@@ -1,15 +1,13 @@
 package steps.obstacle
 
 import Constants
+import Constants.matrixMap
 import MatrixExtensions.calculateCosts
 import com.soywiz.kds.PriorityQueue
-import steps.building.Building
+import steps.map.`object`.Building
 import components.*
-import kotlin.math.max
 
-class ObstacleMapManager(val matrixMap: MatrixMap, val buildings: List<Building>) {
-    var mininum = Int.MAX_VALUE - 2 * max(Constants.SIDE_COST, Constants.DIAG_COST)
-    val minCells = mutableListOf<Cell>()
+class ObstacleMapManager(val buildings: List<Building>) {
 
     init {
         randomizeObstacles()
@@ -57,6 +55,7 @@ class ObstacleMapManager(val matrixMap: MatrixMap, val buildings: List<Building>
                 // decide by chance
                 else if (Constants.rnd.nextFloat() > Constants.RATIO_OBSTACLE_CHANCE)
                     cell.cellType = CellType.OBSTACLE
+                //else cell.cellType = CellType.EMPTY
             }
         }
     }
@@ -126,7 +125,6 @@ class ObstacleMapManager(val matrixMap: MatrixMap, val buildings: List<Building>
                         )
                     )
             }
-
         return res
     }
 

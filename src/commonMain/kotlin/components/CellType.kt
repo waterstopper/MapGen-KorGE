@@ -9,8 +9,7 @@ enum class CellType {
     EDGE,
     EMPTY,
     ROAD,
-    MINE,
-    MOB,
-    RESOURCE,
+    GUARD,
+    TREASURE,
     BUILDING
 }

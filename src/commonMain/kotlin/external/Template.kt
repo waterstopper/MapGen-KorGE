@@ -14,18 +14,16 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
 
     @Serializable
     class TemplateZone(val surface: Surface, val size: Int, val index: Int, var richness: Int = 14) {
-        private var minesMin = -1
-        private var minesMax = -1
+        private var minesNum = RandomRange(0, 2)
         val mines: MutableList<TemplateMine> = mutableListOf()
 
-        private var castlesMin = -1
-        private var castlesMax = -1
+        private var castlesNum = RandomRange(0, 1)
         val castles: MutableList<TemplateCastle> = mutableListOf()
+
         var connections: List<TemplateConnection> = listOf()
 
         init {
-            val minesNum = Constants.rnd.nextInt(minesMin..minesMax + 1)
-            while (mines.size < minesNum) {
+            while (mines.size < minesNum.value) {
                 if (Constants.config.prioritizeBaseMines.value && !Resource.baseResources()
                         .all { res -> mines.any { it.resource == res } }
                 )
@@ -35,13 +33,13 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
                 else
                     mines.add(TemplateMine(Resource.getRandomExcept(mines.map { it.resource })))
             }
-
             if (castles.isEmpty()) {
-                val castlesNum = Constants.rnd.nextInt(castlesMin..castlesMax + 1)
-                for (i in 0 until castlesNum)
+                for (i in 0 until castlesNum.value)
                     castles.add(TemplateCastle())
             }
         }
+
+        override fun toString(): String = "$surface,$size,$index,$richness"
     }
 
     @Serializable
@@ -49,14 +47,12 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
         val first: Int,
         val second: Int,
         val type: ConnectionType = ConnectionType.REGULAR,
-        private val guardLevelMin: Int = 0,
-        private val guardLevelMax: Int = 1,
+        // make connection guard unified among all connections
+        var guardLevel: RandomRange = RandomRange(-1, -1)
     ) {
-        var guardLevel: Int = -1
-
         init {
-            if (guardLevel == -1)
-                guardLevel = Constants.rnd.nextInt(guardLevelMin..guardLevelMax + 1)
+            if (guardLevel.value == -1)
+                guardLevel = Constants.config.connectionGuardLevel
         }
     }
 
@@ -65,17 +61,15 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
 
     @Serializable
     class TemplateMine(var resource: Resource, val player: Int = -1) {
-        private val guardLevelMin: Int = 0
-        private val guardLevelMax: Int = 1
-        var guardLevel = -1
+        // make mine guard unified among all mines with config
+        var guardLevel: RandomRange = RandomRange(-1, -1)
 
         init {
-            if (guardLevel == -1)
-                guardLevel = Constants.rnd.nextInt(guardLevelMin..guardLevelMax + 1)
+            if (guardLevel.value == -1)
+                guardLevel = Constants.config.mineGuardLevel
             // should not happen
             if (resource == Resource.RANDOM)
                 resource = Resource.getRandomExcept(emptyList())
-
         }
     }
 }
