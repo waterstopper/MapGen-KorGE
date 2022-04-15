@@ -1,7 +1,7 @@
 package steps.passage
 
-import Constants
-import Constants.matrixMap
+import util.Constants
+import util.Constants.matrixMap
 import components.Cell
 import components.CellType
 import components.Zone
@@ -9,7 +9,7 @@ import steps.map.`object`.Entrance
 
 class GridPassage {
     /**
-     * add passages at the edge of connected zones
+     * Add passages at the edge of connected zones
      * @return true if passages created successfully
      */
     fun createPassages(): Boolean {
@@ -52,7 +52,7 @@ class GridPassage {
     }
 
     /**
-     * add Pair(cell.zone, compared.zone) to candidates map in order of zone indexes
+     * Add Pair(cell.zone, compared.zone) to candidates map in order of zone indexes
      */
     private fun addCandidate(cell: Cell, compared: Cell, candidates: MutableMap<Pair<Zone, Zone>, MutableList<Cell>>) {
         if (cell.zone.getNullableConnection(compared.zone) != null) {
@@ -66,7 +66,7 @@ class GridPassage {
     }
 
     /**
-     * add passage to resolvedConnections, and choose random cell from candidates
+     * Add passage to resolvedConnections, and choose random cell from candidates
      * that will be a passage
      */
     private fun resolveOnePassage(
@@ -104,22 +104,19 @@ class GridPassage {
                 Entrance(neighborOfChosen.position)
             )
         )
-
-
 //        for (cell in chosenCell.getAllNeighbors()) {
 //
-//            if (Constants.OBSTACLES.contains(cell.cellType))
+//            if (util.Constants.OBSTACLES.contains(cell.cellType))
 //                cell.cellType = CellType.EDGE
 //        }
 //        for (cell in neighborOfChosen.getAllNeighbors()) {
 //
-//            if (Constants.OBSTACLES.contains(cell.cellType))
+//            if (util.Constants.OBSTACLES.contains(cell.cellType))
 //                cell.cellType = CellType.EDGE
 //        }
         // connect
         chosenCell.getOpposite(neighborOfChosen).cellType = CellType.EMPTY
         neighborOfChosen.getOpposite(chosenCell).cellType = CellType.EMPTY
-
         return true
     }
 }

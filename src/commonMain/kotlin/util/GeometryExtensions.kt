@@ -1,4 +1,4 @@
-package steps.posititioning
+package util
 
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
@@ -9,7 +9,7 @@ import kotlin.math.*
 
 object GeometryExtensions {
     /**
-     * rotate counterclockwise
+     * Rotate counterclockwise
      */
     fun Line.rotateDegrees(degrees: Int): Line {
         val radians = degrees * PI / 180
@@ -20,7 +20,7 @@ object GeometryExtensions {
     }
 
     /**
-     * returns angle from (1, 0) counterclockwise
+     * @return angle from (1, 0) counterclockwise
      */
     fun Line.getDegrees(center: Point): Int = if (center == pos)
         (360 - ((atan2(y2 - y1, x2 - x1) * 180 / PI).roundToInt())) % 360
@@ -58,7 +58,7 @@ object GeometryExtensions {
     fun Circle.intersects(other: Circle): Boolean = this.pos.distanceTo(other.pos) < this.radius + other.radius
 
     /**
-     * smaller metric means better position (fewer circles around)
+     * Smaller metric means better position (fewer circles around)
      */
     fun Circle.getIntersectMetric(circles: Container): Double {
         var res = 0.0
@@ -66,8 +66,8 @@ object GeometryExtensions {
         return res
     }
 
-    /*
-    return points of this line
+    /**
+     * @return points of this line
      */
     fun Line.points(): List<Point> = listOf(Point(this.x1, this.y1), Point(this.x2, this.y2))
 

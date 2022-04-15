@@ -5,10 +5,13 @@ import components.Fraction
 import components.Resource
 import components.Surface
 import kotlinx.serialization.Serializable
-import Constants
-import kotlin.properties.Delegates
-import kotlin.random.nextInt
+import util.Constants
+import util.Constants.config
+import util.RandomRange
 
+/**
+ * Template for a map
+ */
 @Serializable
 class Template(val name: String, val zones: List<TemplateZone>, val connections: List<TemplateConnection>) {
 
@@ -24,8 +27,8 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
 
         init {
             while (mines.size < minesNum.value) {
-                if (Constants.config.prioritizeBaseMines.value && !Resource.baseResources()
-                        .all { res -> mines.any { it.resource == res } }
+                if (config.prioritizeBaseMines.value
+                    && !Resource.baseResources().all { res -> mines.any { it.resource == res } }
                 )
                     mines.add(TemplateMine(Resource.getRandomBaseExcept(mines.map { it.resource })))
                 else if (mines.size >= Resource.values().size)
@@ -52,7 +55,7 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
     ) {
         init {
             if (guardLevel.value == -1)
-                guardLevel = Constants.config.connectionGuardLevel
+                guardLevel = config.connectionGuardLevel
         }
     }
 
@@ -62,11 +65,16 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
     @Serializable
     class TemplateMine(var resource: Resource, val player: Int = -1) {
         // make mine guard unified among all mines with config
-        var guardLevel: RandomRange = RandomRange(-1, -1)
+        var guardLevel: RandomRange = RandomRange(-2, -2)
 
         init {
-            if (guardLevel.value == -1)
-                guardLevel = Constants.config.mineGuardLevel
+            if (guardLevel.value !in -1..6)
+                guardLevel = if (config.decreaseGuardLevelAtBaseMineByOne.value && Resource.baseResources()
+                        .contains(resource)
+                ) RandomRange(
+                    config.mineGuardLevel.value - 1,
+                    config.mineGuardLevel.value - 1
+                ) else config.mineGuardLevel
             // should not happen
             if (resource == Resource.RANDOM)
                 resource = Resource.getRandomExcept(emptyList())

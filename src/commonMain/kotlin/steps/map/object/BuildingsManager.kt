@@ -1,22 +1,24 @@
 package steps.map.`object`
 
-import Constants
-import Constants.matrixMap
-import MatrixExtensions.getCellsInInterval
-import MatrixExtensions.getMaxMinRadius
+import util.Constants
+import util.Constants.matrixMap
+import util.MatrixExtensions.getCellsInInterval
+import util.MatrixExtensions.getMaxMinRadius
 import components.*
 import external.Template
 import kotlin.math.round
 
+/**
+ * Class for creating buildings
+ */
 class BuildingsManager(val zones: List<Zone>) {
     val castles: List<Castle>
         get() = zones.flatMap { it.castles }
     val mines: List<Mine>
         get() = zones.flatMap { it.mines }
-    var teleportIndex = 1
+    private var teleportIndex = 1
     val buildings: List<Building>
         get() = zones.flatMap { it.castles + it.mines + it.teleports }
-
 
     init {
         placeCastles()
@@ -93,17 +95,9 @@ class BuildingsManager(val zones: List<Zone>) {
             println("can't place mine ${zone.mines.last()}")
             zone.mines.removeLast()
         }
-//        while (baseMineCells.size > 1
-//            && (mine.getCells().any { it.cellType == CellType.BUILDING || it.cellType == CellType.EDGE }
-//                    || !mine.isValidEntrance())
-//        ) {
-//            baseMineCells.remove(mine.getEntrance())
-//            mine.position = baseMineCells.random(Constants.rnd).position
-//        }
-//        mine.cellsToBuilding()
     }
 
-    fun calculateCentres(): List<Pair<Int, Int>> {
+    private fun calculateCentres(): List<Pair<Int, Int>> {
         val cellCentres = zones.map { mutableListOf(0, 0, 0) }
         matrixMap.matrix.forEach {
             val zone = cellCentres[it.zone.index]

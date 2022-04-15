@@ -1,11 +1,11 @@
+package util
+
 import com.soywiz.korim.color.Colors
 import components.CellType
 import components.MatrixMap
 import components.Zone
 import external.Config
-import external.FileReader
 import external.Template
-import steps.voronoi.Voronoi
 import kotlin.random.Random
 
 object Constants {
@@ -13,6 +13,7 @@ object Constants {
     val rnd = Random(SEED)
     var config: Config = Config()
     var template: Template = Template("template", listOf(), listOf())
+    var templatePath: String? = null
     lateinit var matrixMap: MatrixMap
     var zones: MutableList<Zone> = mutableListOf()
 

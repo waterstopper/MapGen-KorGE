@@ -1,16 +1,20 @@
 package steps.posititioning
 
-import steps.posititioning.GeometryExtensions.points
-import steps.posititioning.GeometryExtensions.rotateDegrees
+import util.GeometryExtensions.points
+import util.GeometryExtensions.rotateDegrees
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.circle
 import com.soywiz.korge.view.line
 import com.soywiz.korma.geom.Point
+import components.ConnectionType
 import height
-import Constants
+import util.Constants
 import width
 import kotlin.math.min
 
+/**
+ * Positioning zone circles
+ */
 class Circles {
     /**
      * place 0-index zone in the center
@@ -47,8 +51,9 @@ class Circles {
 //        println(i.line.getDegrees(z.getCenter()))
 //        println(i.line.getDegrees(i.getZone(z).getCenter()))
 //        println()
-
             i.getZone(z).centerToPoint(Point(i.line.x2, i.line.y2))
+            if (i.type == ConnectionType.PORTAL)
+                i.line.pos = i.line.points()[1]
         }
 
     }
@@ -97,25 +102,6 @@ class Circles {
         }
     }
 
-//    fun placeZoneCircles(zones: MutableList<Zone>, connections: List<Connection>, stage: Stage) {
-//        val circles = Container()
-//        val lines = Container()
-//        stage.addChildren(listOf(circles, lines))
-//
-//        val resolved = mutableListOf<Zone>()
-//        zones.sortBy { it.index }
-//        for (i in zones) {
-//            i.connections.sortBy { it.type }
-//        }
-//
-//        placeFirst(zones, circles, lines)
-//
-//        for (i in 1..zones.lastIndex) {
-//            resolveZone(zones[i], circles, lines, connections)
-//            resolved.add(zones[i])
-//        }
-//    }
-
     private fun resolveZone(zone: CircleZone, circles: Container, lines: Container, connections: List<LineConnection>) {
         // resolve connections with placed
         for (i in zone.getPlaced()) {
@@ -123,7 +109,12 @@ class Circles {
             if (zone.getConnection(i).isInitialized()) {
                 continue
             }
-            i.getConnection(zone).initializeLine(lines.line(zone.getCenter(), i.getCenter()))
+            i.getConnection(zone).initializeLine(
+                lines.line(
+                    if (i.getConnection(zone).type == ConnectionType.PORTAL) i.getCenter() else zone.getCenter(),
+                    i.getCenter()
+                )
+            )
             var intersections = i.getConnection(zone).intersectsList(connections)
             // try to move leaf zone if intersects it
             while (intersections.size == 1) {
@@ -184,6 +175,8 @@ class Circles {
                 i.color
             )
             i.setCenter(i.getConnection(zone).line.points()[1])
+            if (i.getConnection(zone).type == ConnectionType.PORTAL)
+                i.getConnection(zone).line.pos = i.getCenter()
         }
     }
 }

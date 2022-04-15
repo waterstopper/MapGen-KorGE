@@ -1,12 +1,14 @@
 package steps.obstacle
 
-import Constants
-import Constants.matrixMap
-import MatrixExtensions.calculateCosts
-import com.soywiz.kds.PriorityQueue
+import util.Constants
+import util.Constants.matrixMap
+import util.MatrixExtensions.calculateCosts
 import steps.map.`object`.Building
 import components.*
 
+/**
+ * Adding obstacle mask and connect
+ */
 class ObstacleMapManager(val buildings: List<Building>) {
 
     init {
@@ -17,7 +19,7 @@ class ObstacleMapManager(val buildings: List<Building>) {
     }
 
     /**
-     * place random obstacles throughout the map
+     * Place random obstacles throughout the map
      */
     private fun randomizeObstacles() {
         matrixMap.matrix.forEach { cell ->
@@ -38,7 +40,7 @@ class ObstacleMapManager(val buildings: List<Building>) {
     }
 
     /**
-     * assign obstacle to cell if its neighbors are obstacles
+     * Assign obstacle to cell if its neighbors are obstacles
      */
     private fun cellularAutomataStep() {
         matrixMap.matrix.forEach { cell ->
@@ -60,17 +62,20 @@ class ObstacleMapManager(val buildings: List<Building>) {
         }
     }
 
-    /*
-    connect regions that have been isolated because of cellular automata steps
+    /**
+    Connect regions that have been isolated because of cellular automata steps
     1) find the main area
     2) calculate costs of moving to another open areas
     3) cut through to the cheapest open area
     4) repeat 2-3 until all is reached
-    - - - calculating cost - - -
+
+    _calculating cost_
+
     if
     1) cell is empty
     2) cost to move there is minimal
     3) and cost > 0
+
     => it is a needed cell
      */
     fun connectRegions() {
@@ -97,7 +102,7 @@ class ObstacleMapManager(val buildings: List<Building>) {
     }
 
     /**
-     * used for finding squares 2x2 and 3x3
+     * For finding 2x2 and 3x3 squares
      */
     fun findAllNSquares(n: Int): List<Pair<Surface, Cell>> {
         val res = mutableListOf<Pair<Surface, Cell>>()

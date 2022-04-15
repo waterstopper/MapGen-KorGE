@@ -2,6 +2,9 @@ package components
 
 import com.soywiz.kds.Array2
 
+/**
+ * Matrix map used in almost all steps
+ */
 class MatrixMap(val matrix: Array2<Cell>, val zones: List<Zone>) {
     override fun toString(): String {
         return matrix.joinToString("\n")
@@ -14,7 +17,7 @@ class MatrixMap(val matrix: Array2<Cell>, val zones: List<Zone>) {
                 cell.position.second <= matrix.height
     }
 
-    fun isInside(coords: Pair<Int,Int>): Boolean {
+    fun isInside(coords: Pair<Int, Int>): Boolean {
         return coords.first >= 0 &&
                 coords.first < matrix.width &&
                 coords.second >= 0 &&

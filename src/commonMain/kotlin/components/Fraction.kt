@@ -1,8 +1,8 @@
 package components
 
-import Constants.rnd
+import util.Constants.rnd
 
-enum class Fraction() {
+enum class Fraction {
     CITADEL,
     STRONGHOLD,
     TOWER,

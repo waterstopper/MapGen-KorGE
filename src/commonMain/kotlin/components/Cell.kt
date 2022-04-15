@@ -1,17 +1,23 @@
 package components
 
 import com.soywiz.kds.Stack
-import Constants
+import util.Constants
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
+/**
+ * Matrix map cell
+ */
 class Cell(val position: Pair<Int, Int>, var zone: Zone) {
 
     lateinit var matrix: MatrixMap
     var adjacentEdges: List<Cell> = listOf()
     var cellType = CellType.EMPTY
 
+    /**
+     * Get edges that are adjacent to the zone connected with passage
+     */
     fun getAdjacentEdgesByPassage(): List<Cell> =
         adjacentEdges.filter {
             it.zone.getNullableConnection(zone) != null
@@ -20,7 +26,7 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
 
 
     /**
-     * checks whether cell is at the edge of a map or there is a different zone in 8 neighboring cells
+     * Checks whether cell is at the edge of a map or there is a different zone in 8 neighboring cells
      */
     fun isAtEdge(): Boolean {
         assignAdjacentEdges()
@@ -29,7 +35,10 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
         return adjacentEdges.isNotEmpty()
     }
 
-    fun checkSideNeighbors(func: (cell: Cell) -> Boolean): List<Cell> {
+    /**
+     * Return side cells for which function is true
+     */
+    private fun checkSideNeighbors(func: (cell: Cell) -> Boolean): List<Cell> {
         val res = mutableListOf<Cell>()
         if (position.first - 1 >= 0 && func(matrix.matrix[position.first - 1, position.second]))
             res.add(matrix.matrix[position.first - 1, position.second])
@@ -48,7 +57,7 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
     }
 
     /**
-     * get all adjacent cells from other zones
+     * Get all adjacent cells from other zones
      */
     fun getEdge(): List<Cell> {
         val res = mutableListOf<Cell>()
@@ -70,8 +79,8 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
     }
 
     /**
-     * returns how many neighbors are obstacles divided by amount of all neighbors.
      * Ratio is needed because cells on the map edge will obviously have fewer obstacle neighbors
+     * @return how many neighbors are obstacles divided by amount of all neighbors
      */
     fun getObstacleNeighborsRatio(): Float {
         var all = 0
@@ -109,7 +118,7 @@ class Cell(val position: Pair<Int, Int>, var zone: Zone) {
     }
 
     /**
-     * might get out of matrix bounds if we return matrix[-1][i] for example
+     * Might get out of matrix bounds if we return matrix[-1][i] for example
      */
     fun getOpposite(cell: Cell): Cell {
         val xAdd = position.first - cell.position.first

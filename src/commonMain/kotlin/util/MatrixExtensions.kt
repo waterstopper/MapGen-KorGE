@@ -1,3 +1,5 @@
+package util
+
 import com.soywiz.kds.Queue
 import com.soywiz.kds.TGenPriorityQueue
 import com.soywiz.kds.map2
@@ -119,7 +121,8 @@ object MatrixExtensions {
     }
 
     /**
-     * diagonal costs not calculated
+     * A* custom pathfinding
+     * Diagonal costs not calculated
      * Source: https://www.redblobgames.com/pathfinding/a-star/introduction.html
      */
     fun calculateCosts(root: Cell): Boolean {

@@ -1,9 +1,9 @@
 package steps
 
-import Constants
-import Constants.config
-import Constants.matrixMap
-import Constants.zones
+import util.Constants
+import util.Constants.config
+import util.Constants.matrixMap
+import util.Constants.zones
 import steps.map.`object`.Castle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.Stage
@@ -36,7 +36,7 @@ class Pipeline(
     lateinit var buildingsManager: BuildingsManager
     lateinit var roadBuilder: RoadBuilder
     lateinit var guards: Guards
-    lateinit var image: Container
+    private lateinit var image: Container
 
     companion object {
         suspend fun create(stage: Stage?, imageLength: Double): Pipeline {
@@ -78,10 +78,12 @@ class Pipeline(
 
         obstacleMapManager.connectRegions()
 
-        roadBuilder = RoadBuilder()
-        roadBuilder.connectCastles(buildingsManager.castles)
-        roadBuilder.connectGraphs(zones)
-        roadBuilder.normalizeRoads(matrixMap)
+        if (config.addRoads) {
+            roadBuilder = RoadBuilder()
+            roadBuilder.connectCastles(buildingsManager.castles)
+            roadBuilder.connectGraphs(zones)
+            roadBuilder.normalizeRoads(matrixMap)
+        }
 
         guards = Guards()
         guards.placeGuards()
@@ -97,8 +99,8 @@ class Pipeline(
 
         image.image(
             mapImage.scaleLinear(
-                imageLength / Constants.config.mapSize,
-                imageLength / Constants.config.mapSize
+                imageLength / config.mapSize,
+                imageLength / config.mapSize
             )
         )
     }
@@ -111,15 +113,15 @@ class Pipeline(
 
 
     /**
-     * for debugging mainly
+     * For debugging mainly
      * yellow - centers of zones
      * blue - roads, passages
      * gray - mines, castles
      */
-    fun visualizeMatrix(showBuildings: Boolean = true): Bitmap32 {
-        val res = Bitmap32(Constants.config.mapSize, Constants.config.mapSize)
-        for (x in 0 until Constants.config.mapSize)
-            for (y in 0 until Constants.config.mapSize)
+    private fun visualizeMatrix(showBuildings: Boolean = true): Bitmap32 {
+        val res = Bitmap32(config.mapSize, config.mapSize)
+        for (x in 0 until config.mapSize)
+            for (y in 0 until config.mapSize)
                 if (matrixMap.matrix[x, y].cellType == CellType.ROAD)
                     res[x, y] = Colors.BLUE
                 else if (Constants.OBSTACLES.contains(matrixMap.matrix[x, y].cellType)) {
@@ -137,8 +139,8 @@ class Pipeline(
                 res[c.centerCell.position.first, c.centerCell.position.second] = Colors.YELLOW
 //            for (cell in getCellsAtRadius(5, matrixMap.matrix[c.center.first, c.center.second]))
 //                res[cell.position.first, cell.position.second] = Colors.ALICEBLUE
-//                val interval = MatrixExtensions.getMaxMinRadius(c.centerCell)
-//                val cells = MatrixExtensions.getCellsInInterval(
+//                val interval = util.MatrixExtensions.getMaxMinRadius(c.centerCell)
+//                val cells = util.MatrixExtensions.getCellsInInterval(
 //                    c.centerCell,
 //                    0,
 //                    interval.second / 2

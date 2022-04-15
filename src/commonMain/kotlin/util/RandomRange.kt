@@ -1,6 +1,6 @@
-package external
+package util
 
-import Constants.rnd
+import util.Constants.rnd
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 

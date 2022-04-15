@@ -1,27 +1,31 @@
 package external
 
+import com.soywiz.korio.file.std.resourcesVfs
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import Constants
+import util.Constants
 import com.soywiz.korio.file.std.rootLocalVfs
-
 import steps.posititioning.CircleZone
 import steps.posititioning.GraphPart
 import steps.posititioning.LineConnection
 
+/**
+ * Deserializing config and template
+ */
 object FileReader {
-    suspend fun readConfig(path: String = "config.json"): Config {
-        val file = rootLocalVfs[path].readString()
-        return Json.decodeFromString(file)
+    suspend fun readConfig(path: String? = null): Config {
+        val file = if (path == null) resourcesVfs["config.json"] else rootLocalVfs[path]
+        println(file.toString())
+        return Json.decodeFromString(file.readString())
     }
 
-    private suspend fun readTemplate(path: String = "template.json"): Template {
-        val file = rootLocalVfs[path].readString()
-        return Json.decodeFromString(file)
+    private suspend fun readTemplate(path: String? = null): Template {
+        val file = if (path == null) resourcesVfs["template.json"] else rootLocalVfs[path]
+        return Json.decodeFromString(file.readString())
     }
 
     suspend fun createZonesAndConnections(): List<MutableList<out GraphPart>> {
-        Constants.template = readTemplate()
+        Constants.template = readTemplate(Constants.templatePath)
 
         val zones = mutableListOf<CircleZone>()
         for (tZone in Constants.template.zones) {

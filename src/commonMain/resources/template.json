@@ -220,6 +220,38 @@
       "castles": [
         {}
       ]
+    },
+    {
+      "surface": "LAVA",
+      "size": 30,
+      "index": 9,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "LAVA",
+      "size": 30,
+      "index": 10,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
     }
   ],
   "connections": [
@@ -306,6 +338,22 @@
     {
       "first": 3,
       "second": 8,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 8,
+      "second": 9,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 9,
+      "second": 10,
       "guardLevel": {
         "min": 1,
         "max": 3

@@ -1,4 +1,4 @@
-package external
+package util
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

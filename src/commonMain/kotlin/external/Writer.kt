@@ -7,12 +7,12 @@ import com.soywiz.korio.serialization.xml.children
 import com.soywiz.korio.serialization.xml.readXml
 import components.Surface
 import steps.map.`object`.BuildingsManager
-import Constants
-import Constants.config
-import Constants.mapEditorVersion
-import Constants.matrixMap
-import Constants.rnd
-import Constants.zones
+import util.Constants
+import util.Constants.config
+import util.Constants.mapEditorVersion
+import util.Constants.matrixMap
+import util.Constants.rnd
+import util.Constants.zones
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.TimeFormat
 import com.soywiz.korio.file.std.rootLocalVfs
@@ -24,6 +24,9 @@ import steps.map.`object`.Castle
 import steps.obstacle.ObstacleMapManager
 import kotlin.math.pow
 
+/**
+ * Class for exporting to .hmm
+ */
 class Writer(
     private val obstacleMapManager: ObstacleMapManager,
     private val buildingsManager: BuildingsManager,
@@ -426,9 +429,9 @@ class Writer(
          * @return Map<surfaceName:list of decorations>
          */
         private suspend fun groupBySurface(decorations: List<Xml>): Map<Surface, List<Xml>> {
-            // name of surface - list of decos
+            // name of surface - list of decorations
             val res = mutableMapOf<String, MutableList<Xml>>()
-            // get combat decos and if decoName == combatDecos[i].name add
+            // get combat decorations and if decoName == combatDecos[i].name add
             val combatObstacles = resourcesVfs["hmm.xml"].readXml()["CombatObstacles"].children("Item")
             val customItems =
                 resourcesVfs["${decorations[0].children("PassModifier").count()}.xml"]

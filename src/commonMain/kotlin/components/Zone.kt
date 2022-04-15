@@ -5,6 +5,7 @@ import steps.map.`object`.Building
 import steps.map.`object`.Castle
 import steps.map.`object`.Teleport
 import steps.map.`object`.Mine
+import util.Constants
 
 /**
  * Sizes are computed proportionally to each other.
@@ -45,10 +46,14 @@ class Zone constructor(
         connections.find { it.z1.index == zone.index || it.z2.index == zone.index }
 
     fun getRandomEmptyCell(): Cell {
-        if (cells.none { it.cellType == CellType.EMPTY }) {
+        if (cells.none {
+                it.cellType == CellType.EMPTY && !buildings.map { building -> building.getEntrance() }.contains(it)
+            }) {
             return Cell(Pair(-1, -1), this)
         }
-        return cells.filter { it.cellType == CellType.EMPTY }.random(Constants.rnd)
+        return cells.filter {
+            it.cellType == CellType.EMPTY && !buildings.map { building -> building.getEntrance() }.contains(it)
+        }.random(Constants.rnd)
     }
 
 

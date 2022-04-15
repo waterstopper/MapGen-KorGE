@@ -1,9 +1,9 @@
 package steps.map.`object`
 
-import Constants.matrixMap
+import util.Constants.matrixMap
 import components.*
 
-class Mine(val resource: Resource, position: Pair<Int, Int>, val zone: Zone, val guardLevel: Int) :
+class Mine(private val resource: Resource, position: Pair<Int, Int>, val zone: Zone, val guardLevel: Int) :
     Building(position) {
     override fun toString(): String {
         return when (resource) {

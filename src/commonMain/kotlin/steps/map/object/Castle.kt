@@ -1,6 +1,6 @@
 package steps.map.`object`
 
-import Constants.matrixMap
+import util.Constants.matrixMap
 import components.Cell
 import components.Fraction
 

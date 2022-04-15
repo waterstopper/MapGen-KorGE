@@ -1,6 +1,6 @@
 package components
 
-import Constants
+import util.Constants
 
 enum class Resource {
     GOLD,
@@ -22,7 +22,6 @@ enum class Resource {
 
         fun baseResources() = listOf(ORE, WOOD)
 
-        fun getRandomBaseExcept(list: List<Resource>) =
-            baseResources().filter { !list.contains(it) && it != RANDOM }.random(Constants.rnd)
+        fun getRandomBaseExcept(list: List<Resource>) = if (list.contains(ORE)) WOOD else ORE
     }
 }

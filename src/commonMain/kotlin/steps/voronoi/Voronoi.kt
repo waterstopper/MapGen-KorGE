@@ -1,8 +1,8 @@
 package steps.voronoi
 
-import Constants
-import Constants.matrixMap
-import Constants.zones
+import util.Constants
+import util.Constants.matrixMap
+import util.Constants.zones
 import com.soywiz.kds.Array2
 import components.Cell
 import components.Connection
@@ -41,7 +41,7 @@ class Voronoi {
 
 
 //    /**
-//     * used for making zone sizes to be as expected
+//     * For making zone sizes to be as expected
 //     */
 //    private fun balanceZones() {
 //        // cellSize / matrix^2 -> zone.size / zones.sum(it.size)
@@ -60,7 +60,7 @@ class Voronoi {
 //            //zones[0].edge.sortBy { it.adjacentEdges.size }
 //            val changedCell =
 //                zones[0].edge.filter { it.adjacentEdges.size <= zones[0].edge.minOf { cell -> cell.adjacentEdges.size } + 1 }
-//                    .random(Constants.rnd)
+//                    .random(util.Constants.rnd)
 //            val differentZoneNeighbors = changedCell.checkSideNeighbors { c: Cell -> c.zone != changedCell.zone }
 //            // if not bridging
 //            if (differentZoneNeighbors.isNotEmpty() && !changedCell.isBridgingCell(differentZoneNeighbors[0].zone)) {
@@ -76,14 +76,14 @@ class Voronoi {
 //    }
 
     /**
-     * assign edge fields of cells in the matrix
+     * Assign edge fields of cells in the matrix
      */
     private fun assignEdges() {
         matrixMap.matrix.forEach { if (it.isAtEdge()) it.zone.edge.add(it) }
         // matrixMap.matrix.forEach { it.adjacentEdges = it.getEdge() }
     }
 
-    fun initMatrixMap(): MatrixMap {
+    private fun initMatrixMap(): MatrixMap {
         createMatrixZones(findProperBounds())
 
         val res = buildMatrix(zones)
@@ -97,7 +97,7 @@ class Voronoi {
     }
 
     /**
-     * bounds that
+     * Bounds that
      * 1) have equal height and width
      * 2) and each zone center should be at least one cell away from the edge
      * 3) left and top bounds have 0 coordinate
@@ -141,7 +141,7 @@ class Voronoi {
     }
 
     /**
-     * make zone centers not on edge and bound left and right edge as 0
+     * Make zone centers not on edge and bound left and right edge as 0
      * matrixLength - amount of cells in a matrix row
      */
     private fun normalizeBounds(bounds: MutableList<Double>) {

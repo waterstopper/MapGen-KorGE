@@ -1,22 +1,12 @@
 {
-  "mapSize": 32,
-  "prioritizeBaseMines": {},
   "connectionGuardLevel": {
     "min": 1,
     "max": 3
   },
   "mineGuardLevel": {
-    "min": 0,
-    "max": 2
+    "min": -1,
+    "max": -1
   },
-  "decreaseGuardLevelAtBaseMineByOne": {},
-  "guardAtNeutralCastle": {},
-  "castleGuardLevel": {
-    "min": 0,
-    "max": 0
-  },
-  "spawnHeroAtCastle": {},
-  "connectTeleportWithRoad": {},
   "guardCount": [
     {
       "min": 1,
@@ -46,7 +36,5 @@
       "min": 1,
       "max": 100
     }
-  ],
-  "generateAll": true,
-  "autoExport": false
+  ]
 }

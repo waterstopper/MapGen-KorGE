@@ -1,13 +1,13 @@
 package steps.passage
 
-import MatrixExtensions.getAllDistances
-import MatrixExtensions.makeEmptyConnections
-import com.soywiz.korma.math.min
+import util.MatrixExtensions.getAllDistances
+import util.MatrixExtensions.makeEmptyConnections
 import components.Cell
 import components.CellType
 import components.MatrixMap
 import components.Zone
 import steps.map.`object`.Castle
+import util.Constants
 
 class RoadBuilder {
     fun connectCastles(castles: List<Castle>) {
@@ -19,7 +19,6 @@ class RoadBuilder {
 
     fun connectGraphs(zones: List<Zone>) {
         zones.forEach { connectGraph(it) }
-        //connectGraph(zones[0])
     }
 
     private fun connectGraph(zone: Zone) {

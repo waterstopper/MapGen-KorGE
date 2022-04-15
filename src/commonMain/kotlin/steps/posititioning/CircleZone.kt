@@ -1,8 +1,8 @@
 package steps.posititioning
 
-import steps.posititioning.GeometryExtensions.getDegrees
-import steps.posititioning.GeometryExtensions.getIntersectMetric
-import steps.posititioning.GeometryExtensions.points
+import util.GeometryExtensions.getDegrees
+import util.GeometryExtensions.getIntersectMetric
+import util.GeometryExtensions.points
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.xy
@@ -11,6 +11,9 @@ import com.soywiz.korma.geom.Point
 import external.Template
 import kotlin.math.abs
 
+/**
+ * Zone class for positioning step
+ */
 class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     val size: Int
         get() = tZone.size
@@ -22,19 +25,19 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     lateinit var circle: Circle
 
     /**
-     * will always return existing connection in scope of algorithm
+     * Will always return existing connection in scope of algorithm
      */
     fun getConnection(zone: CircleZone): LineConnection = connections.find { it.z1 === zone || it.z2 === zone }!!
 
     /**
-     * place zone circle at the source point
+     * Place zone circle at the source point
      */
     fun centerToPoint(source: Point) {
         circle.xy(Point(source.x - size, source.y - size))
     }
 
     /**
-     * get zone circle's center
+     * Get zone circle's center
      */
     fun getCenter(): Point = Point(circle.x + size, circle.y + size)
 
@@ -43,7 +46,7 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     }
 
     /**
-     * get all zones that were placed on the map
+     * Get all zones that were placed on the map
      */
     fun getPlaced(): List<CircleZone> =
         connections.filter { it.getZone(this)::circle.isInitialized }.map { it.getZone(this) }
@@ -51,12 +54,8 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     fun getNotPlaced(): List<CircleZone> =
         connections.filter { !getPlaced().contains(it.getZone(this)) }.map { it.getZone(this) }
 
-//    fun sortByPlaced() {
-//        connections.sortBy { it.getZone(this)::circle.isInitialized }
-//    }
-
     /**
-     * multiply road length by scale
+     * Multiply road length by scale
      */
     fun stretchRoad(road: LineConnection, scale: Float) {
         if (road.z1 == this) {
@@ -72,7 +71,7 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     }
 
     /**
-     * add amount of roads in the gap from gapStart degrees to gapEnd degrees
+     * Add amount of roads in the gap from gapStart degrees to gapEnd degrees
      */
     private fun closeGap(amount: Int, gapStart: Int, gapEnd: Int): List<Int> {
         val step = abs(gapEnd - gapStart) / (amount + 1)
@@ -87,7 +86,7 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
     }
 
     /**
-     * returns a list of optimal angles for zones that are not drawn yet and connected to this one
+     * @return a list of optimal angles for zones that are not drawn yet and connected to this one
      */
     fun getRemainingAngles(): List<Int> {
         val angles = (connections.filter { it.isInitialized() }
