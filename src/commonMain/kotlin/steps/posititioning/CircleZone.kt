@@ -1,14 +1,14 @@
 package steps.posititioning
 
-import util.GeometryExtensions.getDegrees
-import util.GeometryExtensions.getIntersectMetric
-import util.GeometryExtensions.points
 import com.soywiz.korge.view.Circle
 import com.soywiz.korge.view.Container
 import com.soywiz.korge.view.xy
 import com.soywiz.korim.color.RGBA
 import com.soywiz.korma.geom.Point
 import external.Template
+import util.GeometryExtensions.getDegrees
+import util.GeometryExtensions.getIntersectMetric
+import util.GeometryExtensions.points
 import kotlin.math.abs
 
 /**
@@ -214,4 +214,7 @@ class CircleZone(private val tZone: Template.TemplateZone) : GraphPart {
                 else
                     i.line.setPoints(i.line.points()[0], getCenter())
     }
+
+
+    override fun toString(): String = "$index,$size"
 }

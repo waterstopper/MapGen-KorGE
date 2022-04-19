@@ -1,0 +1,822 @@
+{
+  "name": "big",
+  "zones": [
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 0,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SNOW",
+      "size": 50,
+      "index": 1,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "LAVA",
+      "size": 50,
+      "index": 2,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SWAMP",
+      "size": 50,
+      "index": 3,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "DIRT",
+      "size": 50,
+      "index": 4,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        },
+        {
+          "resource": "WOOD",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "WASTELAND",
+      "size": 50,
+      "index": 5,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "NDESERT",
+      "size": 50,
+      "index": 6,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "GRASS",
+      "size": 50,
+      "index": 7,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 8,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        },
+        {
+          "resource": "WOOD",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 9,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SNOW",
+      "size": 50,
+      "index": 10,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "LAVA",
+      "size": 50,
+      "index": 11,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "SWAMP",
+      "size": 50,
+      "index": 12,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SWAMP",
+      "size": 50,
+      "index": 13,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "DIRT",
+      "size": 50,
+      "index": 14,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "WASTELAND",
+      "size": 50,
+      "index": 15,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "NDESERT",
+      "size": 50,
+      "index": 16,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "GRASS",
+      "size": 50,
+      "index": 17,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 18,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "DIRT",
+      "size": 50,
+      "index": 19,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "WASTELAND",
+      "size": 50,
+      "index": 20,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "mines": [
+        {
+          "resource": "ORE",
+          "guardLevel": {
+            "min": -2,
+            "max": -2
+          }
+        }
+      ],
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "surface": "NDESERT",
+      "size": 50,
+      "index": 21,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "GRASS",
+      "size": 50,
+      "index": 22,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 23,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      },
+      "castles": [
+        {}
+      ]
+    },
+    {
+      "surface": "SAND",
+      "size": 50,
+      "index": 24,
+      "minesNum": {
+        "min": 0,
+        "max": 2
+      },
+      "castlesNum": {
+        "min": 0,
+        "max": 1
+      }
+    }
+  ],
+  "connections": [
+    {
+      "first": 0,
+      "second": 1,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 0,
+      "second": 2,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 0,
+      "second": 3,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 0,
+      "second": 4,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 1,
+      "second": 5,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 2,
+      "second": 5,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 2,
+      "second": 6,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 3,
+      "second": 6,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 3,
+      "second": 7,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 4,
+      "second": 7,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 4,
+      "second": 8,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 1,
+      "second": 8,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 1,
+      "second": 9,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 5,
+      "second": 10,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 5,
+      "second": 12,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 2,
+      "second": 13,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 6,
+      "second": 14,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 6,
+      "second": 16,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 3,
+      "second": 17,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 7,
+      "second": 18,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 7,
+      "second": 20,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 4,
+      "second": 21,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 8,
+      "second": 22,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 8,
+      "second": 24,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 9,
+      "second": 10,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 10,
+      "second": 11,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 11,
+      "second": 12,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 12,
+      "second": 13,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 13,
+      "second": 14,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 14,
+      "second": 15,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 15,
+      "second": 16,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 16,
+      "second": 17,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 17,
+      "second": 18,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 18,
+      "second": 19,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 19,
+      "second": 20,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 20,
+      "second": 21,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 21,
+      "second": 22,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 22,
+      "second": 23,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 23,
+      "second": 24,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "first": 9,
+      "second": 24,
+      "guardLevel": {
+        "min": 1,
+        "max": 3
+      }
+    }
+  ]
+}

@@ -41,5 +41,9 @@ class LineConnection constructor(
         return line
     }
 
+    override fun toString(): String {
+        return "${z1.index}-${z2.index}"
+    }
+
 }
 

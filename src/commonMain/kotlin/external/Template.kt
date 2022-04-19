@@ -57,6 +57,11 @@ class Template(val name: String, val zones: List<TemplateZone>, val connections:
             if (guardLevel.value == -1)
                 guardLevel = config.connectionGuardLevel
         }
+
+        override fun toString(): String {
+            return "$first-$second"
+        }
+
     }
 
     @Serializable

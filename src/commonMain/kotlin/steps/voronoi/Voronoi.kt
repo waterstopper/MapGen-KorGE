@@ -1,14 +1,14 @@
 package steps.voronoi
 
-import util.Constants
-import util.Constants.matrixMap
-import util.Constants.zones
 import com.soywiz.kds.Array2
 import components.Cell
 import components.Connection
 import components.MatrixMap
 import components.Zone
 import steps.posititioning.CircleZone
+import util.Constants
+import util.Constants.matrixMap
+import util.Constants.zones
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
@@ -103,6 +103,9 @@ class Voronoi {
      * 3) left and top bounds have 0 coordinate
      */
     private fun findProperBounds(): List<Double> {
+        if (circleZones.size == 1)
+            return listOf(0.0, 10.0, 0.0, 10.0)
+
         val z0 = circleZones[0]
         val bounds = mutableListOf(
             z0.circle.pos.x, z0.circle.pos.x,

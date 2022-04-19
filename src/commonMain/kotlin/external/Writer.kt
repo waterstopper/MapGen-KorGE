@@ -62,7 +62,7 @@ class Writer(
         // do not need tet here
         writeString("Map name")
         writeNBytes(1, 2) // tet
-        writeString("My map")
+        writeString(Constants.template.name)
         // empty strings
         writeNBytes(0, 4) // empty map version in ver>=0x15 (19)
         writeNBytes(0, 4) // empty author name
