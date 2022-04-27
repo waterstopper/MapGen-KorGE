@@ -5,6 +5,7 @@ import com.soywiz.korge.input.onClick
 import com.soywiz.korge.view.Stage
 import com.soywiz.korim.color.Colors
 import components.Surface
+import external.Config
 import external.FileReader.readConfig
 import external.Template
 import kotlinx.serialization.encodeToString
@@ -28,6 +29,7 @@ const val width = 640
 suspend fun main(args: Array<String>) = Korge(
     width = width, height = height, bgcolor = Colors["#111111"]
 ) {
+    Json.encodeToString(Config())
     Constants.templatePath = if (args.isNotEmpty()) args[0] else null
     config = readConfig(if (args.size > 1) args[1] else null)
 

@@ -1,5 +1,5 @@
 {
-  "mapSize": 256,
+  "mapSize": 128,
   "connectionGuardLevel": {
     "min": 1,
     "max": 3
@@ -38,5 +38,6 @@
       "max": 100
     }
   ],
-  "generateAll": false
+  "generateAll": true,
+  "addRoads": false
 }

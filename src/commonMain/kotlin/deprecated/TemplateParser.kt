@@ -6,6 +6,7 @@ import components.*
 import deprecated.Symbols
 import steps.posititioning.LineConnection
 
+@Deprecated("use JSON serialization for pasing")
 class TemplateParser {
 
     suspend fun parse(template: String): List<MutableList<out Any>> {

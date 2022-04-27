@@ -13,7 +13,7 @@ class Config(
     val exportPath: String = "exported.hmm",
     val mapSize: Int = 64,
 
-    // spawn wood and ore first
+    // spawn wood and ore mines first
     val prioritizeBaseMines: RandomBoolean = RandomBoolean(1),
     // guard level for connections with guardLevel=-2
     val connectionGuardLevel: RandomRange = RandomRange(1, 3),
