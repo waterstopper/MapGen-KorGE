@@ -48,7 +48,7 @@ request.
 
 Is based mostly on [presentation](https://en.ppt-online.org/29091) by Gus Smedstad, who is the HoMM3 programmer.
 
-![presentation](docs/resources/validation.gif)
+![presentation](docs/resources/presentation.gif)
 
 Unfortunately, presentation does not contain any code (yet there are some guidelines). Also inspired
 by [this article](https://jakubkowalski.tech/Publications/Kowalski2018StrategicFeatures.pdf)
