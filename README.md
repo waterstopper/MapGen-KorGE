@@ -47,7 +47,11 @@ request.
 ## Algorithm
 
 Is based mostly on [presentation](https://en.ppt-online.org/29091) by Gus Smedstad, who is the HoMM3 programmer.
-Unfortunately, presentation does not contain any code (yet there are some guidelines). Also inspired by
+
+![presentation](docs/resources/validation.gif)
+
+Unfortunately, presentation does not contain any code (yet there are some guidelines). Also inspired
+by [this article](https://jakubkowalski.tech/Publications/Kowalski2018StrategicFeatures.pdf)
 
 10 complete steps:
 
@@ -244,6 +248,7 @@ for [treasures and guards](https://github.com/Alex5041/MapGen-KorGE#9-add-treasu
 
 Export examples, viewed in editor and in generator:
 
-![img_1.png](docs/resources/export1Zone.png)
-![img_2.png](docs/resources/Export9Zones.png)
-![img_3.png](docs/resources/export25Zones.png)
+![1 exported](docs/resources/export1Zone.png)
+![9 exported](docs/resources/Export9Zones.png)
+![25 exported](docs/resources/export25Zones.png)
+![validation](docs/resources/validation.gif)
